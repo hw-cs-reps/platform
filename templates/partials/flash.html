@@ -1,0 +1,12 @@
+{{if .Flash.ErrorMsg}}<div class="alert alert-red">
+<p class="alert-title">Error!</p>
+<p>{{.Flash.ErrorMsg}}</p></div>{{end}}
+{{if .Flash.WarningMsg}}<div class="alert alert-yellow">
+<p class="alert-title">Warning!</p>
+<p>{{.Flash.WarningMsg}}</p></div>{{end}}
+{{if .Flash.InfoMsg}}<div class="alert alert-grey">
+<p class="alert-title">Info</p>
+<p>{{.Flash.InfoMsg}}</p></div>{{end}}
+{{if .Flash.SuccessMsg}}<div class="alert alert-green">
+<p class="alert-title">Success</p>
+<p>{{.Flash.SuccessMsg}}</p></div>{{end}}
