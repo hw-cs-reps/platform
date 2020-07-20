@@ -2,8 +2,9 @@ package routes
 
 import (
 	"github.com/go-macaron/session"
+	"github.com/hw-cs-reps/platform/config"
 	"github.com/hw-cs-reps/platform/models"
-	"github.com/hw-cs-reps/platform/modules/settings"
+
 	macaron "gopkg.in/macaron.v1"
 	"time"
 )
@@ -37,10 +38,10 @@ func ContextInit() macaron.Handler {
 				f.Warning("You have been logged out.")
 			}
 		}
-		ctx.Data["UniEmailDomain"] = settings.Config.UniEmailDomain
-		if settings.Config.DevMode {
+		ctx.Data["UniEmailDomain"] = config.Config.UniEmailDomain
+		if config.Config.DevMode {
 			ctx.Data["DevMode"] = 1
 		}
-		ctx.Data["SiteTitle"] = settings.Config.SiteName
+		ctx.Data["SiteTitle"] = config.Config.SiteName
 	}
 }

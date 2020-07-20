@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/hw-cs-reps/platform/config"
 	"github.com/hw-cs-reps/platform/models"
-	"github.com/hw-cs-reps/platform/modules/settings"
 	"github.com/hw-cs-reps/platform/routes"
 
 	"github.com/go-macaron/cache"
@@ -32,7 +32,7 @@ var CmdStart = &cli.Command{
 }
 
 func start(clx *cli.Context) (err error) {
-	settings.LoadConfig()
+	config.LoadConfig()
 	engine := models.SetupEngine()
 	defer engine.Close()
 
@@ -57,7 +57,7 @@ func start(clx *cli.Context) (err error) {
 		IndentJSON: true,
 	}))
 
-	if settings.Config.DevMode {
+	if config.Config.DevMode {
 		fmt.Println("In development mode.")
 		macaron.Env = macaron.DEV
 	} else {
@@ -71,10 +71,10 @@ func start(clx *cli.Context) (err error) {
 		Gclifetime:     15778800,
 		CookieName:     "hithereimacookie",
 	}
-	if settings.Config.DBConfig.Type == settings.MySQL {
+	if config.Config.DBConfig.Type == config.MySQL {
 		sqlConfig := fmt.Sprintf("%s:%s@tcp(%s)/%s",
-			settings.Config.DBConfig.User, settings.Config.DBConfig.Password,
-			settings.Config.DBConfig.Host, settings.Config.DBConfig.Name)
+			config.Config.DBConfig.User, config.Config.DBConfig.Password,
+			config.Config.DBConfig.Host, config.Config.DBConfig.Name)
 		sessOpt.Provider = "mysql"
 		sessOpt.ProviderConfig = sqlConfig
 		sessOpt.CookieLifeTime = 0
@@ -86,7 +86,7 @@ func start(clx *cli.Context) (err error) {
 
 	m.Get("/", routes.HomepageHandler)
 
-	log.Printf("Starting web server on port %s\n", settings.Config.SitePort)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", settings.Config.SitePort), m))
+	log.Printf("Starting web server on port %s\n", config.Config.SitePort)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", config.Config.SitePort), m))
 	return nil
 }

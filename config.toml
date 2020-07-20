@@ -13,3 +13,17 @@ EmailSMTPServer = "smtp.migadu.com:587"
   User = "notes"
   Password = "passwordhere"
   Path = "data.db"
+
+[InstanceConfig]
+  ShowNotice = true
+  NoticeText = "This is an example notice!"
+  NoticeLink = "https://example.com"
+
+  [[InstanceConfig.Links]]
+    Name = "Example"
+    Link = "https://example.com"
+
+  [[InstanceConfig.ClassReps]]
+    Name = "Flan bin Flan"
+    Email = "flan@example.com"
+    Course = "Flani"

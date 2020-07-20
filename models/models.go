@@ -1,10 +1,11 @@
 package models
 
 import (
+	"github.com/hw-cs-reps/platform/config"
+
 	"fmt"
 	_ "github.com/go-sql-driver/mysql" // MySQL driver support
-	"github.com/hw-cs-reps/platform/modules/settings"
-	_ "github.com/mattn/go-sqlite3" // SQLite driver support
+	_ "github.com/mattn/go-sqlite3"    // SQLite driver support
 	"log"
 	"xorm.io/core"
 	"xorm.io/xorm"
@@ -25,15 +26,15 @@ func init() {
 // and syncs the schema.
 func SetupEngine() *xorm.Engine {
 	var err error
-	dbConf := &settings.Config.DBConfig
+	dbConf := &config.Config.DBConfig
 
 	address := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8",
 		dbConf.User, dbConf.Password, dbConf.Host, dbConf.Name)
 
 	switch dbConf.Type {
-	case settings.MySQL:
+	case config.MySQL:
 		engine, err = xorm.NewEngine("mysql", address)
-	case settings.SQLite:
+	case config.SQLite:
 		engine, err = xorm.NewEngine("sqlite3", dbConf.Path)
 	}
 

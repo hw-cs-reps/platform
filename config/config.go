@@ -1,4 +1,4 @@
-package settings
+package config
 
 import (
 	"bytes"
@@ -31,6 +31,23 @@ type Configuration struct {
 	EmailPassword   string                // EmailPassword is the password of the email used to send OTPs.
 	EmailSMTPServer string                // EmailSMTPServer is the SMTP server including the port.
 	DBConfig        DatabaseConfiguration // DBConfig is the database configuration.
+	InstanceConfig  InstanceSettings      // InstanceSettings is instance-specific configuration.
+}
+
+type InstanceSettings struct {
+	ShowNotice bool
+	NoticeText string
+	NoticeLink string
+	Links      []ExternalResource
+	ClassReps  []ClassRepresentative
+}
+
+type ExternalResource struct {
+	Name, Link string
+}
+
+type ClassRepresentative struct {
+	Name, Email, Course string
 }
 
 // DBType represents the type of the database driver which will be used.
@@ -64,12 +81,23 @@ func newConfig() Configuration {
 		EmailPassword:   "emailpasswordhere",
 		EmailSMTPServer: "smtp.migadu.com:587",
 		DBConfig: DatabaseConfiguration{
-			Type:     MySQL,
+			Type:     SQLite,
 			Host:     "localhost:3306",
 			Name:     "notes",
 			User:     "notes",
 			Password: "passwordhere",
 			Path:     "data.db",
+		},
+		InstanceConfig: InstanceSettings{
+			ShowNotice: true,
+			NoticeText: "This is an example notice!",
+			NoticeLink: "https://example.com",
+			Links: []ExternalResource{
+				{Name: "Example", Link: "https://example.com"},
+			},
+			ClassReps: []ClassRepresentative{
+				{Name: "Flan bin Flan", Email: "flan@example.com", Course: "Flani"},
+			},
 		},
 	}
 }
