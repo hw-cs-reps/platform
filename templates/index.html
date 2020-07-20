@@ -1,44 +1,33 @@
 {{template "base/head" .}}
 {{if .IsHome}}
-{{if .Params.ShowNotice}}
+{{if .Config.ShowNotice}}
 <div class="alert alert-green">
   <p class="alert-title">Update</p>
-  <p>{{.Params.NoticeText}}</p>
-  {{if .Params.NoticeLink}}<p><a href="{{.Params.NoticeLink}}">Read
+  <p>{{.Config.NoticeText}}</p>
+  {{if .Config.NoticeLink}}<p><a href="{{.Config.NoticeLink}}">Read
     more...</a></p>{{end}}
 </div>
 {{end}}
 <h3>Links &amp; Resources</h3>
 
 <div class="card-grid">
-{{ range .Params.links }}
+{{ range .Config.Links }}
 <div class="card">
-  <a href="{{.link}}" target="_blank">{{.name}}</a>
+  <a href="{{.Link}}" target="_blank">{{.Name}}</a>
 </div>
 {{end}}
 </div>
 <h3>Your Class Representatives</h3>
 <div class="card-grid">
-{{ range .Params.classrep }}
+{{ range .Config.ClassReps }}
 <div class="card">
-  <p>{{.name}}</p>
-  <p><i>{{.course}}</i></p>
-  <p><a href="mailto:{{.email}}" class="btn">Contact</a></p>
+  <p>{{.Name}}</p>
+  <p><i>{{.Course}}</i></p>
+  <p><a href="mailto:{{.Email}}" class="btn">Contact</a></p>
 </div>
 {{end}}
 </div>
 
 {{end}}
 {{if not .IsHome}}<h2>{{.Title}}</h2>{{end}}
-{{.Content}}
-{{ range .Data.Pages }}
-{{if eq .Dir "/"}}
-<div class="entry">
-	<a href="{{.URL}}">{{.Title}}</a>
-	<div class="meta">
-		<p><a href="{{.URL}}">{{.Params.Description}}</a></p>
-	</div>
-</div>
-{{end}}
-{{end}}
 {{template "base/footer" .}}
