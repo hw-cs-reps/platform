@@ -1,0 +1,23 @@
+{{template "base/head" .}}
+<div class="content">
+	{{template "partials/flash" .}}
+	<h2>Post a new ticket</h2>
+	<form method="post">
+		<div class="col-10">
+			<div class="form-group">
+				<label for="title">Title</label>
+				<input class="form-item" type="text" id="title" name="title" required="1"
+				autofocus="1"{{if .ptitle}} value="{{.ptitle}}"{{end}} />
+			</div>
+			<div class="form-group">
+				<label for="text">Body</label>
+				<textarea class="form-item" id="text" name="text" cols="70" rows="20" required="1">{{if .ptext}}{{.ptext}}{{end}}</textarea> 
+				<p class="muted-text">Markdown and HTML is supported.</p>
+			</div>
+		</div>
+		<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
+		<button type="submit" class="btn">Submit ticket</button>
+    <p><small>Ticket will be posted publicly and anonymously.</small></p>
+	</form>
+</div>
+{{template "base/footer" .}}

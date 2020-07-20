@@ -1,0 +1,15 @@
+{{template "base/head" .}}
+<div class="content">
+	{{template "partials/flash" .}}
+	<h2>Tickets</h2>
+	{{range .Course.Posts}}
+	<div class="entry"><a href="/tickets/{{.PostID}}">{{.Title}}</a>
+	<div class="meta">
+		<p><a href="/tickets/{{.PostID}}">{{.Votes}} Upvotes
+      {{CalcDurationShort .CreatedUnix}} ago | {{.CommentsCount}} comments</a></p>
+	</div>
+	</div>
+	{{end}}
+</div>
+{{template "base/footer" .}}
+

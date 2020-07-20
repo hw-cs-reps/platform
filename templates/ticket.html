@@ -1,0 +1,33 @@
+{{template "base/head" .}}
+<div class="content">
+	{{template "partials/flash" .}}
+	<h2>{{.Post.Title}}</h2>
+	<p><small class="sgrey">{{.Post.Upvotes}} Upvotes {{CalcDurationShort .Post.CreatedUnix}} ago
+	{{if not .Resolved}}<a href="/tickets/{{.Post.PostID}}/upvote">
+	{{if .Upvoted}}[unvote]{{else}}[upvote]{{end}}</a>{{end}}
+
+	{{if .IsAdmin}}<a href="/tickets/{{.Post.PostID}}/edit">[edit]</a>
+  <a href="/tickets/{{.Post.PostID}}/del">[delete]</a>{{end}}</p>
+
+	<div class="post">{{.FormattedPost}}</div>
+	{{if not .Resolved}}<form method="post">
+		<div class="col-5">
+		<div class="form-group">
+			<textarea class="form-item" name="text" cols="40" rows="4" required="1"	
+        placeholder="Markdown and HTML supported"></textarea> 
+		</div>
+		<input type="hidden" name="_csrf" value="{{.csrf_token}}">
+		<button type="submit" class="btn">Comment</button>
+		</div>
+	</form>
+	<br>{{end}}
+
+	{{range .Post.Comments}}
+	<div class="comment"><p id="c-{{.CommentID}}"><small class="sgrey">
+      {{.PosterID}} {{CalcDurationShort .CreatedUnix}} ago
+      {{if .IsAdmin }}<a href="/tickets/{{$.Post.PostID}}/del/{{.CommentID}}">[delete]</a>{{end}}
+	</small></p>
+	<div>{{.FormattedText}}</div></div>
+	{{end}}
+</div>
+{{template "base/footer" .}}
