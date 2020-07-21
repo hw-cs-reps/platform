@@ -36,11 +36,13 @@ type Configuration struct {
 }
 
 type InstanceSettings struct {
-	ShowNotice bool
-	NoticeText string
-	NoticeLink string
-	Links      []ExternalResource
-	ClassReps  []ClassRepresentative
+	ShowNotice   bool
+	NoticeText   string
+	NoticeLink   string
+	NoticeTitle  string
+	NoticeColour string
+	Links        []ExternalResource
+	ClassReps    []ClassRepresentative
 }
 
 // ExternalResource holds the information to a hyperlink

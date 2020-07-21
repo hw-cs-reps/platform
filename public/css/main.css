@@ -3,6 +3,10 @@
   --main-bg: #fefefe;
   --main-text: #000;
   --nav-text: #777;
+  --accent-colour: #0268B2;
+
+  --card-radius: 5px;
+  --card-padding: 15px;
 
   --success-bg: #a7f9a7;
   --danger-bg: #f9a7b6;
@@ -27,7 +31,7 @@ body {
 }
 
 .content {
-  padding: 20px 30px;
+  padding: 20px;
 }
 
 .footer {
@@ -56,8 +60,28 @@ p {
   margin: 10px 0;
 }
 
+.card p i {
+  color: #555;
+  font-size: 0.8em;
+  line-height: 0.75em;
+}
+
+.cardTitle {
+  font-size: 1.1em;
+}
+
 a {
-  color: inherit;
+  color: var(--accent-colour);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline !important;
+}
+
+a:focus {
+  outline: solid 5px var(--accent-colour);
 }
 
 .muted-text {
@@ -74,21 +98,22 @@ img {
 }
 /* Navigation */
 .nav {
-  padding: 5px 15px;
-  margin-top: 1em;
-  margin-bottom: 1.2em;
+  padding: 15px;
+  border-radius: 0 0 var(--card-radius) var(--card-radius);
+  background-color: #000;
+  height: 35px;
 }
 
 .nav a {
   text-decoration: none;
   font-weight: bold;
-  padding-right: 15px;
+  margin: 0 10px 0 10px;
   color: var(--nav-text);
   line-height: 2rem;
 }
 
 .nav-title {
-  color: var(--main-text) !important;
+  color: #fefefe !important;
 }
 
 .nav-left {
@@ -97,7 +122,6 @@ img {
 
 .nav-right {
   float: right;
-  text-align: right;
 }
 
 .logo {
@@ -132,12 +156,20 @@ img {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
+a.card {
+  text-decoration: none;
+}
+
 .card {
-  padding: 15px;
+  padding: var(--card-padding);
   display: block;
   background-color: #e0e0e0;
   margin: 10px;
-  border-radius: 3px;
+  border-radius: 5px;
+}
+
+.card p {
+  margin: 0;
 }
 
 blockquote {
@@ -165,16 +197,19 @@ code, pre {
 
 .btn {
   display: inline-block;
-  font-align: center;
-  color: #333;
+  color: var(--accent-colour);
   background-color: #fafafa;
-  padding: 3px 5px; 
-  border: #ccc 1px solid;
+  padding: 5px 10px; 
+  border: 1px solid;
   text-decoration: none;
+  margin-top: 5px;
+  border-radius: var(--card-radius);
+  transition: background-color 0.3s ease;
 }
 
-.btn:focus {
-  border: #888 1px solid;
+.btn:hover {
+  background-color: var(--accent-colour);
+  color: #fff;
 }
 
 .btn-danger {
@@ -185,14 +220,16 @@ code, pre {
 /* Alert */
 .alert {
   display: block;
-  margin: 15px;
-  padding: 8px;
+  margin: 10px 10px 20px 10px;
+  padding: var(--card-padding);
   color: #000;
-  border-radius: 3px;
+  border-radius: var(--card-radius);
 }
 
 .alert-title {
   font-weight: bold;
+  font-size: 1.25em;
+  margin-top: 0;
 }
 
 .alert-green {
@@ -300,28 +337,48 @@ label {
   textarea {
     max-width: 100%;
   }
+
+  .content {
+    padding: 15px;
+  }
+}
+
+
+@media only screen and (max-width: 1250px) {
+  .nav {
+    border-radius: 0;
+  }  
 }
 
 @media only screen and (max-width: 860px) {
   [class*="col-"] {
     width: 100%;
   }
-}
 
-@media only screen and (max-width: 700px) {
-  .nav-extra {
-    display: none;
+  .card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .btn {
+    padding: 10px 15px;
   }
 }
+
+@media only screen and (max-width: 400px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
   :root {
-    --main-bg: #202125;
+    --main-bg: #202020;
     --main-text: #cfcfcf;
     --nav-text: #cfcfcf;
     --danger-bg: #94282f;
     --success-bg: #328732;
-	--info-bg: #3c4043;
+    --info-bg: #3c4043;
   }
   .badge, .btn {
     background-color: #3c4043;
@@ -355,5 +412,9 @@ label {
   }
   code, pre {
       background-color: #333;
+  }
+
+  .card {
+    background-color: #404040;
   }
 }

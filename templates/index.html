@@ -1,11 +1,11 @@
 {{template "base/head" .}}
 {{if .IsHome}}
 {{if .Config.ShowNotice}}
-<div class="alert alert-green">
-  <p class="alert-title">Update</p>
+<div class="alert {{.Config.NoticeColour}}">
+  <p class="alert-title">{{if eq .Config.NoticeTitle ""}}Update{{end}} {{.Config.NoticeTitle}}</p>
   <p>{{.Config.NoticeText}}</p>
-  {{if .Config.NoticeLink}}<p><a href="{{.Config.NoticeLink}}">Read
-      more...</a></p>{{end}}
+  {{if .Config.NoticeLink}}<a class="btn" href="{{.Config.NoticeLink}}">Read
+    more</a>{{end}}
 </div>
 {{end}}
 <h3>Links &amp; Resources</h3>
@@ -34,15 +34,45 @@
 
 <h3>Your Class Representatives</h3>
 <div class="card-grid">
-  {{ range .Config.ClassReps }}
-  <div class="card">
-    <p>{{.Name}}</p>
-    <p><i>{{.Course}}</i></p>
-    <p><a href="mailto:{{.Email}}" class="btn">Contact</a></p>
-  </div>
-  {{end}}
+{{ range .Config.ClassReps }}
+<div class="card">
+  <p class="cardTitle">{{.Name}}</p>
+  <p><i>{{.Course}}</i></p>
+  <p><a href="mailto:{{.Email}}" class="btn">Contact</a></p>
+</div>
+{{end}}
 </div>
 
 {{end}}
 {{if not .IsHome}}<h2>{{.Title}}</h2>{{end}}
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 {{template "base/footer" .}}
