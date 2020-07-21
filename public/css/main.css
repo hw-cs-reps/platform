@@ -76,6 +76,10 @@ p {
   font-size: 1.1em;
 }
 
+.active {
+  color: #fff !important;
+}
+
 a {
   color: var(--accent-colour);
   font-weight: bold;
@@ -116,10 +120,6 @@ img {
   margin: 0 10px 0 10px;
   color: var(--nav-text);
   line-height: 2rem;
-}
-
-.nav-title {
-  color: #fefefe !important;
 }
 
 .nav-left {

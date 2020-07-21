@@ -22,12 +22,14 @@ import (
 func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Config"] = config.Config.InstanceConfig
 	ctx.Data["IsHome"] = 1
+	ctx.Data["Title"] = "Class Reps"
 	ctx.HTML(200, "index")
 }
 
 // TicketsHandler response for the tickets listing page.
 func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Tickets"] = models.GetTickets()
+	ctx.Data["Title"] = "Tickets"
 	ctx.HTML(200, "tickets")
 }
 
