@@ -85,6 +85,17 @@ func start(clx *cli.Context) (err error) {
 	m.Use(routes.ContextInit())
 
 	m.Get("/", routes.HomepageHandler)
+	m.Group("/tickets", func() {
+		m.Get("", routes.TicketsHandler)
+		m.Get("/new", routes.NewTicketHandler)
+		m.Group("/:id", func() {
+			m.Get("", routes.TicketPageHandler)
+			m.Post("/upvote", routes.UpvoteTicketHandler)
+			m.Get("/edit", routes.TicketEditHandler)
+			m.Post("/edit", routes.PostTicketEditHandler)
+			m.Post("/delete", routes.PostTicketDeleteHandler)
+		})
+	})
 
 	log.Printf("Starting web server on port %s\n", config.Config.SitePort)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", config.Config.SitePort), m))
