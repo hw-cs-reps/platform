@@ -11,7 +11,9 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/hako/durafmt v0.0.0-20200710122514-c0fb7b4da026
 	github.com/mattn/go-sqlite3 v1.14.0
+	github.com/microcosm-cc/bluemonday v1.0.3
 	github.com/urfave/cli/v2 v2.2.0
+	github.com/yuin/goldmark v1.2.0
 	gopkg.in/macaron.v1 v1.3.9
 	xorm.io/core v0.7.3
 	xorm.io/xorm v1.0.3

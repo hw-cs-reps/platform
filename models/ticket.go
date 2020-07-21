@@ -2,17 +2,18 @@ package models
 
 // Ticket represents an issue
 type Ticket struct {
-	TicketID    int    `xorm:"pk"`
-	Title       string `xorm:"text"`
-	Tags        string `xorm:"text"`
-	CreatedUnix int64  `xorm:"created"`
-	Description string `xorm:"text"`
-	Upvotes     int    `xorm:"default 0"`
-	IsRep       bool   `xorm:"bool"` // Used for adding badge to emphasise rep tickets
+	TicketID      int    `xorm:"pk"`
+	Title         string `xorm:"text"`
+	Tags          string `xorm:"text"`
+	CreatedUnix   int64  `xorm:"created"`
+	Description   string `xorm:"text"`
+	Upvotes       int    `xorm:"default 0"`
+	IsRep         bool   `xorm:"bool"` // Used for adding badge to emphasise rep tickets
+	CommentsCount int    `xorm:"-"`
 }
 
-// NewTicket inserts a new ticket into the database
-func NewTicket(t Ticket) (err error) { // does it need to be *Ticket?
+// AddTicket inserts a new ticket into the database
+func AddTicket(t *Ticket) (err error) {
 	_, err = engine.Insert(t)
 	return err
 }
@@ -20,7 +21,7 @@ func NewTicket(t Ticket) (err error) { // does it need to be *Ticket?
 // GetTicket fetches a ticket based on the TicketID
 func GetTicket(id int) (*Ticket, error) {
 	t := new(Ticket)
-	has, err := engine.ID(id).Get(&t)
+	has, err := engine.ID(id).Get(t)
 	if err != nil {
 		return t, err
 	} else if !has {

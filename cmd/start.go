@@ -88,6 +88,7 @@ func start(clx *cli.Context) (err error) {
 	m.Group("/tickets", func() {
 		m.Get("", routes.TicketsHandler)
 		m.Get("/new", routes.NewTicketHandler)
+		m.Post("/new", routes.PostNewTicketHandler)
 		m.Group("/:id", func() {
 			m.Get("", routes.TicketPageHandler)
 			m.Post("/upvote", routes.UpvoteTicketHandler)

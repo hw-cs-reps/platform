@@ -15,7 +15,13 @@
 
   --danger-btn: #fc4e51;
 }
+
 /* Page style */
+html {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Lucidia Grande", "Segoe UI", "Roboto", sans-serif;
   font-size: 1.2em;
