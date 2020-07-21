@@ -18,17 +18,16 @@ func NewTicket(t Ticket) (err error) { // does it need to be *Ticket?
 }
 
 // GetTicket fetches a ticket based on the TicketID
-func GetTicket(id int) (ticket Ticket, err error) {
-
-	has, err = engine.ID(id).Get()
-
+func GetTicket(id int) (*Ticket, error) {
+	t := new(Ticket)
+	has, err := engine.ID(id).Get(&t)
 	if err != nil {
-		return ticket, err
+		return t, err
 	} else if !has {
-		return ticket, err
+		return t, err
 	}
 
-	return ticket, err
+	return t, nil
 }
 
 // GetTickets fetches all tickets in the database
@@ -39,6 +38,6 @@ func GetTickets() (tickets []Ticket) {
 
 // DelTicket deletes a ticket based on the TicketID
 func DelTicket(id int) (err error) {
-	_, err = engine.ID(id).Delete()
+	_, err = engine.ID(id).Delete(&Ticket{})
 	return err
 }
