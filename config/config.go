@@ -94,14 +94,19 @@ func newConfig() Configuration {
 			Path:     "data.db",
 		},
 		InstanceConfig: InstanceSettings{
-			ShowNotice: true,
-			NoticeText: "This is an example notice!",
-			NoticeLink: "https://example.com",
+			ShowNotice:   true,
+			NoticeTitle:  "Update Regarding F29OC",
+			NoticeText:   "This is an example notice!",
+			NoticeLink:   "https://example.com",
+			NoticeColour: "alert-green", // alert-green, alert-yellow, alert-red, alert-grey
 			Links: []ExternalResource{
 				{Name: "Example", Link: "https://example.com"},
 			},
 			ClassReps: []ClassRepresentative{
-				{Name: "Flan bin Flan", Email: "flan@example.com", Course: "Flani"},
+				{Name: "Alakbar", Email: "az40@hw.ac.uk", Course: "Computer Science"},
+				{Name: "Humaid", Email: "ha82@hw.ac.uk", Course: "Computer Science"},
+				{Name: "Maleeha", Email: "mr137@hw.ac.uk", Course: "Computer Systems"},
+				{Name: "James", Email: "jss2@hw.ac.uk", Course: "Information Systems"},
 			},
 		},
 	}
