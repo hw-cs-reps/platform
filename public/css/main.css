@@ -95,10 +95,6 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline !important;
-}
-
 input:hover, textarea:hover, a:hover, .btn:hover {
   outline: solid 5px rgba(2, 104, 178, 0.5);
   transition: outline 0.1s ease;
@@ -107,6 +103,12 @@ input:hover, textarea:hover, a:hover, .btn:hover {
 input:focus, textarea:focus, a:focus, .btn:focus {
   outline: solid 5px var(--accent-colour);
   transition: outline 0.1s ease;
+}
+
+.btn:hover {
+  background-color: var(--accent-colour);
+  cursor: pointer;
+  color: #fff;
 }
 
 .muted-text {
@@ -226,16 +228,6 @@ code, pre {
   margin-top: 5px;
   border-radius: var(--card-radius);
   transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: rgba(2, 104, 178, 0.5);
-  cursor: pointer;
-  color: #fff;
-}
-
-.btn:focus {
-  background-color: var(--accent-colour);
 }
 
 .btn-danger {
