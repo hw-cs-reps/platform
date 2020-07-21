@@ -10,8 +10,10 @@ This is a vertical kanban.
 
 ## In Progress
 
-- Basic UI
+- Complaints
 - A ticket system
-
+	- Comments
 
 ## Done
+
+- Basic UI
