@@ -2,14 +2,16 @@ package models
 
 // Ticket represents an issue
 type Ticket struct {
-	TicketID      int    `xorm:"pk"`
-	Title         string `xorm:"text"`
-	Tags          string `xorm:"text"`
-	CreatedUnix   int64  `xorm:"created"`
-	Description   string `xorm:"text"`
-	Upvotes       int    `xorm:"default 0"`
-	IsRep         bool   `xorm:"bool"` // Used for adding badge to emphasise rep tickets
-	CommentsCount int    `xorm:"-"`
+	TicketID      int       `xorm:"pk"`
+	Title         string    `xorm:"text"`
+	Tags          string    `xorm:"text"`
+	CreatedUnix   int64     `xorm:"created"`
+	UpdatedUnix   int64     `xorm:"updated"`
+	Description   string    `xorm:"text"`
+	Upvotes       int       `xorm:"default 0"`
+	IsRep         bool      `xorm:"bool"` // Used for adding badge to emphasise rep tickets
+	CommentsCount int       `xorm:"-"`
+	Comments      []Comment `xorm:"-"`
 }
 
 // AddTicket inserts a new ticket into the database

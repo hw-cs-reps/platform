@@ -20,6 +20,7 @@ func init() {
 	tables = append(tables,
 		new(User),
 		new(Ticket),
+		new(Comment),
 	)
 }
 
