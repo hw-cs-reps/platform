@@ -2,12 +2,13 @@ package config
 
 import (
 	"bytes"
-	"github.com/BurntSushi/toml"
 	"io/ioutil"
 	"log"
 	"math/rand"
 	"os"
 	"time"
+
+	"github.com/BurntSushi/toml"
 )
 
 var (
@@ -35,11 +36,13 @@ type Configuration struct {
 }
 
 type InstanceSettings struct {
-	ShowNotice bool
-	NoticeText string
-	NoticeLink string
-	Links      []ExternalResource
-	ClassReps  []ClassRepresentative
+	ShowNotice   bool
+	NoticeText   string
+	NoticeLink   string
+	NoticeTitle  string
+	NoticeColour string
+	Links        []ExternalResource
+	ClassReps    []ClassRepresentative
 }
 
 type ExternalResource struct {
