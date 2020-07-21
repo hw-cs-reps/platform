@@ -10,17 +10,17 @@
 	<form method="post">
 		<div class="col-10">
 			<div class="form-group">
-				<label for="title">Subject</label>
+				<label for="title"><h3 class="noBottomMargin">Subject</h3></label>
 				<input class="form-item" type="text" id="title" name="title" required="1"
 				autofocus="1" />
 			</div>
 			<div class="form-group">
-				<label for="text">Message</label>
+				<label for="text"><h3 class="noBottomMargin">Message</h3></label>
 				<textarea class="form-item" id="text" name="text" cols="70" rows="20" required="1">{{if .ptext}}{{.ptext}}{{end}}</textarea> 
 				<p class="muted-text">Markdown and HTML is supported.</p>
 			</div>
 			<div class="form-group">
-				<label for="email">Email (optional)</label>
+				<label for="email"><h3 class="noBottomMargin">Email (optional)</h3></label>
 				<input class="form-item" type="email" id="email" name="email"/>
 			</div>
 		</div>

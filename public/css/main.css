@@ -80,6 +80,15 @@ p {
   color: #fff !important;
 }
 
+.noBottomMargin {
+  margin-bottom: 0 !important;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
 a {
   color: var(--accent-colour);
   font-weight: bold;
@@ -90,8 +99,14 @@ a:hover {
   text-decoration: underline !important;
 }
 
-a:focus {
+input:hover, textarea:hover, a:hover, .btn:hover {
+  outline: solid 5px rgba(2, 104, 178, 0.5);
+  transition: outline 0.1s ease;
+}
+
+input:focus, textarea:focus, a:focus, .btn:focus {
   outline: solid 5px var(--accent-colour);
+  transition: outline 0.1s ease;
 }
 
 .muted-text {
@@ -214,8 +229,13 @@ code, pre {
 }
 
 .btn:hover {
-  background-color: var(--accent-colour);
+  background-color: rgba(2, 104, 178, 0.5);
+  cursor: pointer;
   color: #fff;
+}
+
+.btn:focus {
+  background-color: var(--accent-colour);
 }
 
 .btn-danger {
@@ -254,11 +274,13 @@ code, pre {
 .alert-red {
   background-color: var(--danger-bg);
 }
+
 textarea, input {
   border-radius: 0;
   border: #ccc 1px solid;
-  padding: 4px 6px;
+  padding: 5px;
   max-width: 100%;
+  box-sizing: border-box;
 }
 
 textarea:focus, input:focus {

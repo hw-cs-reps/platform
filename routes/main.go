@@ -29,6 +29,7 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 // ComplaintsHandler response for the complaints page.
 func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Title"] = "Complaints"
+	ctx.Data["IsComplaints"] = 1
 	ctx.HTML(200, "complaints")
 }
 
@@ -41,6 +42,7 @@ func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.
 func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Tickets"] = models.GetTickets()
 	ctx.Data["Title"] = "Tickets"
+	ctx.Data["IsTickets"] = 1
 	ctx.HTML(200, "tickets")
 }
 
