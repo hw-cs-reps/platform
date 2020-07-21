@@ -2,12 +2,13 @@ package config
 
 import (
 	"bytes"
-	"github.com/BurntSushi/toml"
 	"io/ioutil"
 	"log"
 	"math/rand"
 	"os"
 	"time"
+
+	"github.com/BurntSushi/toml"
 )
 
 var (
@@ -42,10 +43,12 @@ type InstanceSettings struct {
 	ClassReps  []ClassRepresentative
 }
 
+// ExternalResource holds the information to a hyperlink
 type ExternalResource struct {
 	Name, Link string
 }
 
+// ClassRepresentative holds the details of a class representative
 type ClassRepresentative struct {
 	Name, Email, Course string
 }

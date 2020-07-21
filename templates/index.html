@@ -5,27 +5,42 @@
   <p class="alert-title">Update</p>
   <p>{{.Config.NoticeText}}</p>
   {{if .Config.NoticeLink}}<p><a href="{{.Config.NoticeLink}}">Read
-    more...</a></p>{{end}}
+      more...</a></p>{{end}}
 </div>
 {{end}}
 <h3>Links &amp; Resources</h3>
 
 <div class="card-grid">
-{{ range .Config.Links }}
-<div class="card">
-  <a href="{{.Link}}" target="_blank">{{.Name}}</a>
+  {{ range .Config.Links }}
+  <div class="card">
+    <a href="{{.Link}}" target="_blank">{{.Name}}</a>
+  </div>
+  {{end}}
+  <div class="card">
+    <a href="/tickets">tickets.html</a>
+  </div>
 </div>
-{{end}}
+
+<h3>Top Tickets</h3>
+<div class="card-grid">
+  <!-- display top 3 tickets -->
+  <div class="card">
+    <a>Operating Systems Marking</a> 
+    <p><i>F29OC</i></p>
+    <p>Issues regarding the way in which F29OC has been marked</p>
+    <a class="btn" href="">View Ticket</a>
+  </div>
 </div>
+
 <h3>Your Class Representatives</h3>
 <div class="card-grid">
-{{ range .Config.ClassReps }}
-<div class="card">
-  <p>{{.Name}}</p>
-  <p><i>{{.Course}}</i></p>
-  <p><a href="mailto:{{.Email}}" class="btn">Contact</a></p>
-</div>
-{{end}}
+  {{ range .Config.ClassReps }}
+  <div class="card">
+    <p>{{.Name}}</p>
+    <p><i>{{.Course}}</i></p>
+    <p><a href="mailto:{{.Email}}" class="btn">Contact</a></p>
+  </div>
+  {{end}}
 </div>
 
 {{end}}
