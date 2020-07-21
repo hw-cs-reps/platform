@@ -80,7 +80,7 @@ func newConfig() Configuration {
 	return Configuration{
 		SiteName:        "Class Representatives",
 		SitePort:        "8080",
-		DevMode:         false,
+		DevMode:         true,
 		UniEmailDomain:  "@hw.ac.uk",
 		EmailAddress:    "noreply@example.com",
 		EmailPassword:   "emailpasswordhere",
