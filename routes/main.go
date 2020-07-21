@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/hw-cs-reps/platform/config"
+	"github.com/hw-cs-reps/platform/mailer"
 	"github.com/hw-cs-reps/platform/models"
 
 	"github.com/go-macaron/session"
@@ -29,20 +30,29 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 // ComplaintsHandler response for the complaints page.
 func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Title"] = "Complaints"
-	ctx.Data["IsComplaints"] = 1
 	ctx.HTML(200, "complaints")
 }
 
 // PostComplaintsHandler response for the complaints page.
 func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	ctx.HTML(200, "complaints")
+	var sender string
+	if ctx.Query("email") == "" {
+		sender = "anonymous"
+	} else {
+		sender = ctx.Query("email")
+	}
+	// TODO send to respective class reps
+	mailer.Email("TODO", "Complaint submission", `A complaint submission
+From: `+sender+`
+Title: `+ctx.Query("title")+`
+Message:
+`+ctx.Query("text"))
 }
 
 // TicketsHandler response for the tickets listing page.
 func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Tickets"] = models.GetTickets()
 	ctx.Data["Title"] = "Tickets"
-	ctx.Data["IsTickets"] = 1
 	ctx.HTML(200, "tickets")
 }
 
