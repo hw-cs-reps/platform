@@ -43,6 +43,8 @@ type InstanceSettings struct {
 	NoticeColour string
 	Links        []ExternalResource
 	ClassReps    []ClassRepresentative
+	Courses      []Course
+	Lecturers    []Lecturer
 }
 
 // ExternalResource holds the information to a hyperlink
@@ -53,6 +55,15 @@ type ExternalResource struct {
 // ClassRepresentative holds the details of a class representative
 type ClassRepresentative struct {
 	Name, Email, Course string
+}
+
+type Course struct {
+	Code, Name string
+	DegreeCode []string
+}
+
+type Lecturer struct {
+	Name, Office string
 }
 
 // DBType represents the type of the database driver which will be used.
@@ -101,12 +112,27 @@ func newConfig() Configuration {
 			NoticeColour: "alert-green", // alert-green, alert-yellow, alert-red, alert-grey
 			Links: []ExternalResource{
 				{Name: "Example", Link: "https://example.com"},
+				{Name: "Courses", Link: "/courses"},
+				{Name: "Lecturers & Office Location", Link: "/lecturers"},
 			},
 			ClassReps: []ClassRepresentative{
 				{Name: "Alakbar", Email: "az40@hw.ac.uk", Course: "Computer Science"},
 				{Name: "Humaid", Email: "ha82@hw.ac.uk", Course: "Computer Science"},
 				{Name: "Maleeha", Email: "mr137@hw.ac.uk", Course: "Computer Systems"},
 				{Name: "James", Email: "jss2@hw.ac.uk", Course: "Information Systems"},
+			},
+			Courses: []Course{
+				{Code: "F29FB", Name: "Foundations 2", DegreeCode: []string{"F291-COS"}},
+				{Code: "F29LP", Name: "Language Processors", DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+				{Code: "F29OC", Name: "Operating Systems & Concurrency", DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+				{Code: "F29PD", Name: "Professional Development", DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
+				{Code: "F29SO", Name: "Software Engineering", DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
+			},
+			Lecturers: []Lecturer{
+				{Name: "Arash Eshghi", Office: "UNKNOWN"},
+				{Name: "Fairouz Kamareddine", Office: "UNKNOWN"},
+				{Name: "Nick Taylor", Office: "UNKNOWN"},
+				{Name: "Ron Petrick", Office: "UNKNOWN"},
 			},
 		},
 	}
@@ -117,7 +143,7 @@ func init() {
 	var err error
 	WorkingDir, err = os.Getwd()
 	if err != nil {
-		log.Fatal("Cannot get working directory! ", err)
+		log.Fatal("Cannot get working directory!", err)
 	}
 }
 

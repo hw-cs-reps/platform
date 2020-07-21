@@ -7,6 +7,12 @@ import (
 	"github.com/hw-cs-reps/platform/models"
 	"github.com/hw-cs-reps/platform/routes"
 
+	"html/template"
+	"log"
+	"net/http"
+	"strings"
+	"time"
+
 	"github.com/go-macaron/cache"
 	"github.com/go-macaron/captcha"
 	"github.com/go-macaron/csrf"
@@ -15,11 +21,6 @@ import (
 	"github.com/hako/durafmt"
 	"github.com/urfave/cli/v2"
 	macaron "gopkg.in/macaron.v1"
-	"html/template"
-	"log"
-	"net/http"
-	"strings"
-	"time"
 )
 
 // CmdStart represents a command-line command
@@ -99,6 +100,7 @@ func start(clx *cli.Context) (err error) {
 	})
 	m.Get("/complaints", routes.ComplaintsHandler)
 	m.Post("/complaints", routes.PostComplaintsHandler)
+	m.Get("/courses", routes.CoursesHandler)
 
 	log.Printf("Starting web server on port %s\n", config.Config.SitePort)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", config.Config.SitePort), m))

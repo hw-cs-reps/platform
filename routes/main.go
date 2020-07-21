@@ -66,6 +66,12 @@ func markdownToHTML(s string) string {
 	return string(bluemonday.UGCPolicy().SanitizeBytes(buf.Bytes()))
 }
 
+// CoursesHandler gets courses page
+func CoursesHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ctx.Data["Title"] = "Courses"
+	ctx.HTML(200, "courses")
+}
+
 // TicketPageHandler response for the a specific ticket..
 func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ticket, err := models.GetTicket(ctx.ParamsInt("id"))
