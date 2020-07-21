@@ -28,6 +28,7 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 
 // ComplaintsHandler response for the complaints page.
 func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ctx.Data["Title"] = "Complaints"
 	ctx.HTML(200, "complaints")
 }
 
