@@ -26,6 +26,16 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 	ctx.HTML(200, "index")
 }
 
+// ComplaintsHandler response for the complaints page.
+func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ctx.HTML(200, "complaints")
+}
+
+// PostComplaintsHandler response for the complaints page.
+func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ctx.HTML(200, "complaints")
+}
+
 // TicketsHandler response for the tickets listing page.
 func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Tickets"] = models.GetTickets()

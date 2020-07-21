@@ -97,6 +97,8 @@ func start(clx *cli.Context) (err error) {
 			m.Post("/delete", routes.PostTicketDeleteHandler)
 		})
 	})
+	m.Get("/complaints", routes.ComplaintsHandler)
+	m.Post("/complaints", routes.PostComplaintsHandler)
 
 	log.Printf("Starting web server on port %s\n", config.Config.SitePort)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", config.Config.SitePort), m))
