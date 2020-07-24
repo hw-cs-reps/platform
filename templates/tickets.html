@@ -6,7 +6,7 @@
 	{{range .Tickets}}
 	<div class="entry"><a href="/tickets/{{.TicketID}}">{{.Title}}</a>
 	<div class="meta">
-		<p><a href="/tickets/{{.TicketID}}">{{.Upvotes}} Upvotes
+		<p><a href="/tickets/{{.TicketID}}">{{Len .Voters}} Upvotes
       {{CalcDurationShort .CreatedUnix}} ago | {{.CommentsCount}} comments</a></p>
 	</div>
 	</div>

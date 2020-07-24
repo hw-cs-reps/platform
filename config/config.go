@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
+	"github.com/google/uuid"
 )
 
 var (
@@ -26,6 +27,7 @@ var (
 type Configuration struct {
 	SiteName        string                // SiteName is the name of the site.
 	SitePort        string                // SitePort is the port to run the web server on.
+	VoterPepper     string                // VoterPepper is the salt used in the voter ID hash.
 	DevMode         bool                  // DevMode is whether to disable authentication for development.
 	UniEmailDomain  string                // UniEmailDomain is the university domain for login.
 	EmailAddress    string                // EmailAddress is the email address which sends the OTPs.
@@ -91,6 +93,7 @@ func newConfig() Configuration {
 	return Configuration{
 		SiteName:        "Class Representatives",
 		SitePort:        "8080",
+		VoterPepper:     uuid.New().String(),
 		DevMode:         true,
 		UniEmailDomain:  "@hw.ac.uk",
 		EmailAddress:    "noreply@example.com",

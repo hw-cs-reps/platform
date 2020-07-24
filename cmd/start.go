@@ -54,6 +54,9 @@ func start(clx *cli.Context) (err error) {
 			"CalcDurationShort": func(unix int64) string {
 				return durafmt.Parse(time.Now().Sub(time.Unix(unix, 0))).LimitFirstN(1).String()
 			},
+			"Len": func(arr []string) int {
+				return len(arr)
+			},
 		}},
 		IndentJSON: true,
 	}))
@@ -92,7 +95,7 @@ func start(clx *cli.Context) (err error) {
 		m.Post("/new", routes.PostNewTicketHandler)
 		m.Group("/:id", func() {
 			m.Get("", routes.TicketPageHandler)
-			m.Post("/upvote", routes.UpvoteTicketHandler)
+			m.Post("/upvote", csrf.Validate, routes.UpvoteTicketHandler)
 			m.Get("/edit", routes.TicketEditHandler)
 			m.Post("/edit", routes.PostTicketEditHandler)
 			m.Post("/delete", routes.PostTicketDeleteHandler)

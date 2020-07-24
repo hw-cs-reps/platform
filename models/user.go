@@ -50,7 +50,7 @@ func UpdateUser(u *User) (err error) {
 	return
 }
 
-// UpdatUserCols updates a user in the database including the specified
+// UpdateUserCols updates a user in the database including the specified
 // columns, even if the fields are empty.
 func UpdateUserCols(u *User, cols ...string) error {
 	_, err := engine.ID(u.Username).Cols(cols...).Update(u)
