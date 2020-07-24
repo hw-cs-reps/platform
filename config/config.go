@@ -56,7 +56,7 @@ type ExternalResource struct {
 
 // ClassRepresentative holds the details of a class representative
 type ClassRepresentative struct {
-	Name, Email, Course string
+	Name, Email, Course, DegreeCode string
 }
 
 type Course struct {
@@ -116,13 +116,13 @@ func newConfig() Configuration {
 			Links: []ExternalResource{
 				{Name: "Example", Link: "https://example.com"},
 				{Name: "Courses", Link: "/courses"},
-				{Name: "Lecturers & Office Location", Link: "/lecturers"},
+				{Name: "Lecturers & Office Locations", Link: "/lecturers"},
 			},
 			ClassReps: []ClassRepresentative{
-				{Name: "Alakbar", Email: "az40@hw.ac.uk", Course: "Computer Science"},
-				{Name: "Humaid", Email: "ha82@hw.ac.uk", Course: "Computer Science"},
-				{Name: "Maleeha", Email: "mr137@hw.ac.uk", Course: "Computer Systems"},
-				{Name: "James", Email: "jss2@hw.ac.uk", Course: "Information Systems"},
+				{Name: "Alakbar", Email: "az40@hw.ac.uk", Course: "Computer Science", DegreeCode: "F291-COS"},
+				{Name: "Humaid", Email: "ha82@hw.ac.uk", Course: "Computer Science", DegreeCode: "F291-COS"},
+				{Name: "Maleeha", Email: "mr137@hw.ac.uk", Course: "Computer Systems", DegreeCode: "F2CC-CSE"},
+				{Name: "James", Email: "jss2@hw.ac.uk", Course: "Information Systems", DegreeCode: "F2IS-ISY"},
 			},
 			Courses: []Course{
 				{Code: "F29FB", Name: "Foundations 2", DegreeCode: []string{"F291-COS"}},
@@ -132,11 +132,11 @@ func newConfig() Configuration {
 				{Code: "F29SO", Name: "Software Engineering", DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
 			},
 			Lecturers: []Lecturer{
-				{Name: "Arash Eshghi", Email: "A.Eshghi@hw.ac.uk", Office: "N/A", Time: "N/A", Updated: "24/07/20"},
+				{Name: "Arash Eshghi", Email: "A.Eshghi@hw.ac.uk", Office: "Unknown", Time: "Unknown", Updated: "24/07/20"},
 				{Name: "Fairouz Kamareddine", Email: "F.D.Kamareddine@hw.ac.uk", Office: "EM1.65", Time: "Tuesday 10:15-11:15", Updated: "24/07/20"},
-				{Name: "Nick Taylor", Email: "N.K.Taylor@hw.ac.uk", Office: "N/A", Time: "N/A", Updated: "24/07/20"},
+				{Name: "Nick Taylor", Email: "N.K.Taylor@hw.ac.uk", Office: "Unknown", Time: "Unknown", Updated: "24/07/20"},
 				{Name: "Ron Petrick", Email: "R.Petrick@hw.ac.uk", Office: "EM1.65", Time: "Appointment Only", Updated: "24/07/20"},
-				{Name: "Mike Chantler", Email: "M.J.Chantler@hw.ac.uk", Office: "N/A", Time: "N/A", Updated: "24/07/20"},
+				{Name: "Mike Chantler", Email: "M.J.Chantler@hw.ac.uk", Office: "Unknown", Time: "Unknown", Updated: "24/07/20"},
 			},
 		},
 	}

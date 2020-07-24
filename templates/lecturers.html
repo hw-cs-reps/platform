@@ -1,19 +1,18 @@
 {{template "base/head" .}}
 <div class="content">
-	{{template "partials/flash" .}}
-	<h1>Lecturers & Office Locations</h1>
+  {{template "partials/flash" .}}
+  <h1 class="noTopMargin">{{.Title}}</h1>
 
-	<div class="card-grid">
-		{{ range .Lecturers }}
-		<div class="card">
+  <div class="card-grid">
+    {{ range .Lecturers }}
+    <div class="card">
       <h3 class="noTopMargin">{{.Name}}</h3>
-			<a href="{{.Email}}">{{.Email}}</a>
+      <a href="{{.Email}}">{{.Email}}</a>
       <p>{{.Office}}</p>
-			<p>{{.Time}}</p>
-			<p><i>Last Updated: {{.Updated}}</i></p>
-		</div>
-		{{end}}
-	</div>
-
+      <p>{{.Time}}</p>
+      <p><i>Last Updated: {{.Updated}}</i></p>
+    </div>
+    {{end}}
+  </div>
 </div>
 {{template "base/footer" .}}
