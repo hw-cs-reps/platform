@@ -1,32 +1,36 @@
 {{template "base/head" .}}
-<div class="content">
-	{{template "partials/flash" .}}
-	<h2>Submit a Complaint</h2>
-  <div class="col-6">
-  <p>This allows you to submit a private complaint directly to the class
-  representatives. If you'd like to make a public ticket, <a
-   href="/tickets">visit the tickets page</a>.</p>
-  </div>
-	<form method="post">
-		<div class="col-10">
-			<div class="form-group">
-				<label for="title"><h3 class="noBottomMargin">Subject</h3></label>
-				<input class="form-item" type="text" id="title" name="title" required="1"
-				autofocus="1" />
-			</div>
-			<div class="form-group">
-				<label for="text"><h3 class="noBottomMargin">Message</h3></label>
-				<textarea class="form-item" id="text" name="text" cols="70" rows="20" required="1">{{if .ptext}}{{.ptext}}{{end}}</textarea> 
-				<p class="muted-text">Markdown and HTML is supported.</p>
-			</div>
-			<div class="form-group">
-				<label for="email"><h3 class="noBottomMargin">Email (optional)</h3></label>
-				<input class="form-item" type="email" id="email" name="email"/>
-			</div>
+{{template "partials/flash" .}}
+<h2>Submit a Complaint</h2>
+<div class="col-6">
+	<p>This allows you to submit a private complaint directly to the class
+		representatives. If you'd like to make a public ticket, <a href="/tickets">visit the tickets page</a>.</p>
+</div>
+<form method="post">
+	<div class="col-10">
+		<div class="form-group">
+			<label for="title">
+				<h3 class="noBottomMargin">Subject</h3>
+			</label>
+			<input class="form-item" type="text" id="title" name="title" required="1" autofocus="1" />
 		</div>
-		<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
-		<button type="submit" class="btn">Send</button>
-    <p><small>Complaint will be sent directly to the class representatives.</small></p>
-	</form>
+		<div class="form-group">
+			<label for="text">
+				<h3 class="noBottomMargin">Message</h3>
+			</label>
+			<textarea class="form-item" id="text" name="text" cols="70" rows="20"
+				required="1">{{if .ptext}}{{.ptext}}{{end}}</textarea>
+			<p class="muted-text">Markdown and HTML is supported.</p>
+		</div>
+		<div class="form-group">
+			<label for="email">
+				<h3 class="noBottomMargin">Email (optional)</h3>
+			</label>
+			<input class="form-item" type="email" id="email" name="email" />
+		</div>
+	</div>
+	<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
+	<button type="submit" class="btn">Send</button>
+	<p><small>Complaint will be sent directly to the class representatives.</small></p>
+</form>
 </div>
 {{template "base/footer" .}}

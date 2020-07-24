@@ -1,0 +1,45 @@
+{{template "base/head" .}}
+<h1>Privacy Policy</h1>
+<p><i>Updated: [placeholder]</i></p>
+
+<h2>Information We Collect</h2>
+<p>To facilitate the ability of users to vote and create discussions, we create a unique 'voter ID'
+  which is generated using the following information:
+<ul>
+  <li>IP address</li>
+  <li>User-agent header</li>
+  <li>Random number generated at that instance <a href="https://en.wikipedia.org/wiki/Pepper_(cryptography)"
+      target="_blank">(pepper)</a>. This is not linked to the session ID</li>
+</ul>
+
+A <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function" target="_blank">cryptographic hash</a> is created
+using this
+information in order to roughly identify a user, mitigating potential abuses of the anonymity granted through the
+service.
+</p>
+
+<h2>Cookies</h2>
+<p>
+  Session cookies are used to generate a temporary username, allowing a user to comment anonymously. This session ID
+  expires every 24 hours. No other information is stored in the browser.
+</p>
+
+<p>Examples of a session account:</p>
+
+<div class="card">
+  <h3 class="noTopMargin">Grateful Golang</h3>
+  <p>Session ID: [placeholder]</p>
+</div>
+
+<div class="card">
+  <h3 class="noTopMargin">Hateful Haskell</h3>
+  <p>Session ID: [placeholder]</p>
+</div>
+
+<h2>Third Parties</h2>
+There's only one party happening here. No information is shared with third parties.
+
+<h2>Changes</h2>
+<p>We, the current class representatives, reserve the right to make any changes to this privacy policy. As we do not collect emails, notice will be given as an alert on the <a href="/">homepage</a>.</p>
+
+{{template "base/footer" .}}

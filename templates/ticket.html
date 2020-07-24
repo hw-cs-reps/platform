@@ -3,33 +3,35 @@
 	{{template "partials/flash" .}}
 	<h2>{{.Ticket.Title}}</h2>
 	<p><small class="sgrey">{{.Ticket.Upvotes}} Upvotes {{CalcDurationShort .Ticket.CreatedUnix}} ago
-	{{if not .Resolved}}<a href="/tickets/{{.Ticket.TicketID}}/upvote">
-	{{if .Upvoted}}[unvote]{{else}}[upvote]{{end}}</a>{{end}}
+			{{if not .Resolved}}<a href="/tickets/{{.Ticket.TicketID}}/upvote">
+				{{if .Upvoted}}[unvote]{{else}}[upvote]{{end}}</a>{{end}}
 
-	{{if .IsAdmin}}<a href="/tickets/{{.Ticket.TicketID}}/edit">[edit]</a>
-  <a href="/tickets/{{.Ticket.TicketID}}/del">[delete]</a>{{end}}</p>
+			{{if .IsAdmin}}<a href="/tickets/{{.Ticket.TicketID}}/edit">[edit]</a>
+			<a href="/tickets/{{.Ticket.TicketID}}/del">[delete]</a>{{end}}</p>
 
 	<div class="post">{{.FormattedPost}}</div>
 
-  <h3>Comments</h3>
+	<h3>Comments</h3>
 	{{if not .Resolved}}<form method="post">
 		<div class="col-5">
-		<div class="form-group">
-			<textarea class="form-item" name="text" cols="40" rows="4" required="1"	
-        placeholder="Markdown and HTML supported"></textarea> 
-		</div>
-		<input type="hidden" name="_csrf" value="{{.csrf_token}}">
-		<button type="submit" class="btn">Comment</button>
+			<div class="form-group">
+				<textarea class="form-item" name="text" cols="40" rows="4" required="1"
+					placeholder="Markdown and HTML supported"></textarea>
+			</div>
+			<input type="hidden" name="_csrf" value="{{.csrf_token}}">
+			<button type="submit" class="btn">Comment</button>
 		</div>
 	</form>
 	<br>{{end}}
 
 	{{range .Post.Comments}}
-	<div class="comment"><p id="c-{{.CommentID}}"><small class="sgrey">
-      {{.PosterID}} {{CalcDurationShort .CreatedUnix}} ago
-      {{if .IsAdmin }}<a href="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}">[delete]</a>{{end}}
-	</small></p>
-	<div>{{.FormattedText}}</div></div>
+	<div class="comment">
+		<p id="c-{{.CommentID}}"><small class="sgrey">
+				{{.PosterID}} {{CalcDurationShort .CreatedUnix}} ago
+				{{if .IsAdmin }}<a href="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}">[delete]</a>{{end}}
+			</small></p>
+		<div>{{.FormattedText}}</div>
+	</div>
 	{{end}}
 </div>
 {{template "base/footer" .}}

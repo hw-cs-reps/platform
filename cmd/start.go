@@ -101,6 +101,7 @@ func start(clx *cli.Context) (err error) {
 	m.Get("/complaints", routes.ComplaintsHandler)
 	m.Post("/complaints", routes.PostComplaintsHandler)
 	m.Get("/courses", routes.CoursesHandler)
+	m.Get("/privacy", routes.PrivacyHandler)
 
 	log.Printf("Starting web server on port %s\n", config.Config.SitePort)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", config.Config.SitePort), m))

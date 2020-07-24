@@ -82,6 +82,12 @@ func CoursesHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 	ctx.HTML(200, "courses")
 }
 
+// PrivacyHandler gets the privacy policy page
+func PrivacyHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ctx.Data["Title"] = "Privacy Policy"
+	ctx.HTML(200, "privacy")
+}
+
 // TicketPageHandler response for the a specific ticket..
 func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ticket, err := models.GetTicket(ctx.ParamsInt("id"))
