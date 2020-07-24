@@ -12,9 +12,7 @@
 
 <div class="card-grid">
   {{ range .Config.Links }}
-  <div class="card">
-    <a href="{{.Link}}">{{.Name}}</a>
-  </div>
+  <a class="card" href="{{.Link}}">{{.Name}}</a>
   {{end}}
 </div>
 

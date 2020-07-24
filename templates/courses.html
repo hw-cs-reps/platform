@@ -1,7 +1,19 @@
 {{template "base/head" .}}
 <div class="content">
 	{{template "partials/flash" .}}
-	<h2>Courses</h2>
-  
+	<h1>Courses</h1>
+
+	<div class="card-grid">
+		{{ range .Courses }}
+		<div class="card">
+			<a href="">{{.Name}}</a>
+			<p>{{.Code}}</p>
+			{{range $index, $fields := .DegreeCode}}
+			<p><i>{{$fields}}</i></p>
+			{{end}}
+		</div>
+		{{end}}
+	</div>
+
 </div>
 {{template "base/footer" .}}

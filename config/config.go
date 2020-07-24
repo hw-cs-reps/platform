@@ -109,9 +109,9 @@ func newConfig() Configuration {
 		},
 		InstanceConfig: InstanceSettings{
 			ShowNotice:   true,
-			NoticeTitle:  "Update Regarding F29OC",
-			NoticeText:   "This is an example notice!",
-			NoticeLink:   "https://example.com",
+			NoticeTitle:  "Privacy Policy Update",
+			NoticeText:   "The privacy policy has been updated. Please consider re-reading it for your peace of mind.",
+			NoticeLink:   "/privacy",
 			NoticeColour: "alert-green", // alert-green, alert-yellow, alert-red, alert-grey
 			Links: []ExternalResource{
 				{Name: "Example", Link: "https://example.com"},

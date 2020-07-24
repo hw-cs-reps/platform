@@ -375,6 +375,8 @@ label {
 @media only screen and (max-width: 860px) {
   [class*="col-"] {
     width: 100%;
+    box-sizing: border-box;
+    margin-left: 0;
   }
 
   .card-grid {

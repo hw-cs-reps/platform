@@ -33,6 +33,7 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 // ComplaintsHandler response for the complaints page.
 func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Title"] = "Complaints"
+	ctx.Data["IsComplaints"] = 1
 	ctx.HTML(200, "complaints")
 }
 
@@ -55,6 +56,7 @@ Message:
 // TicketsHandler response for the tickets listing page.
 func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Tickets"] = models.GetTickets()
+	ctx.Data["IsTickets"] = 1
 	ctx.Data["Title"] = "Tickets"
 	ctx.HTML(200, "tickets")
 }
@@ -81,8 +83,15 @@ func markdownToHTML(s string) string {
 
 // CoursesHandler gets courses page
 func CoursesHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
 	ctx.Data["Title"] = "Courses"
 	ctx.HTML(200, "courses")
+}
+
+// LecturerHandler gets courses page
+func LecturerHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ctx.Data["Title"] = "Lecturers"
+	ctx.HTML(200, "lecturers")
 }
 
 // PrivacyHandler gets the privacy policy page
