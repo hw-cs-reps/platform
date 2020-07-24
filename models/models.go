@@ -4,9 +4,10 @@ import (
 	"github.com/hw-cs-reps/platform/config"
 
 	"fmt"
+	"log"
+
 	_ "github.com/go-sql-driver/mysql" // MySQL driver support
 	_ "github.com/mattn/go-sqlite3"    // SQLite driver support
-	"log"
 	"xorm.io/core"
 	"xorm.io/xorm"
 )

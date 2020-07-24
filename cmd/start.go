@@ -52,7 +52,7 @@ func start(clx *cli.Context) (err error) {
 				}
 			},
 			"CalcDurationShort": func(unix int64) string {
-				return durafmt.Parse(time.Now().Sub(time.Unix(unix, 0))).LimitFirstN(1).String()
+				return durafmt.Parse(time.Since(time.Unix(unix, 0))).LimitFirstN(1).String()
 			},
 			"Len": func(arr []string) int {
 				return len(arr)
@@ -71,8 +71,8 @@ func start(clx *cli.Context) (err error) {
 
 	m.Use(cache.Cacher())
 	sessOpt := session.Options{
-		CookieLifeTime: 15778800, // 6 months
-		Gclifetime:     15778800,
+		CookieLifeTime: 2629744, // 1 month policy
+		Gclifetime:     3600,    // gc every 1 hour
 		CookieName:     "hithereimacookie",
 	}
 	if config.Config.DBConfig.Type == config.MySQL {
