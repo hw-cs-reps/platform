@@ -7,6 +7,8 @@ This is a vertical kanban.
 
 - WhatsApp bot (low priority)
 - Login for class reps
+- Privacy policy (transparency about how we hash users IP & user agent)
+- Possibly look at also having a GDPR notice
 
 ## In Progress
 
