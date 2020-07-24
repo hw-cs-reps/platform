@@ -2,9 +2,18 @@
 <div class="content">
 	{{template "partials/flash" .}}
 	<h2>{{.Ticket.Title}}</h2>
+<<<<<<< HEAD
 	<p><small class="sgrey">{{.Ticket.Upvotes}} Upvotes {{CalcDurationShort .Ticket.CreatedUnix}} ago
 			{{if not .Resolved}}<a href="/tickets/{{.Ticket.TicketID}}/upvote">
 				{{if .Upvoted}}[unvote]{{else}}[upvote]{{end}}</a>{{end}}
+=======
+	<p><small class="sgrey">{{Len .Ticket.Voters}} Upvotes {{CalcDurationShort .Ticket.CreatedUnix}} ago
+	{{if and (not .Ticket.IsResolved) (not .Upvoted)}}
+  <form method="post" action="/tickets/{{.Ticket.TicketID}}/upvote">
+		<input type="hidden" name="_csrf" value="{{.csrf_token}}">
+    <button type="submit" class="btn">Upvote</button>
+  </form>{{else if .Upvoted}}Upvoted!{{end}}
+>>>>>>> 17ffb1da93e46c627bea9ebf87632f4fc36ce88e
 
 			{{if .IsAdmin}}<a href="/tickets/{{.Ticket.TicketID}}/edit">[edit]</a>
 			<a href="/tickets/{{.Ticket.TicketID}}/del">[delete]</a>{{end}}</p>

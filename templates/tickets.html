@@ -5,10 +5,17 @@
 	<p><a href="/tickets/new" class="btn">New Ticket</a></p>
 	{{range .Tickets}}
 	<div class="entry"><a href="/tickets/{{.TicketID}}">{{.Title}}</a>
+<<<<<<< HEAD
 		<div class="meta">
 			<p><a href="/tickets/{{.TicketID}}">{{.Upvotes}} Upvotes
 					{{CalcDurationShort .CreatedUnix}} ago | {{.CommentsCount}} comments</a></p>
 		</div>
+=======
+	<div class="meta">
+		<p><a href="/tickets/{{.TicketID}}">{{Len .Voters}} Upvotes
+      {{CalcDurationShort .CreatedUnix}} ago | {{.CommentsCount}} comments</a></p>
+	</div>
+>>>>>>> 17ffb1da93e46c627bea9ebf87632f4fc36ce88e
 	</div>
 	{{end}}
 </div>

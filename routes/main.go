@@ -2,6 +2,8 @@ package routes
 
 import (
 	"bytes"
+	"crypto/sha256"
+	"fmt"
 	"html/template"
 	"log"
 	"strconv"
@@ -10,6 +12,7 @@ import (
 	"github.com/hw-cs-reps/platform/mailer"
 	"github.com/hw-cs-reps/platform/models"
 
+	"github.com/go-macaron/csrf"
 	"github.com/go-macaron/session"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/yuin/goldmark"
@@ -89,15 +92,18 @@ func PrivacyHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 }
 
 // TicketPageHandler response for the a specific ticket..
-func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ticket, err := models.GetTicket(ctx.ParamsInt("id"))
 	if err != nil {
 		log.Println(err)
 		ctx.Redirect("/tickets")
 		return
 	}
+	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.Data["FormattedPost"] = template.HTML(markdownToHTML(ticket.Description))
 	ctx.Data["Ticket"] = ticket
+	voterHash := userHash(getIP(ctx), ctx.Req.Header.Get("User-Agent"))
+	ctx.Data["Upvoted"] = containsString(voterHash, ticket.Voters)
 	ctx.HTML(200, "ticket")
 }
 
@@ -124,9 +130,45 @@ func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.F
 	ctx.Redirect("/tickets/" + strconv.Itoa(ticket.TicketID))
 }
 
+func userHash(ip string, useragent string) string {
+	h := sha256.New()
+	h.Write([]byte(ip + useragent + config.Config.VoterPepper))
+	return fmt.Sprintf("%x", h.Sum(nil))
+}
+
+func getIP(ctx *macaron.Context) string {
+	xf := ctx.Header().Get("X-Forwarded-For")
+	if len(xf) > 0 {
+		return xf
+	}
+	return ctx.RemoteAddr()
+}
+
+func containsString(s string, arr []string) bool {
+	for _, v := range arr {
+		if v == s {
+			return true
+		}
+	}
+	return false
+}
+
 // UpvoteTicketHandler response for upvoting a specific ticket.
 func UpvoteTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	// Limit upvotes by IP?
+	ticket, err := models.GetTicket(ctx.ParamsInt("id"))
+	if err != nil {
+		log.Println(err)
+		ctx.Redirect("/tickets")
+		return
+	}
+
+	voterHash := userHash(getIP(ctx), ctx.Req.Header.Get("User-Agent"))
+	if !ticket.IsResolved && !containsString(voterHash, ticket.Voters) {
+		ticket.Voters = append(ticket.Voters, voterHash)
+		models.UpdateTicketCols(ticket, "voters")
+	}
+
+	ctx.Redirect("/tickets/" + strconv.Itoa(ctx.ParamsInt("id")))
 }
 
 // TicketEditHandler response for adding posting new ticket.
