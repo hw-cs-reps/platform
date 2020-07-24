@@ -65,7 +65,7 @@ type Course struct {
 }
 
 type Lecturer struct {
-	Name, Office string
+	Name, Email, Office, Time, Updated string
 }
 
 // DBType represents the type of the database driver which will be used.
@@ -132,10 +132,11 @@ func newConfig() Configuration {
 				{Code: "F29SO", Name: "Software Engineering", DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
 			},
 			Lecturers: []Lecturer{
-				{Name: "Arash Eshghi", Office: "UNKNOWN"},
-				{Name: "Fairouz Kamareddine", Office: "UNKNOWN"},
-				{Name: "Nick Taylor", Office: "UNKNOWN"},
-				{Name: "Ron Petrick", Office: "UNKNOWN"},
+				{Name: "Arash Eshghi", Email: "A.Eshghi@hw.ac.uk", Office: "N/A", Time: "N/A", Updated: "24/07/20"},
+				{Name: "Fairouz Kamareddine", Email: "F.D.Kamareddine@hw.ac.uk", Office: "EM1.65", Time: "Tuesday 10:15-11:15", Updated: "24/07/20"},
+				{Name: "Nick Taylor", Email: "N.K.Taylor@hw.ac.uk", Office: "N/A", Time: "N/A", Updated: "24/07/20"},
+				{Name: "Ron Petrick", Email: "R.Petrick@hw.ac.uk", Office: "EM1.65", Time: "Appointment Only", Updated: "24/07/20"},
+				{Name: "Mike Chantler", Email: "M.J.Chantler@hw.ac.uk", Office: "N/A", Time: "N/A", Updated: "24/07/20"},
 			},
 		},
 	}

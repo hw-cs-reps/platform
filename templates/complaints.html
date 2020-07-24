@@ -2,8 +2,10 @@
 {{template "partials/flash" .}}
 <h2>Submit a Complaint</h2>
 <div class="col-6">
-	<p>This allows you to submit a private complaint directly to the class
-		representatives. If you'd like to make a public ticket, <a href="/tickets">visit the tickets page</a>.</p>
+	<p>You to submit a private complaint directly to the class
+		representatives. If you'd like to make a public ticket, <a href="/tickets">visit the tickets page</a>.
+	</p>
+	<p> If you choose to provide an email then you consent to us replying to your message.</p>
 </div>
 <form method="post">
 	<div class="col-10">
@@ -18,9 +20,7 @@
 				<h3 class="noBottomMargin">Message</h3>
 			</label>
 			<textarea class="form-item" id="text" name="text" cols="70" rows="20"
-				required="1">{{if .ptext}}{{.ptext}}{{end}}</textarea>
-				<br>
-			<p class="muted-text">Markdown and HTML is supported.</p>
+				placeholder="Markdown and HTML are supported" required="1">{{if .ptext}}{{.ptext}}{{end}}</textarea>
 		</div>
 		<div class="form-group">
 			<label for="email">
@@ -31,7 +31,6 @@
 	</div>
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
 	<button type="submit" class="btn">Send</button>
-	<p><small>Complaint will be sent directly to the class representatives.</small></p>
 </form>
 </div>
 {{template "base/footer" .}}

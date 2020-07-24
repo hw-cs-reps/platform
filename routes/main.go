@@ -90,6 +90,7 @@ func CoursesHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 
 // LecturerHandler gets courses page
 func LecturerHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ctx.Data["Lecturers"] = config.Config.InstanceConfig.Lecturers
 	ctx.Data["Title"] = "Lecturers"
 	ctx.HTML(200, "lecturers")
 }

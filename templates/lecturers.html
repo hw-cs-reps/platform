@@ -1,3 +1,19 @@
 {{template "base/head" .}}
-  <h1>Hello!</h1>
+<div class="content">
+	{{template "partials/flash" .}}
+	<h1>Lecturers & Office Locations</h1>
+
+	<div class="card-grid">
+		{{ range .Lecturers }}
+		<div class="card">
+      <h3 class="noTopMargin">{{.Name}}</h3>
+			<a href="{{.Email}}">{{.Email}}</a>
+      <p>{{.Office}}</p>
+			<p>{{.Time}}</p>
+			<p><i>Last Updated: {{.Updated}}</i></p>
+		</div>
+		{{end}}
+	</div>
+
+</div>
 {{template "base/footer" .}}
