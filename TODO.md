@@ -8,6 +8,7 @@ This is a vertical kanban.
 - WhatsApp bot (low priority)
 - Login for class reps
 - Possibly look at also having a GDPR notice
+- Contact lecturers regarding offices and office hours
 
 ## In Progress
 

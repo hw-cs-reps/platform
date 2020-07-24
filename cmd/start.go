@@ -95,6 +95,7 @@ func start(clx *cli.Context) (err error) {
 		m.Post("/new", routes.PostNewTicketHandler)
 		m.Group("/:id", func() {
 			m.Get("", routes.TicketPageHandler)
+			m.Post("", routes.PostTicketPageHandler) // comment post
 			m.Post("/upvote", csrf.Validate, routes.UpvoteTicketHandler)
 			m.Get("/edit", routes.TicketEditHandler)
 			m.Post("/edit", routes.PostTicketEditHandler)
