@@ -6,8 +6,9 @@ import (
 	"github.com/hw-cs-reps/platform/models"
 	"github.com/hw-cs-reps/platform/namegen"
 
-	macaron "gopkg.in/macaron.v1"
 	"time"
+
+	macaron "gopkg.in/macaron.v1"
 )
 
 const (

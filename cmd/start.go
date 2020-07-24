@@ -52,7 +52,7 @@ func start(clx *cli.Context) (err error) {
 				}
 			},
 			"CalcDurationShort": func(unix int64) string {
-				return durafmt.Parse(time.Now().Sub(time.Unix(unix, 0))).LimitFirstN(1).String()
+				return durafmt.Parse(time.Since(time.Unix(unix, 0))).LimitFirstN(1).String()
 			},
 			"Len": func(arr []string) int {
 				return len(arr)

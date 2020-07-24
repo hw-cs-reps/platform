@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/hw-cs-reps/platform/cmd"
 	"log"
 	"os"
+
+	"github.com/hw-cs-reps/platform/cmd"
 
 	"github.com/urfave/cli/v2"
 )
