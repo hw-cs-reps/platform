@@ -103,7 +103,7 @@ func PrivacyHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 
 // TicketPageHandler response for the a specific ticket..
 func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
-	ticket, err := models.GetTicket(ctx.ParamsInt("id"))
+	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
 	if err != nil {
 		log.Println(err)
 		ctx.Redirect("/tickets")
@@ -111,10 +111,38 @@ func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flas
 	}
 	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.Data["FormattedPost"] = template.HTML(markdownToHTML(ticket.Description))
+	ticket.LoadComments()
 	ctx.Data["Ticket"] = ticket
 	voterHash := userHash(getIP(ctx), ctx.Req.Header.Get("User-Agent"))
 	ctx.Data["Upvoted"] = containsString(voterHash, ticket.Voters)
 	ctx.HTML(200, "ticket")
+}
+
+// PostTicketPageHandler handles posting a new comment on a ticket.
+func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
+	if err != nil {
+		log.Println(err)
+		ctx.Redirect("/tickets")
+		return
+	}
+	if ticket.IsResolved {
+		ctx.Redirect("/tickets/" + ctx.Params("id"))
+		return
+	}
+
+	comment := models.Comment{
+		TicketID: ticket.TicketID,
+		PosterID: sess.Get("id").(string),
+		Text:     ctx.Query("text"),
+	}
+
+	err = models.AddComment(&comment)
+	if err != nil {
+		log.Println(err)
+	}
+
+	ctx.Redirect("/tickets/" + ctx.Params("id"))
 }
 
 // NewTicketsHandler response for posting new ticket.
@@ -137,7 +165,7 @@ func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.F
 		ctx.Redirect("/tickets")
 		return
 	}
-	ctx.Redirect("/tickets/" + strconv.Itoa(ticket.TicketID))
+	ctx.Redirect(fmt.Sprintf("/tickets/%d", ticket.TicketID))
 }
 
 func userHash(ip string, useragent string) string {
@@ -165,7 +193,7 @@ func containsString(s string, arr []string) bool {
 
 // UpvoteTicketHandler response for upvoting a specific ticket.
 func UpvoteTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	ticket, err := models.GetTicket(ctx.ParamsInt("id"))
+	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
 	if err != nil {
 		log.Println(err)
 		ctx.Redirect("/tickets")

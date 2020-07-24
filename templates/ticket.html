@@ -18,8 +18,7 @@
 	{{if not .Resolved}}<form method="post">
 		<div class="col-5">
 			<div class="form-group">
-				<textarea class="form-item" name="text" cols="40" rows="4" required="1"
-					placeholder="Markdown and HTML supported"></textarea>
+				<textarea class="form-item" name="text" cols="40" rows="4" required="1"></textarea>
 			</div>
 			<input type="hidden" name="_csrf" value="{{.csrf_token}}">
 			<button type="submit" class="btn">Comment</button>
@@ -27,13 +26,13 @@
 	</form>
 	<br>{{end}}
 
-	{{range .Post.Comments}}
+	{{range .Ticket.Comments}}
 	<div class="comment">
 		<p id="c-{{.CommentID}}"><small class="sgrey">
 				{{.PosterID}} {{CalcDurationShort .CreatedUnix}} ago
-				{{if .IsAdmin }}<a href="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}">[delete]</a>{{end}}
+				{{if $.IsAdmin }}<a href="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}">[delete]</a>{{end}}
 			</small></p>
-		<div>{{.FormattedText}}</div>
+		<div>{{.Text}}</div>
 	</div>
 	{{end}}
 </div>

@@ -2,7 +2,7 @@ package models
 
 // Ticket represents an issue
 type Ticket struct {
-	TicketID      int    `xorm:"pk"`
+	TicketID      int64  `xorm:"pk autoincr"`
 	Title         string `xorm:"text"`
 	Tags          string `xorm:"text"`
 	CreatedUnix   int64  `xorm:"created"`
@@ -21,8 +21,13 @@ func AddTicket(t *Ticket) (err error) {
 	return err
 }
 
+// LoadTicket loads the comments of the ticket into a non-mapped field.
+func (t *Ticket) LoadComments() (err error) {
+	return engine.Where("ticket_id = ?", t.TicketID).Find(&t.Comments)
+}
+
 // GetTicket fetches a ticket based on the TicketID
-func GetTicket(id int) (*Ticket, error) {
+func GetTicket(id int64) (*Ticket, error) {
 	t := new(Ticket)
 	has, err := engine.ID(id).Get(t)
 	if err != nil {
@@ -41,7 +46,7 @@ func GetTickets() (tickets []Ticket) {
 }
 
 // DelTicket deletes a ticket based on the TicketID
-func DelTicket(id int) (err error) {
+func DelTicket(id int64) (err error) {
 	_, err = engine.ID(id).Delete(&Ticket{})
 	return err
 }
