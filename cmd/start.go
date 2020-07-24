@@ -71,8 +71,8 @@ func start(clx *cli.Context) (err error) {
 
 	m.Use(cache.Cacher())
 	sessOpt := session.Options{
-		CookieLifeTime: 15778800, // 6 months
-		Gclifetime:     15778800,
+		CookieLifeTime: 2629744, // 1 month policy
+		Gclifetime:     3600,    // gc every 1 hour
 		CookieName:     "hithereimacookie",
 	}
 	if config.Config.DBConfig.Type == config.MySQL {
@@ -104,7 +104,6 @@ func start(clx *cli.Context) (err error) {
 	m.Get("/complaints", routes.ComplaintsHandler)
 	m.Post("/complaints", routes.PostComplaintsHandler)
 	m.Get("/courses", routes.CoursesHandler)
-	m.Get("/privacy", routes.PrivacyHandler)
 
 	log.Printf("Starting web server on port %s\n", config.Config.SitePort)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", config.Config.SitePort), m))

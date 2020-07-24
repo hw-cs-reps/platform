@@ -4,6 +4,7 @@ import (
 	"github.com/go-macaron/session"
 	"github.com/hw-cs-reps/platform/config"
 	"github.com/hw-cs-reps/platform/models"
+	"github.com/hw-cs-reps/platform/namegen"
 
 	macaron "gopkg.in/macaron.v1"
 	"time"
@@ -41,6 +42,9 @@ func ContextInit() macaron.Handler {
 		ctx.Data["UniEmailDomain"] = config.Config.UniEmailDomain
 		if config.Config.DevMode {
 			ctx.Data["DevMode"] = 1
+		}
+		if sess.Get("id") == nil {
+			sess.Set("id", namegen.GetName())
 		}
 		ctx.Data["SiteTitle"] = config.Config.SiteName
 	}
