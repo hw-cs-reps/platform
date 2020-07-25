@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"html/template"
 	"log"
+	"sort"
 	"strconv"
 
 	"github.com/hw-cs-reps/platform/config"
@@ -113,7 +114,9 @@ Message:
 
 // TicketsHandler response for the tickets listing page.
 func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	ctx.Data["Tickets"] = models.GetTickets()
+	tickets := models.GetTickets()
+	sort.Sort(models.HotTickets(tickets))
+	ctx.Data["Tickets"] = tickets
 	ctx.Data["IsTickets"] = 1
 	ctx.Data["Title"] = "Tickets"
 	ctx.HTML(200, "tickets")
@@ -213,9 +216,11 @@ func NewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash
 func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	title := ctx.Query("title")
 	text := ctx.Query("text")
+	voterHash := userHash(getIP(ctx), ctx.Req.Header.Get("User-Agent"))
 	ticket := models.Ticket{
 		Title:       title,
 		Description: text,
+		Voters:      []string{voterHash},
 	}
 	err := models.AddTicket(&ticket)
 	if err != nil {
