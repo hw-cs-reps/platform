@@ -10,7 +10,7 @@
   <p><b>Contact Email</b>: <span class="badge">{{if .Email}}{{.Email}}{{else}}<i>Not
     provided</i>{{end}}</span></p>
   <p><b>Message</b>:</p>
-  <p class="badge"><pre>{{.Message}}</pre></p>
+  <p><pre class="badge">{{.Message}}</pre></p>
 </div>
 <form method="post">
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
