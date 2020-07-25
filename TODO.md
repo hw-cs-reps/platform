@@ -13,6 +13,7 @@ This is a vertical kanban.
 - Make styling better?
 - Comments CSS
 - Upvote button on ticket
+- Nav light up for specific ticket and complain
 
 ## Done
 
