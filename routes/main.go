@@ -38,6 +38,26 @@ func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flas
 	ctx.HTML(200, "complaints")
 }
 
+func getClassRepsByCourseCode(code string) (recipients []*config.ClassRepresentative) {
+	var degrees []string
+	for _, c := range config.Config.InstanceConfig.Courses {
+		if c.Code == code {
+			degrees = c.DegreeCode
+			break
+		}
+	}
+
+	for i, c := range config.Config.InstanceConfig.ClassReps {
+		for _, d := range degrees {
+			if c.DegreeCode == d {
+				recipients = append(recipients, &config.Config.InstanceConfig.ClassReps[i])
+				break
+			}
+		}
+	}
+	return
+}
+
 // PostComplaintsHandler response for the complaints page.
 func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	if ctx.Query("confirm") == "1" { // confirm sending
@@ -48,10 +68,17 @@ func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.
 			sender = ctx.Query("email")
 		}
 		// TODO send to respective class reps
-		mailer.Email("TODO", "Complaint submission", `A complaint submission
+
+		crs := getClassRepsByCourseCode(ctx.Query("category"))
+		var recipients []string
+		for _, c := range crs {
+			recipients = append(recipients, c.Email)
+		}
+
+		mailer.Email(recipients, "Complaint submission", `A complaint submission
 From: `+sender+`
 Category: `+ctx.Query("category")+`
-Title: `+ctx.Query("title")+`
+Subject: `+ctx.Query("subject")+`
 Message:
 `+ctx.Query("message"))
 
@@ -65,27 +92,20 @@ Message:
 	ctx.Data["Message"] = ctx.Query("message")
 	ctx.Data["Email"] = ctx.Query("Email")
 
-	var degrees []string
-	for _, c := range config.Config.InstanceConfig.Courses {
-		if c.Code == ctx.Query("category") {
-			degrees = c.DegreeCode
-			break
-		}
+	crs := getClassRepsByCourseCode(ctx.Query("category"))
+
+	if len(crs) == 0 {
+		f.Error("Sorry, no class representatives are available for the selected course/category.")
+		ctx.Redirect("/complaints")
+		return
 	}
 
 	var recipients []string
-
-	for _, c := range config.Config.InstanceConfig.ClassReps {
-		for _, d := range degrees {
-			if c.DegreeCode == d {
-				recipients = append(recipients, c.Name)
-				break
-			}
-		}
+	for _, c := range crs {
+		recipients = append(recipients, c.Name)
 	}
 
 	ctx.Data["Recipients"] = recipients
-
 	ctx.HTML(200, "complaints-confirm")
 }
 
