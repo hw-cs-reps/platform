@@ -4,6 +4,7 @@
   --main-text: #000;
   --nav-text: #777;
   --accent-colour: #0268B2;
+  --accent-colour-dim: rgba(2, 104, 178, 0.5);
 
   --card-radius: 5px;
   --card-padding: 15px;
@@ -100,7 +101,7 @@ a {
 }
 
 input:hover, textarea:hover, a:hover, .btn:hover, select:hover {
-  outline: solid 5px rgba(2, 104, 178, 0.5);
+  outline: solid 5px var(--accent-colour-dim);
   transition: outline 0.1s ease;
 }
 
@@ -110,7 +111,6 @@ input:focus, textarea:focus, a:focus, .btn:focus, select:focus {
 }
 
 .btn:hover {
-  background-color: var(--accent-colour);
   cursor: pointer;
   color: #fff;
 }
@@ -400,36 +400,59 @@ label {
 @media (prefers-color-scheme: dark) {
   :root {
     --main-bg: #202020;
-    --main-text: #cfcfcf;
-    --nav-text: #cfcfcf;
+    --main-text: #efefef;
+    --dim-text: #aaa;
     --danger-bg: #94282f;
     --success-bg: #328732;
     --info-bg: #3c4043;
+    --accent-colour: #0095ff;
+    --accent-colour-dim: rgba(0, 149, 255, 0.5);
   }
-  .badge, .btn {
-    background-color: #3c4043;
-    color: #feffff;
+
+  .badge {
+    background-color: var(--info-bg);
+    color: var(--main-text);
   }
+
+  .btn {
+    background-color: var(--main-bg);
+    color: #efefef;
+  }
+
+  .btn {
+    border: solid 1px #666;
+  }
+
+  .btn:hover {
+    background-color: var(--accent-colour);
+    color: #000;
+    border-color: var(--main-text);
+  }
+  .btn:focus {
+    background-color: var(--accent-colour);
+    color: #000;
+    border-color: var(--main-text);
+  }
+  .card p i {
+    color: var(--dim-text);
+  }
+
   .alert {
     color: #efefef;
   }
-  .btn {
-    border-color: #666;
+
+  .meta {
+    color: var(--dim-text);
   }
-  blockquote {
-    color: #888;
-  }
-  .nav-right, .meta a, .entry a {
-    color: #cfcfcf;
-  }
-  .nav-title {
-    color: #cfcfcf !important;
+
+  .nav a {
+    color: var(--nav-text);
   }
   .post table, .post th, .post td {
     border: 2px solid #4e4e4e;
   }
-  textarea, input {
-    background-color: #434449;
+  textarea, input, select {
+    background-color: var(--info-bg);
     border-color: #666;
     color: #efefef;
   }
@@ -439,7 +462,6 @@ label {
   code, pre {
       background-color: #333;
   }
-
   .card {
     background-color: #404040;
   }
