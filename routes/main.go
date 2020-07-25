@@ -31,10 +31,11 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 }
 
 // ComplaintsHandler response for the complaints page.
-func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["Title"] = "Complaints"
 	ctx.Data["IsComplaints"] = 1
 	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
+	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.HTML(200, "complaints")
 }
 
@@ -59,7 +60,7 @@ func getClassRepsByCourseCode(code string) (recipients []*config.ClassRepresenta
 }
 
 // PostComplaintsHandler response for the complaints page.
-func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	if ctx.Query("confirm") == "1" { // confirm sending
 		var sender string
 		if ctx.Query("email") == "" {
@@ -91,6 +92,7 @@ Message:
 	ctx.Data["Subject"] = ctx.Query("subject")
 	ctx.Data["Message"] = ctx.Query("message")
 	ctx.Data["Email"] = ctx.Query("Email")
+	ctx.Data["csrf_token"] = x.GetToken()
 
 	crs := getClassRepsByCourseCode(ctx.Query("category"))
 
@@ -202,7 +204,8 @@ func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.
 }
 
 // NewTicketsHandler response for posting new ticket.
-func NewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func NewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.HTML(200, "new-ticket")
 }
 
