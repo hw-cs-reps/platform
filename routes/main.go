@@ -38,11 +38,6 @@ func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flas
 	ctx.HTML(200, "complaints")
 }
 
-// ComplaintsConfirmHandler response for the complaints send confirmation page.
-func ComplaintsConfirmHandler(ctx *macaron.Context, sess session.Store) {
-
-}
-
 // PostComplaintsHandler response for the complaints page.
 func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	if ctx.Query("confirm") == "1" { // confirm sending
