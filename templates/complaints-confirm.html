@@ -1,16 +1,16 @@
 {{template "base/head" .}}
 {{template "partials/flash" .}}
-<h2>Confirm</h2>
+<h1 class="noTopMargin">Confirm</h1>
 <div class="col-6">
 	<p>Please confirm your ticket below, as this is what we will see.</p>
 
   <p><b>To</b>: {{range .Recipients}}<span class="badge">{{.}}</span> {{end}}
-  <p><b>Category</b>: {{.Category}}</p>
-  <p><b>Subject</b>: {{.Subject}}</p>
-  <p><b>Contact Email</b>: {{if .Email}}{{.Email}}{{else}}<i>Not
-    given</i>{{end}}</p>
+  <p><b>Category</b>: <span class="badge">{{.Category}}</span></p>
+  <p><b>Subject</b>: <span class="badge">{{.Subject}}</span></p>
+  <p><b>Contact Email</b>: <span class="badge">{{if .Email}}{{.Email}}{{else}}<i>Not
+    provided</i>{{end}}</span></p>
   <p><b>Message</b>:</p>
-  <p>{{.Message}}</p>
+  <p class="badge">{{.Message}}</p>
 </div>
 <form method="post">
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}" />

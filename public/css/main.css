@@ -99,12 +99,12 @@ a {
   text-decoration: none;
 }
 
-input:hover, textarea:hover, a:hover, .btn:hover {
+input:hover, textarea:hover, a:hover, .btn:hover, select:hover {
   outline: solid 5px rgba(2, 104, 178, 0.5);
   transition: outline 0.1s ease;
 }
 
-input:focus, textarea:focus, a:focus, .btn:focus {
+input:focus, textarea:focus, a:focus, .btn:focus, select:focus {
   outline: solid 5px var(--accent-colour);
   transition: outline 0.1s ease;
 }

@@ -26,7 +26,7 @@ import (
 func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Config"] = config.Config.InstanceConfig
 	ctx.Data["IsHome"] = 1
-	ctx.Data["Title"] = "Class Reps"
+	ctx.Data["Title"] = config.Config.SiteName
 	ctx.HTML(200, "index")
 }
 
