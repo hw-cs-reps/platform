@@ -34,23 +34,64 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Title"] = "Complaints"
 	ctx.Data["IsComplaints"] = 1
+	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
 	ctx.HTML(200, "complaints")
+}
+
+// ComplaintsConfirmHandler response for the complaints send confirmation page.
+func ComplaintsConfirmHandler(ctx *macaron.Context, sess session.Store) {
+
 }
 
 // PostComplaintsHandler response for the complaints page.
 func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	var sender string
-	if ctx.Query("email") == "" {
-		sender = "anonymous"
-	} else {
-		sender = ctx.Query("email")
-	}
-	// TODO send to respective class reps
-	mailer.Email("TODO", "Complaint submission", `A complaint submission
+	if ctx.Query("confirm") == "1" { // confirm sending
+		var sender string
+		if ctx.Query("email") == "" {
+			sender = "anonymous"
+		} else {
+			sender = ctx.Query("email")
+		}
+		// TODO send to respective class reps
+		mailer.Email("TODO", "Complaint submission", `A complaint submission
 From: `+sender+`
+Category: `+ctx.Query("category")+`
 Title: `+ctx.Query("title")+`
 Message:
-`+ctx.Query("text"))
+`+ctx.Query("message"))
+
+		f.Success("Your complaint was sent!")
+		ctx.Redirect("/complaints")
+		return
+	}
+
+	ctx.Data["Category"] = ctx.Query("category")
+	ctx.Data["Subject"] = ctx.Query("subject")
+	ctx.Data["Message"] = ctx.Query("message")
+	ctx.Data["Email"] = ctx.Query("Email")
+
+	var degrees []string
+	for _, c := range config.Config.InstanceConfig.Courses {
+		if c.Code == ctx.Query("category") {
+			degrees = c.DegreeCode
+			break
+		}
+	}
+
+	var recipients []string
+
+	for _, c := range config.Config.InstanceConfig.ClassReps {
+		for _, d := range degrees {
+			if c.DegreeCode == d {
+				recipients = append(recipients, c.Name)
+				break
+			}
+		}
+	}
+
+	ctx.Data["Recipients"] = recipients
+
+	ctx.HTML(200, "complaints-confirm")
 }
 
 // TicketsHandler response for the tickets listing page.

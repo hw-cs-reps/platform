@@ -5,21 +5,33 @@
 	<p>You to submit a private complaint directly to the class
 		representatives. If you'd like to make a public ticket, <a href="/tickets">visit the tickets page</a>.
 	</p>
-	<p> If you choose to provide an email then you consent to us replying to your message.</p>
+	<p>If you choose to provide an email then you consent to us replying to your message.</p>
 </div>
 <form method="post">
 	<div class="col-10">
 		<div class="form-group">
-			<label for="title">
-				<h3 class="noBottomMargin">Subject</h3>
+			<label for="category">
+				<h3 class="noBottomMargin">Category</h3>
 			</label>
-			<input class="form-item" type="text" id="title" name="title" required="1" autofocus="1" />
+      <select class="form-item" name="category" id="category">
+        {{range .Courses}}
+        <option value="{{.Code}}">{{.Name}} ({{.Code}})</option>
+        {{end}}
+      </select>
+      <p><small>Note: The complaint will automatically be sent to the
+        corresponding class representatives.</small></p>
 		</div>
 		<div class="form-group">
-			<label for="text">
+			<label for="subject">
+				<h3 class="noBottomMargin">Subject</h3>
+			</label>
+			<input class="form-item" type="text" id="subject" name="subject" required="1" autofocus="1" />
+		</div>
+		<div class="form-group">
+			<label for="message">
 				<h3 class="noBottomMargin">Message</h3>
 			</label>
-			<textarea class="form-item" id="text" name="text" cols="70" rows="20"
+			<textarea class="form-item" id="message" name="message" cols="70" rows="20"
 				placeholder="Markdown and HTML are supported" required="1">{{if .ptext}}{{.ptext}}{{end}}</textarea>
 		</div>
 		<div class="form-group">
@@ -30,7 +42,8 @@
 		</div>
 	</div>
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
-	<button type="submit" class="btn">Send</button>
+	<button type="submit" class="btn">Continue</button>
+  <p><small>You will confirm the recipients next.</small></p>
 </form>
 </div>
 {{template "base/footer" .}}
