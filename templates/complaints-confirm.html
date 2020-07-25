@@ -1,0 +1,25 @@
+{{template "base/head" .}}
+{{template "partials/flash" .}}
+<h2>Confirm</h2>
+<div class="col-6">
+	<p>Please confirm your ticket below, as this is what we will see.</p>
+
+  <p><b>To</b>: {{range .Recipients}}<span class="badge">{{.}}</span> {{end}}
+  <p><b>Category</b>: {{.Category}}</p>
+  <p><b>Subject</b>: {{.Subject}}</p>
+  <p><b>Contact Email</b>: {{if .Email}}{{.Email}}{{else}}<i>Not
+    given</i>{{end}}</p>
+  <p><b>Message</b>:</p>
+  <p>{{.Message}}</p>
+</div>
+<form method="post">
+	<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
+	<input type="hidden" name="category" value="{{.Category}}" />
+	<input type="hidden" name="subject" value="{{.Subject}}" />
+	<input type="hidden" name="message" value="{{.Message}}" />
+	<input type="hidden" name="email" value="{{.Email}}" />
+	<input type="hidden" name="confirm" value="1" />
+	<button type="submit" class="btn">Send</button>
+</form>
+</div>
+{{template "base/footer" .}}
