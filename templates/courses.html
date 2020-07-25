@@ -1,19 +1,17 @@
 {{template "base/head" .}}
-<div class="content">
-	{{template "partials/flash" .}}
-	<h1 class="noTopMargin">{{.Title}}</h1>
+{{template "partials/flash" .}}
+<h1 class="noTopMargin">{{.Title}}</h1>
 
-	<div class="card-grid">
-		{{ range .Courses }}
-		<div class="card">
-			<h3 class="noTopMargin">{{.Name}}</h3>
-			<p>{{.Code}}</p>
-			{{range $index, $fields := .DegreeCode}}
-			<p><i>{{$fields}}</i></p>
-			{{end}}
-		</div>
+<div class="card-grid">
+	{{ range .Courses }}
+	<div class="card">
+		<h3 class="noTopMargin">{{.Name}}</h3>
+		<p>{{.Code}}</p>
+		{{range $index, $fields := .DegreeCode}}
+		<p><i>{{$fields}}</i></p>
 		{{end}}
 	</div>
-
+	{{end}}
 </div>
+
 {{template "base/footer" .}}

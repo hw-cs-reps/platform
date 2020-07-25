@@ -1,39 +1,37 @@
 {{template "base/head" .}}
-<div class="content">
-	{{template "partials/flash" .}}
-	<h2>{{.Ticket.Title}}</h2>
-	<p><small class="sgrey">{{Len .Ticket.Voters}} Upvotes {{CalcDurationShort .Ticket.CreatedUnix}} ago
-			{{if and (not .Ticket.IsResolved) (not .Upvoted)}}
-			<form method="post" action="/tickets/{{.Ticket.TicketID}}/upvote">
-				<input type="hidden" name="_csrf" value="{{.csrf_token}}">
-				<button type="submit" class="btn">Upvote</button>
-			</form>{{else if .Upvoted}}Upvoted!{{end}}
-
-			{{if .IsAdmin}}<a href="/tickets/{{.Ticket.TicketID}}/edit">[edit]</a>
-			<a href="/tickets/{{.Ticket.TicketID}}/del">[delete]</a>{{end}}</p>
-
-	<div class="post">{{.FormattedPost}}</div>
-
-	<h3>Comments</h3>
-	{{if not .Resolved}}<form method="post">
-		<div class="col-5">
-			<div class="form-group">
-				<textarea class="form-item" name="text" cols="40" rows="4" required="1"></textarea>
-			</div>
+{{template "partials/flash" .}}
+<h1 class="noTopMargin">{{.Ticket.Title}}</h1>
+<p><small class="sgrey">{{Len .Ticket.Voters}} Upvotes {{CalcDurationShort .Ticket.CreatedUnix}} ago
+		{{if and (not .Ticket.IsResolved) (not .Upvoted)}}
+		<form method="post" action="/tickets/{{.Ticket.TicketID}}/upvote">
 			<input type="hidden" name="_csrf" value="{{.csrf_token}}">
-			<button type="submit" class="btn">Comment</button>
-		</div>
-	</form>
-	<br>{{end}}
+			<button type="submit" class="btn">Upvote</button>
+		</form>{{else if .Upvoted}}Upvoted!{{end}}
 
-	{{range .Ticket.Comments}}
-	<div class="comment">
-		<p id="c-{{.CommentID}}"><small class="sgrey">
-				{{.PosterID}} {{CalcDurationShort .CreatedUnix}} ago
-				{{if $.IsAdmin }}<a href="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}">[delete]</a>{{end}}
-			</small></p>
-		<div>{{.Text}}</div>
+		{{if .IsAdmin}}<a href="/tickets/{{.Ticket.TicketID}}/edit">[edit]</a>
+		<a href="/tickets/{{.Ticket.TicketID}}/del">[delete]</a>{{end}}</p>
+
+<div class="post">{{.FormattedPost}}</div>
+
+<h3>Comments</h3>
+{{if not .Resolved}}<form method="post">
+	<div class="col-5">
+		<div class="form-group">
+			<textarea class="form-item" name="text" cols="40" rows="4" required="1"></textarea>
+		</div>
+		<input type="hidden" name="_csrf" value="{{.csrf_token}}">
+		<button type="submit" class="btn">Comment</button>
 	</div>
-	{{end}}
+</form>
+<br>{{end}}
+
+{{range .Ticket.Comments}}
+<div class="comment">
+	<p id="c-{{.CommentID}}"><small class="sgrey">
+			{{.PosterID}} {{CalcDurationShort .CreatedUnix}} ago
+			{{if $.IsAdmin }}<a href="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}">[delete]</a>{{end}}
+		</small></p>
+	<div>{{.Text}}</div>
 </div>
+{{end}}
 {{template "base/footer" .}}

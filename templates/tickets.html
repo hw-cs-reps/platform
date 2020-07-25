@@ -1,15 +1,16 @@
 {{template "base/head" .}}
-<div class="content">
-	{{template "partials/flash" .}}
-	<h2>Tickets</h2>
-	<p><a href="/tickets/new" class="btn">New Ticket</a></p>
-	{{range .Tickets}}
-	<div class="entry"><a href="/tickets/{{.TicketID}}">{{.Title}}</a>
+{{template "partials/flash" .}}
+<h1 class="noTopMargin">Tickets</h1>
+<a href="/tickets/new" class="btn">New Ticket</a>
+{{range .Tickets}}
+
+<a class="card" href="/tickets/{{.TicketID}}">
+	<div class="entry">{{.Title}}
 		<div class="meta">
-			<p><a href="/tickets/{{.TicketID}}">{{Len .Voters}} Upvotes
-					{{CalcDurationShort .CreatedUnix}} ago | {{.CommentsCount}} comments</a></p>
+			<p>{{Len .Voters}} Upvotes &middot;
+				{{CalcDurationShort .CreatedUnix}} ago &middot; {{.CommentsCount}} comments</p>
 		</div>
 	</div>
-	{{end}}
-</div>
+</a>
+{{end}}
 {{template "base/footer" .}}

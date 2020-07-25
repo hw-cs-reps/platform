@@ -156,18 +156,13 @@ img {
 }
 /* Entries listing */
 .entry {
-  padding: 5px 15px;
-}
-
-.entry a {
   display: block;
   width: 100%;
-  color: #0b47bf;
   font-weight: bold;
   text-decoration: none;
 }
 
-.meta a {
+.meta {
   padding: 0;
   margin: 0 0 5px 15px;
   color: #555;
@@ -369,7 +364,7 @@ label {
 @media only screen and (max-width: 1250px) {
   .nav {
     border-radius: 0;
-  }  
+  }
 }
 
 @media only screen and (max-width: 860px) {
@@ -385,6 +380,14 @@ label {
 
   .btn {
     padding: 10px 15px;
+  }
+
+  .card-grid {
+    box-sizing: border-box;
+  }
+
+  .gridFullWidth {
+    grid-template-columns: 1fr;
   }
 }
 

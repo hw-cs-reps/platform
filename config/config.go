@@ -91,7 +91,7 @@ type DatabaseConfiguration struct {
 
 func newConfig() Configuration {
 	return Configuration{
-		SiteName:        "Class Representatives",
+		SiteName:        "Platform",
 		SitePort:        "8080",
 		VoterPepper:     uuid.New().String(),
 		DevMode:         true,
