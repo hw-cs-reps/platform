@@ -11,9 +11,7 @@ This is a vertical kanban.
 - WhatsApp bot (low priority)
 - Login for class reps
 - Make styling better?
-- Comments CSS
 - Upvote button on ticket
-- Nav light up for specific ticket and complain
 
 ## Done
 
