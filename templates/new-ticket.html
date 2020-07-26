@@ -1,6 +1,6 @@
 {{template "base/head" .}}
 	{{template "partials/flash" .}}
-	<h2 class="noTopMargin">Post a New Ticket</h2>
+	<h1 class="noTopMargin">Post a New Ticket</h1>
 	<form method="post">
 		<div class="col-10">
 			<div class="form-group">
@@ -14,8 +14,8 @@
 			</div>
 		</div>
 		<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
+    <p><small>Ticket will be posted publicly and anonymously.</small></p>
 		<button type="submit" class="btn">Submit ticket</button>
 		<br><br>
-    <p><i>Ticket will be posted publicly and anonymously.</i></p>
 	</form>
 {{template "base/footer" .}}

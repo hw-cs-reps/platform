@@ -2,7 +2,9 @@
 :root {
   --main-bg: #fefefe;
   --main-text: #000;
+  --card-bg: #e0e0e0;
   --nav-text: #777;
+  --dim-text: #555;
   --accent-colour: #0268B2;
   --accent-colour-dim: rgba(2, 104, 178, 0.5);
 
@@ -23,12 +25,43 @@ html {
   scroll-behavior: smooth;
 }
 
+/*Scrollbar Settings*/
+
+/* Width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+/* ::-webkit-scrollbar-track {
+  background: none;
+} */
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-colour-dim);
+}
+
+/* Handle on click */
+::-webkit-scrollbar-thumb:active {
+  background: var(--accent-colour);
+}
+
 body {
-  font-family: "Lucidia Grande", "Segoe UI", "Roboto", sans-serif;
+  font-family: "Roboto", "Segoe UI", sans-serif;
   font-size: 1.2em;
   margin: 0;
   background-color: var(--main-bg);
   color: var(--main-text);
+}
+
+small {
+  color: var(--dim-text);
 }
 
 .container {
@@ -68,7 +101,7 @@ p {
 }
 
 .card p i {
-  color: #555;
+  color: var(--dim-text);
   font-size: 0.8em;
   line-height: 0.75em;
 }
@@ -100,6 +133,11 @@ a {
   text-decoration: none;
 }
 
+input, textarea, a, .btn, select {
+  outline: solid 0 var(--accent-colour-dim);
+  transition: outline 0.1s ease;
+}
+
 input:hover, textarea:hover, a:hover, .btn:hover, select:hover {
   outline: solid 5px var(--accent-colour-dim);
   transition: outline 0.1s ease;
@@ -110,8 +148,32 @@ input:focus, textarea:focus, a:focus, .btn:focus, select:focus {
   transition: outline 0.1s ease;
 }
 
+.btn {
+  display: inline-block;
+  color: var(--accent-colour);
+  background-color: #fafafa;
+  padding: 5px 10px; 
+  border: 1px solid;
+  text-decoration: none;
+  margin-top: 5px;
+  border-radius: var(--card-radius);
+  transition: background-color 0.3s ease, outline 0.1s ease;
+  outline: solid 0 var(--accent-colour-dim);
+}
+
+.btn-danger {
+  background-color: var(--danger-btn);
+  color: #fff;
+}
+
 .btn:hover {
   cursor: pointer;
+  color: #fff;
+  background-color: var(--accent-colour);
+}
+
+.btn:focus {
+  background-color: var(--accent-colour);
   color: #fff;
 }
 
@@ -185,7 +247,7 @@ a.card {
 .card {
   padding: var(--card-padding);
   display: block;
-  background-color: #e0e0e0;
+  background-color: var(--card-bg);
   margin: 10px;
   border-radius: 5px;
 }
@@ -201,12 +263,12 @@ blockquote {
   margin-left: 0;
 }
 
-pre {
+pre, .commentText {
   white-space: pre-wrap;
 }
 
-code, pre {
-  border-radius: 3px;
+pre.badge {
+  font-family: "Roboto", "Segoe UI", sans-serif;
 }
 
 .badge {
@@ -216,21 +278,17 @@ code, pre {
   color: #3f3f3f;
 }
 
-.btn {
-  display: inline-block;
-  color: var(--accent-colour);
-  background-color: #fafafa;
-  padding: 5px 10px; 
-  border: 1px solid;
-  text-decoration: none;
-  margin-top: 5px;
-  border-radius: var(--card-radius);
-  transition: background-color 0.3s ease;
+.upvote {
+  padding: 5px 7px !important;
 }
 
-.btn-danger {
-  background-color: var(--danger-btn);
-  color: #fff;
+.upvoted {
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.upvoteInfo {
+  color: var(--dim-text);
 }
 
 /* Alert */
@@ -293,6 +351,33 @@ label {
 
 .form-group {
   padding-bottom: 10px;
+}
+
+.comments {
+  box-sizing: border-box;
+}
+
+.comment {
+  margin: 10px 5px 5px 5px;
+  padding: 5px;
+  color: var(--main-text);
+  box-sizing: border-box;
+  border-left: solid 4px var(--accent-colour);
+  background: linear-gradient(120deg, rgba(2,104,178,0.15) 0%, rgba(255,255,255,0) 75%);
+}
+
+.commentText {
+  margin: 2px 0 0 0;
+}
+
+.commentInfo {
+  margin: 0;
+  font-size: small;
+  color: var(--dim-text);
+}
+
+.green {
+  background-color: ;
 }
 
 /* Responsive Layout */

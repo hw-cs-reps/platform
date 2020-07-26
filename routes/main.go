@@ -62,6 +62,7 @@ func getClassRepsByCourseCode(code string) (recipients []*config.ClassRepresenta
 
 // PostComplaintsHandler response for the complaints page.
 func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+	ctx.Data["IsComplaints"] = 1
 	if ctx.Query("confirm") == "1" { // confirm sending
 		var sender string
 		if ctx.Query("email") == "" {
@@ -164,6 +165,7 @@ func PrivacyHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 
 // TicketPageHandler response for the a specific ticket..
 func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+	ctx.Data["IsTickets"] = 1
 	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
 	if err != nil {
 		log.Println(err)
@@ -208,6 +210,7 @@ func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.
 
 // NewTicketsHandler response for posting new ticket.
 func NewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+	ctx.Data["IsTickets"] = 1
 	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.HTML(200, "new-ticket")
 }
