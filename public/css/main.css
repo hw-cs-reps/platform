@@ -283,6 +283,7 @@ pre.badge {
 .upvoted {
   display: inline-block;
   margin-top: 5px;
+  margin: 0;
 }
 
 .upvoteInfo {
