@@ -68,7 +68,7 @@ func PostLoginHandler(ctx *macaron.Context, sess session.Store, f *session.Flash
 		}
 	}
 
-	f.Error("This is for class representatives only")
+	f.Error("You are not registered.")
 	ctx.Redirect("/login")
 }
 
@@ -183,10 +183,16 @@ func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.
 		}
 		// TODO send to respective class reps
 
-		crs := getClassRepsByCourseCode(ctx.QueryTrim("category"))
 		var recipients []string
-		for _, c := range crs {
-			recipients = append(recipients, c.Email)
+		if ctx.QueryTrim("category") == "general" {
+			for _, c := range config.Config.InstanceConfig.ClassReps {
+				recipients = append(recipients, c.Email)
+			}
+		} else {
+			crs := getClassRepsByCourseCode(ctx.QueryTrim("category"))
+			for _, c := range crs {
+				recipients = append(recipients, c.Email)
+			}
 		}
 
 		mailer.Email(recipients, "Complaint submission", `A complaint submission
@@ -207,17 +213,22 @@ Message:
 	ctx.Data["Email"] = ctx.QueryTrim("Email")
 	ctx.Data["csrf_token"] = x.GetToken()
 
-	crs := getClassRepsByCourseCode(ctx.QueryTrim("category"))
-
-	if len(crs) == 0 {
-		f.Error("Sorry, no class representatives are available for the selected course/category.")
-		ctx.Redirect("/complaints")
-		return
-	}
-
 	var recipients []string
-	for _, c := range crs {
-		recipients = append(recipients, c.Name)
+	if ctx.QueryTrim("category") == "general" {
+		for _, c := range config.Config.InstanceConfig.ClassReps {
+			recipients = append(recipients, c.Name)
+		}
+	} else {
+		crs := getClassRepsByCourseCode(ctx.QueryTrim("category"))
+		if len(crs) == 0 {
+			f.Error("Sorry, no class representatives are available for the selected course/category.")
+			ctx.Redirect("/complaints")
+			return
+		}
+
+		for _, c := range crs {
+			recipients = append(recipients, c.Name)
+		}
 	}
 
 	ctx.Data["Recipients"] = recipients
