@@ -9,7 +9,7 @@
 	<span class="upvoteInfo">{{CalcDurationShort .Ticket.CreatedUnix}} ago</span>
 </form>
 {{else if .Upvoted}}<p class="badge alert-green upvoted">{{Len .Ticket.Voters}} Upvotes</p><span class="upvoteInfo">
-	&middot; {{CalcDurationShort .Ticket.CreatedUnix}} ago{{end}}
+	&middot; {{CalcDurationShort .Ticket.CreatedUnix}} ago </span>{{end}}
 	{{if .IsAdmin}}
 	<form method="post" action="/tickets/{{.Ticket.TicketID}}/edit" class="lineform">
 		<input type="hidden" name="_csrf" value="{{.csrf_token}}">
