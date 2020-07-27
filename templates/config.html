@@ -1,10 +1,18 @@
 {{template "base/head" .}}
 {{template "partials/flash" .}}
 <h1>Configuration</h1>
+<p>This is a <a href="https://toml.io/en/v1.0.0-rc.1">TOML</a> file containing some of the information that is
+  displayed, such as class rep names and emails.</p>
 
 <style type="text/css" media="screen">
-  #editor { 
+  #editor {
     height: 50vh;
+    font-size: 16px;
+    font-family: 'Roboto Mono', monospace;
+  }
+  
+  .ace_gutter {
+    display: none;
   }
 </style>
 
@@ -14,8 +22,8 @@
   NoticeLink = "/privacy"
   NoticeTitle = "Privacy Policy Update"
   NoticeColour = "alert-green"
-}</div>
-  
+</div>
+
 <script src="/ace-builds/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
   var editor = ace.edit("editor");

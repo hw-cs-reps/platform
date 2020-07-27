@@ -1,8 +1,6 @@
 package routes
 
 import (
-	"fmt"
-
 	"github.com/hw-cs-reps/platform/config"
 
 	"github.com/go-macaron/session"
@@ -40,7 +38,8 @@ func PrivacyHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 // ConfigHandler gets courses page
 func ConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
-		ctx.Redirect(fmt.Sprintf("/", ctx.ParamsInt64("id")))
+		ctx.Redirect("/")
+		return
 	}
 	ctx.Data["Title"] = "Configuration"
 	ctx.HTML(200, "config")
