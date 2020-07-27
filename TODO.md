@@ -4,8 +4,7 @@ This is a vertical kanban.
 
 
 ## Backlogs
-- Add category to ticket
-- Sort by category
+
 - Ticket redirect when ticket doesn't exist
 
 ## In Progress
@@ -13,6 +12,7 @@ This is a vertical kanban.
 - WhatsApp bot (low priority)
 - Make styling better?
 - Allow editing config from web
+- Sort by category (fix vulnerability in inserting own category) (fix general being lowercase)
 
 ## Done
 
