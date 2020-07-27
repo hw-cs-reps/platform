@@ -32,11 +32,6 @@ html {
   width: 12px;
 }
 
-/* Track */
-/* ::-webkit-scrollbar-track {
-  background: none;
-} */
-
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.25);
@@ -55,7 +50,6 @@ html {
 body {
   font-family: "Roboto", "Segoe UI", sans-serif;
   font-size: 1.2em;
-  margin: 0;
   background-color: var(--main-bg);
   color: var(--main-text);
 }
@@ -380,10 +374,6 @@ label {
   color: var(--dim-text);
 }
 
-.green {
-  background-color: ;
-}
-
 /* Responsive Layout */
 .col-1 {
   width: 8.33%;
@@ -477,6 +467,12 @@ label {
   .gridFullWidth {
     grid-template-columns: 1fr;
   }
+
+  ::-webkit-scrollbar {
+    /* display: none; */
+    position: relative;
+  }
+
 }
 
 @media only screen and (max-width: 400px) {
@@ -528,6 +524,23 @@ label {
 
   .alert {
     color: #efefef;
+  }
+
+  .alert-green {
+    background-color: #228B22;
+    color: #fff;
+  }
+  
+  .alert-grey {
+    background-color: var(--info-bg);
+  }
+  
+  .alert-yellow {
+    background-color: var(--warning-bg);
+  }
+  
+  .alert-red {
+    background-color: var(--danger-bg);
   }
 
   .meta {

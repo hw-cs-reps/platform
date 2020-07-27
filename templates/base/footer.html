@@ -5,12 +5,11 @@
 <div class="footer">
   {{if not .LoggedIn}}
   <span><a href="/login">Login</a></span>
-  {{end}}
   &middot;
-  {{if .LoggedIn}}<p>You are logged in as {{.User.Name}}. <a
-   href="/logout">Logout?</a></p>{{end}}
+  {{end}}
+  {{if .LoggedIn}}<p>You are logged in as {{.User.Name}}. <a href="/logout">Logout?</a></p>{{end}}
   <span><a href="/privacy">Privacy</a></span>
-	<p>This website is unaffiliated with Heriot-Watt University.</p>
+  <p>This website is unaffiliated with Heriot-Watt University.</p>
 </div>
 </div>
 </body>
