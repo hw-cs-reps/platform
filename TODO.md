@@ -5,6 +5,7 @@ This is a vertical kanban.
 
 ## Backlogs
 
+- Allow editing config from web
 
 ## In Progress
 

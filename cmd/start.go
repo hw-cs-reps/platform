@@ -108,6 +108,13 @@ func start(clx *cli.Context) (err error) {
 	m.Get("/lecturers", routes.LecturerHandler)
 	m.Get("/privacy", routes.PrivacyHandler)
 
+	m.Get("/login", routes.LoginHandler)
+	m.Post("/login", csrf.Validate, routes.PostLoginHandler)
+	m.Get("/verify", routes.VerifyHandler)
+	m.Post("/verify", csrf.Validate, routes.PostVerifyHandler)
+	m.Get("/logout", routes.LogoutHandler)
+	m.Post("/cancel", routes.CancelHandler)
+
 	log.Printf("Starting web server on port %s\n", config.Config.SitePort)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", config.Config.SitePort), m))
 	return nil

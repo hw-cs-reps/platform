@@ -3,7 +3,6 @@ package routes
 import (
 	"github.com/go-macaron/session"
 	"github.com/hw-cs-reps/platform/config"
-	"github.com/hw-cs-reps/platform/models"
 	"github.com/hw-cs-reps/platform/namegen"
 
 	"time"
@@ -30,14 +29,11 @@ func ContextInit() macaron.Handler {
 		}
 		if sess.Get("auth") == LoggedIn {
 			ctx.Data["LoggedIn"] = 1
-			ctx.Data["Username"] = sess.Get("user")
-			if user, err := models.GetUser(sess.Get("user").(string)); err == nil {
-				ctx.Data["User"] = user
-			} else {
-				// Let's log out the user
-				ctx.Data["LoggedIn"] = 0
-				sess.Set("auth", LoggedOut)
-				f.Warning("You have been logged out.")
+			ctx.Data["IsAdmin"] = sess.Get("isadmin")
+			for _, c := range config.Config.InstanceConfig.ClassReps {
+				if c.Email == sess.Get("user") {
+					ctx.Data["User"] = c
+				}
 			}
 		}
 		ctx.Data["UniEmailDomain"] = config.Config.UniEmailDomain

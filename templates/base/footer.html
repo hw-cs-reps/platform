@@ -3,7 +3,9 @@
 <br>
 <br>
 <div class="footer">
-	<a href="/privacy">Privacy</a>
+  {{if .LoggedIn}}<p>You are logged in as {{.User.Name}}. <a
+   href="/logout">Logout?</a></p>{{end}}
+  <p><a href="/privacy">Privacy</a></p>
 	<p>This website is unaffiliated with Heriot-Watt University.</p>
 </div>
 </div>

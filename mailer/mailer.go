@@ -41,3 +41,11 @@ func Email(to []string, title string, message string) (err error) {
 
 	return err
 }
+
+func EmailCode(to string, code string) error {
+	message := "Hello!\nYour login code is " + code + "\n\n" +
+		"Ignore this message if you have not requested a login.\n\n\n" +
+		"- " + config.Config.SiteName + "\nThis message is sent from an unmonitored inbox."
+
+	return Email([]string{to}, config.Config.SiteName+" login code", message)
+}

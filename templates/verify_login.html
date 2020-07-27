@@ -1,23 +1,21 @@
 {{template "base/head" .}}
-<div class="content">
-	{{template "partials/flash" .}}
-	<h2>Verification</h2>
-	<p>You will now receive an email at {{.email}} with a code.</p>
-	<form method="post">
-		<div class="col-5">
-			<div class="form-group">
-				<label for="code">Code:</label>
-				<input type="text" id="code" name="code" required="1" autofocus="1">
-			</div>
-			<input type="hidden" name="_csrf" value="{{.csrf_token}}">
-			<button type="submit" class="btn">Continue →</button>
-		</div>
-	</form>
-	<form method="post" action="/cancel">
-		<input type="hidden" name="_csrf" value="{{.csrf_token}}">
-		<p><small>Wrong email or didn't receive the message? <button type="submit"
-		class="btn">Go back</button></small></p>
-	</form>
-</div>
+{{template "partials/flash" .}}
+<h2>Verification</h2>
+<p>You will now receive an email at {{.email}} with a code.</p>
+<form method="post">
+  <div class="col-5">
+    <div class="form-group">
+      <label for="code">Code:</label>
+      <input type="text" id="code" name="code" required="1" autofocus="1">
+    </div>
+    <input type="hidden" name="_csrf" value="{{.csrf_token}}">
+    <button type="submit" class="btn">Continue →</button>
+  </div>
+</form>
+<form method="post" action="/cancel">
+  <input type="hidden" name="_csrf" value="{{.csrf_token}}">
+  <p><small>Wrong email or didn't receive the message? <button type="submit"
+  class="btn">Go back</button></small></p>
+</form>
 {{template "base/footer" .}}
 
