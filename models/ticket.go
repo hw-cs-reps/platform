@@ -21,6 +21,12 @@ func AddTicket(t *Ticket) (err error) {
 	return err
 }
 
+// UpdateTicket updates a comment in the database.
+func UpdateTicket(t *Ticket) (err error) {
+	_, err = engine.ID(t.TicketID).Update(t)
+	return
+}
+
 // LoadTicket loads the comments of the ticket into a non-mapped field.
 func (t *Ticket) LoadComments() (err error) {
 	return engine.Where("ticket_id = ?", t.TicketID).Find(&t.Comments)

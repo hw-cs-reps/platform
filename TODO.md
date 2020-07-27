@@ -5,14 +5,14 @@ This is a vertical kanban.
 
 ## Backlogs
 
-- Allow editing config from web
-- Allow reps to edit/delete tickets
-- Allow reps to delete comments
+- Split routes into separate files
 
 ## In Progress
 
 - WhatsApp bot (low priority)
 - Make styling better?
+- Allow editing config from web
+- Allow reps to delete comments
 
 ## Done
 
@@ -26,3 +26,4 @@ This is a vertical kanban.
 	- Added privacy policy
 - Login for class reps
 - Upvote button on ticket
+- Allow reps to edit/delete tickets

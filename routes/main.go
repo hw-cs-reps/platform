@@ -391,15 +391,55 @@ func UpvoteTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Fl
 	ctx.Redirect("/tickets/" + strconv.Itoa(ctx.ParamsInt("id")))
 }
 
-// TicketEditHandler response for adding posting new ticket.
-func TicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	ctx.HTML(200, "new-ticket")
-}
-
 // PostTicketEditHandler response for adding posting new ticket.
-func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
+		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
+	}
+	if ctx.Query("title") == "" || ctx.Query("title") == "" {
+		ctx.Data["IsTickets"] = 1
+		ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
+		if err != nil {
+			log.Println(err)
+			ctx.Redirect("/tickets")
+			return
+		}
+		ctx.Data["csrf_token"] = x.GetToken()
+		ctx.Data["Ticket"] = ticket
+		ctx.Data["ptitle"] = ticket.Title
+		ctx.Data["ptext"] = ticket.Description
+		ctx.Data["edit"] = 1
+
+		ctx.HTML(200, "new-ticket")
+		return
+	}
+	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
+	if err != nil {
+		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
+		return
+	}
+
+	title := ctx.QueryTrim("title")
+	text := ctx.QueryTrim("text")
+
+	err = models.UpdateTicket(&models.Ticket{
+		TicketID:    ticket.TicketID,
+		Title:       title,
+		Description: text,
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
 }
 
 // PostTicketDeleteHandler response for deleting a ticket.
 func PostTicketDeleteHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
+		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
+	}
+	models.DelTicket(ctx.ParamsInt64("id"))
+	f.Success("Ticket deleted!")
+	ctx.Redirect("/tickets")
 }
