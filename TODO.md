@@ -12,7 +12,6 @@ This is a vertical kanban.
 - WhatsApp bot (low priority)
 - Make styling better?
 - Allow editing config from web
-- Allow reps to delete comments
 
 ## Done
 
@@ -27,3 +26,4 @@ This is a vertical kanban.
 - Login for class reps
 - Upvote button on ticket
 - Allow reps to edit/delete tickets
+- Allow reps to delete comments

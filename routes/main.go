@@ -50,7 +50,7 @@ func PostLoginHandler(ctx *macaron.Context, sess session.Store, f *session.Flash
 		return
 	}
 	for _, c := range config.Config.InstanceConfig.ClassReps {
-		if c.Email == ctx.Query("email")+config.Config.UniEmailDomain {
+		if c.Email == ctx.QueryTrim("email")+config.Config.UniEmailDomain {
 			// Generate code
 			code := fmt.Sprint(randIntRange(100000, 999999))
 			// Note: We assume email in config to be correct
@@ -174,16 +174,16 @@ func getClassRepsByCourseCode(code string) (recipients []*config.ClassRepresenta
 // PostComplaintsHandler response for the complaints page.
 func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["IsComplaints"] = 1
-	if ctx.Query("confirm") == "1" { // confirm sending
+	if ctx.QueryTrim("confirm") == "1" { // confirm sending
 		var sender string
-		if ctx.Query("email") == "" {
+		if ctx.QueryTrim("email") == "" {
 			sender = "anonymous"
 		} else {
-			sender = ctx.Query("email")
+			sender = ctx.QueryTrim("email")
 		}
 		// TODO send to respective class reps
 
-		crs := getClassRepsByCourseCode(ctx.Query("category"))
+		crs := getClassRepsByCourseCode(ctx.QueryTrim("category"))
 		var recipients []string
 		for _, c := range crs {
 			recipients = append(recipients, c.Email)
@@ -191,23 +191,23 @@ func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.
 
 		mailer.Email(recipients, "Complaint submission", `A complaint submission
 From: `+sender+`
-Category: `+ctx.Query("category")+`
-Subject: `+ctx.Query("subject")+`
+Category: `+ctx.QueryTrim("category")+`
+Subject: `+ctx.QueryTrim("subject")+`
 Message:
-`+ctx.Query("message"))
+`+ctx.QueryTrim("message"))
 
 		f.Success("Your complaint was sent!")
 		ctx.Redirect("/complaints")
 		return
 	}
 
-	ctx.Data["Category"] = ctx.Query("category")
-	ctx.Data["Subject"] = ctx.Query("subject")
-	ctx.Data["Message"] = ctx.Query("message")
-	ctx.Data["Email"] = ctx.Query("Email")
+	ctx.Data["Category"] = ctx.QueryTrim("category")
+	ctx.Data["Subject"] = ctx.QueryTrim("subject")
+	ctx.Data["Message"] = ctx.QueryTrim("message")
+	ctx.Data["Email"] = ctx.QueryTrim("Email")
 	ctx.Data["csrf_token"] = x.GetToken()
 
-	crs := getClassRepsByCourseCode(ctx.Query("category"))
+	crs := getClassRepsByCourseCode(ctx.QueryTrim("category"))
 
 	if len(crs) == 0 {
 		f.Error("Sorry, no class representatives are available for the selected course/category.")
@@ -312,7 +312,7 @@ func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.
 	comment := models.Comment{
 		TicketID: ticket.TicketID,
 		PosterID: sess.Get("id").(string),
-		Text:     ctx.Query("text"),
+		Text:     ctx.QueryTrim("text"),
 	}
 
 	err = models.AddComment(&comment)
@@ -332,8 +332,8 @@ func NewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash
 
 // PostNewTicketsHandler post response for posting new ticket.
 func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	title := ctx.Query("title")
-	text := ctx.Query("text")
+	title := ctx.QueryTrim("title")
+	text := ctx.QueryTrim("text")
 	voterHash := userHash(getIP(ctx), ctx.Req.Header.Get("User-Agent"))
 	ticket := models.Ticket{
 		Title:       title,
@@ -396,7 +396,7 @@ func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.
 	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
 		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
 	}
-	if ctx.Query("title") == "" || ctx.Query("title") == "" {
+	if ctx.QueryTrim("title") == "" || ctx.QueryTrim("title") == "" {
 		ctx.Data["IsTickets"] = 1
 		ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
 		if err != nil {
@@ -442,4 +442,14 @@ func PostTicketDeleteHandler(ctx *macaron.Context, sess session.Store, f *sessio
 	models.DelTicket(ctx.ParamsInt64("id"))
 	f.Success("Ticket deleted!")
 	ctx.Redirect("/tickets")
+}
+
+// PostCommentDeleteHandler response for deleting a ticket's comment.
+func PostCommentDeleteHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
+		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
+	}
+	models.DeleteComment(ctx.ParamsInt64("cid"))
+	f.Success("Comment deleted!")
+	ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
 }

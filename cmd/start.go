@@ -99,6 +99,7 @@ func start(clx *cli.Context) (err error) {
 			m.Post("/upvote", csrf.Validate, routes.UpvoteTicketHandler)
 			m.Post("/edit", csrf.Validate, routes.PostTicketEditHandler)
 			m.Post("/delete", csrf.Validate, routes.PostTicketDeleteHandler)
+			m.Post("/del/:cid", csrf.Validate, routes.PostCommentDeleteHandler)
 		})
 	})
 	m.Get("/complaints", routes.ComplaintsHandler)
