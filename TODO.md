@@ -12,9 +12,7 @@ This is a vertical kanban.
 ## In Progress
 
 - WhatsApp bot (low priority)
-- Login for class reps
 - Make styling better?
-- Upvote button on ticket
 
 ## Done
 
@@ -26,3 +24,5 @@ This is a vertical kanban.
 - Contact lecturers regarding offices and office hours
 - Possibly look at also having a GDPR notice
 	- Added privacy policy
+- Login for class reps
+- Upvote button on ticket
