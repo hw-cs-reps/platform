@@ -464,3 +464,12 @@ func PostCommentDeleteHandler(ctx *macaron.Context, sess session.Store, f *sessi
 	f.Success("Comment deleted!")
 	ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
 }
+
+// ConfigHandler gets courses page
+func ConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
+		ctx.Redirect(fmt.Sprintf("/", ctx.ParamsInt64("id")))
+	}
+	ctx.Data["Title"] = "Configuration"
+	ctx.HTML(200, "config")
+}
