@@ -5,7 +5,6 @@ This is a vertical kanban.
 
 ## Backlogs
 
-- Split routes into separate files
 
 ## In Progress
 
@@ -27,3 +26,4 @@ This is a vertical kanban.
 - Upvote button on ticket
 - Allow reps to edit/delete tickets
 - Allow reps to delete comments
+- Split routes into separate files

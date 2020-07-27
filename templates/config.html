@@ -2,5 +2,25 @@
 {{template "partials/flash" .}}
 <h1>Configuration</h1>
 
+<style type="text/css" media="screen">
+  #editor { 
+    height: 50vh;
+  }
+</style>
+
+<div id="editor">[InstanceConfig]
+  ShowNotice = true
+  NoticeText = "The privacy policy has been updated. Please consider re-reading it for your peace of mind."
+  NoticeLink = "/privacy"
+  NoticeTitle = "Privacy Policy Update"
+  NoticeColour = "alert-green"
+}</div>
+  
+<script src="/ace-builds/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/monokai");
+  editor.session.setMode("ace/mode/toml");
+</script>
 
 {{template "base/footer" .}}

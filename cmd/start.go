@@ -114,6 +114,7 @@ func start(clx *cli.Context) (err error) {
 	m.Post("/verify", csrf.Validate, routes.PostVerifyHandler)
 	m.Get("/logout", routes.LogoutHandler)
 	m.Post("/cancel", routes.CancelHandler)
+	m.Get("/config", routes.ConfigHandler)
 
 	log.Printf("Starting web server on port %s\n", config.Config.SitePort)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", config.Config.SitePort), m))
