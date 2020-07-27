@@ -24,7 +24,7 @@
 		<div class="nav">
 			<div class="nav-left">
 				<a href="/" class="nav-title">
-					<span class="nav-extra {{if .IsHome}}active{{end}}">{{.SiteTitle}}</span></a>
+					<span class="nav-extra {{if .IsHome}}active{{end}}">{{.SiteTitle}}{{if .DevMode}} [DEV]{{end}}</span></a>
 				<a class="{{if .IsTickets}}active{{end}}" href="/tickets">Tickets</a>
 				<a class="{{if .IsComplaints}}active{{end}}" href="/complaints">Complaints</a>
 			</div>
