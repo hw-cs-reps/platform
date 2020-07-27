@@ -1,6 +1,6 @@
 {{template "base/head" .}}
 {{template "partials/flash" .}}
-<h2>Verification</h2>
+<h1>Verification</h1>
 <p>You will now receive an email at {{.email}} with a code.</p>
 <form method="post">
   <div class="col-5">
@@ -9,7 +9,7 @@
       <input type="text" id="code" name="code" required="1" autofocus="1">
     </div>
     <input type="hidden" name="_csrf" value="{{.csrf_token}}">
-    <button type="submit" class="btn">Continue →</button>
+    <button type="submit" class="btn">Continue</button>
   </div>
 </form>
 <form method="post" action="/cancel">

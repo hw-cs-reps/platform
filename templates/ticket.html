@@ -1,6 +1,6 @@
 {{template "base/head" .}}
 {{template "partials/flash" .}}
-<h1 class="noTopMargin">{{.Ticket.Title}}</h1>
+<h1>{{.Ticket.Title}}</h1>
 <p>{{if and (not .Ticket.IsResolved) (not .Upvoted)}}
 <form method="post" action="/tickets/{{.Ticket.TicketID}}/upvote"
     class="lineform">
