@@ -532,20 +532,17 @@ label {
   }
 
   .alert-green {
-    background-color: #228B22;
+    background-color: #228B22 !important;
     color: #fff;
   }
   
-  .alert-grey {
-    background-color: var(--info-bg);
-  }
-  
   .alert-yellow {
-    background-color: var(--warning-bg);
+    background-color: var(--warning-bg) !important;
+    color: #000;
   }
   
   .alert-red {
-    background-color: var(--danger-bg);
+    background-color: var(--danger-bg) !important;
   }
 
   .meta {
