@@ -68,7 +68,7 @@ func PostLoginHandler(ctx *macaron.Context, sess session.Store, f *session.Flash
 		}
 	}
 
-	f.Error("You are not registered.")
+	f.Error("This is for class representatives only")
 	ctx.Redirect("/login")
 }
 
