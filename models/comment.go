@@ -42,7 +42,7 @@ func GetComment(id string) (*Comment, error) {
 }
 
 // DeleteComment deletes a comment from the database.
-func DeleteComment(id string) (err error) {
+func DeleteComment(id int64) (err error) {
 	_, err = engine.ID(id).Delete(&Comment{})
 	return
 }

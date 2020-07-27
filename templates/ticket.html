@@ -41,10 +41,13 @@
 	<div class="comments col-7">
 		{{range .Ticket.Comments}}
 		<div class="comment">
-			<p id="c-{{.CommentID}}" class="commentInfo">
+			<span id="c-{{.CommentID}}" class="commentInfo">
 				{{.PosterID}} &middot; {{CalcDurationShort .CreatedUnix}} ago
-				{{if $.IsAdmin }}<a href="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}">[delete]</a>{{end}}
-			</p>
+        {{if $.IsAdmin }}<form method="post" action="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}" class="lineform">
+		<input type="hidden" name="_csrf" value="{{$.csrf_token}}">
+		<button type="submit" class="btn upvote">Delete</button>
+	</form>{{end}}
+			</span>
 			<p class="commentText">{{.Text}}</p>
 		</div>
 		{{end}}
