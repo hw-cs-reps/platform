@@ -1,29 +1,43 @@
 {{template "base/head" .}}
 <h1 class="noTopMargin">Privacy Policy</h1>
 
-<h2>Information We Collect</h2>
-<p>To facilitate the ability of users to vote, we create a unique 'voter ID'
-  which is generated using the following information:
+<p>To facilitate the ability of users to vote, we create a unique 'voter ID',
+which is generated using the following information:</p>
 <ul>
   <li>IP address</li>
   <li>User-agent header</li>
   <li>Random number generated at that instance <a href="https://en.wikipedia.org/wiki/Pepper_(cryptography)"
-      target="_blank">(pepper)</a>.</li>
+      target="_blank">(pepper)</a></li>
 </ul>
 
-An irreversable <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function"
+<p>An irreversable <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function"
   target="_blank">cryptographic hash</a> is created using this information in
-order to roughly identify a user, mitigating potential abuses of the anonymity
-granted through the service. This hash is not linked with your session.</p>
+order to roughly identify a user, allowing us to track of upvotes without
+de-anonymising users. This hash is not linked with your session.</p>
 
 <p>On the <a href="/complaints">complaints page</a>, users may leave an email
 address if further correspondence is required. Complaints could not be linked
 with the session, or any post under the ticketing system.</p>
 
+<p>We log some information from your browser as you use our services, this is
+to identify and mitigate potential abuse. Information</p>
+
+<p>We do log requests as you browse the services and store it for 30 days:</p>
+
+<ul>
+  <li>Your IP address</li>
+  <li>What was requested</li>
+  <li>Was the request a success</li>
+</ul>
+
+<p>The purpose of this data collection is to help us identify any potential
+abuse.</p>
+
 <h2>Cookies</h2>
 <p>Session cookies ("hithereimacookie") are used to generate a temporary
 username, allowing a user to comment anonymously and create discussions. These
-sessions are set to expire in one month.</p>
+sessions are set to expire in one month. This session is not linked with the
+voter ID.</p>
 
 <p>Examples of data stored on a session:</p>
 
@@ -45,7 +59,7 @@ parties.</p>
 <p>We, the current class representatives, reserve the right to make any changes to this privacy policy. Notice will be
   given as an alert on the <a href="/">homepage</a>.</p>
 <br>
-<p><i>Updated: 25/07/20</i></p>
+<p><i>Updated: 27/07/20</i></p>
 
 
 {{template "base/footer" .}}
