@@ -6,6 +6,8 @@ This is a vertical kanban.
 ## Backlogs
 
 - Allow editing config from web
+- Allow reps to edit/delete tickets
+- Allow reps to delete comments
 
 ## In Progress
 

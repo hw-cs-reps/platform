@@ -1,18 +1,27 @@
 {{template "base/head" .}}
 {{template "partials/flash" .}}
 <h1 class="noTopMargin">{{.Ticket.Title}}</h1>
-{{if and (not .Ticket.IsResolved) (not .Upvoted)}}
-<form method="post" action="/tickets/{{.Ticket.TicketID}}/upvote">
+<p>{{if and (not .Ticket.IsResolved) (not .Upvoted)}}
+<form method="post" action="/tickets/{{.Ticket.TicketID}}/upvote"
+    class="lineform">
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
 	<button type="submit" class="btn upvote">▲ {{Len .Ticket.Voters}} Upvotes</button>
 	&middot;
 	<span class="upvoteInfo">{{CalcDurationShort .Ticket.CreatedUnix}} ago</span>
-
-	{{if .IsAdmin}}<a href="/tickets/{{.Ticket.TicketID}}/edit">[edit]</a>
-	<a href="/tickets/{{.Ticket.TicketID}}/del">[delete]</a>{{end}}</p>
 </form>
 {{else if .Upvoted}}<p class="badge alert-green upvoted">{{Len .Ticket.Voters}} Upvotes</p><span class="upvoteInfo">
-	&middot; {{CalcDurationShort .Ticket.CreatedUnix}} ago</span>{{end}}
+	&middot; {{CalcDurationShort .Ticket.CreatedUnix}} ago{{end}}
+{{if .IsAdmin}}
+<form method="post" action="/tickets/{{.Ticket.TicketID}}/edit" class="lineform">
+  <input type="hidden" name="_csrf" value="{{.csrf_token}}">
+  <button type="submit" class="btn upvote">edit</button>
+</form>
+<form method="post" action="/tickets/{{.Ticket.TicketID}}/delete" class="lineform">
+  <input type="hidden" name="_csrf" value="{{.csrf_token}}">
+  <button type="submit" class="btn upvote">delete</button>
+</form>{{end}}
+
+</p>
 
 <div class="post">{{.FormattedPost}}</div>
 
