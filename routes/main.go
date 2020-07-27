@@ -228,6 +228,10 @@ Message:
 func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	tickets := models.GetTickets()
 	sort.Sort(models.HotTickets(tickets))
+	for i := range tickets {
+		tickets[i].LoadComments()
+		tickets[i].CommentsCount = len(tickets[i].Comments)
+	}
 	ctx.Data["Tickets"] = tickets
 	ctx.Data["IsTickets"] = 1
 	ctx.Data["Title"] = "Tickets"
