@@ -45,7 +45,7 @@
 				{{.PosterID}} &middot; {{CalcDurationShort .CreatedUnix}} ago
         {{if $.IsAdmin }}<form method="post" action="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}" class="lineform">
 		<input type="hidden" name="_csrf" value="{{$.csrf_token}}">
-		<button type="submit" class="btn upvote">Delete</button>
+		<button type="submit" class="btn upvote commentBtn">Delete</button>
 	</form>{{end}}
 			</span>
 			<p class="commentText">{{.Text}}</p>

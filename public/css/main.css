@@ -375,6 +375,10 @@ label {
   color: var(--dim-text);
 }
 
+.commentBtn {
+  margin: 0;
+}
+
 /* Responsive Layout */
 .col-1 {
   width: 8.33%;
