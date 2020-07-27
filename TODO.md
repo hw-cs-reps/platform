@@ -4,7 +4,9 @@ This is a vertical kanban.
 
 
 ## Backlogs
-
+- Add category to ticket
+- Sort by category
+- Ticket redirect when ticket doesn't exist
 
 ## In Progress
 
