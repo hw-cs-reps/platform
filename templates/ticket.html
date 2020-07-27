@@ -9,47 +9,45 @@
 	<span class="upvoteInfo">{{CalcDurationShort .Ticket.CreatedUnix}} ago</span>
 </form>
 {{else if .Upvoted}}<p class="badge alert-green upvoted">{{Len .Ticket.Voters}} Upvotes</p><span class="upvoteInfo">
-	&middot; {{CalcDurationShort .Ticket.CreatedUnix}} ago </span>{{end}}
-	{{if .IsAdmin}}
-	<form method="post" action="/tickets/{{.Ticket.TicketID}}/edit" class="lineform">
-		<input type="hidden" name="_csrf" value="{{.csrf_token}}">
-		<button type="submit" class="btn upvote">Edit</button>
-	</form>
-	<form method="post" action="/tickets/{{.Ticket.TicketID}}/delete" class="lineform">
-		<input type="hidden" name="_csrf" value="{{.csrf_token}}">
-		<button type="submit" class="btn upvote">Delete</button>
-	</form>{{end}}
+	&middot; {{.Ticket.Category}} &middot; {{CalcDurationShort .Ticket.CreatedUnix}} ago </span>{{end}}
+{{if .IsAdmin}}
+<form method="post" action="/tickets/{{.Ticket.TicketID}}/edit" class="lineform">
+	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
+	<button type="submit" class="btn upvote">Edit</button>
+</form>
+<form method="post" action="/tickets/{{.Ticket.TicketID}}/delete" class="lineform">
+	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
+	<button type="submit" class="btn upvote">Delete</button>
+</form>{{end}}
+</p>
 
-	</p>
+<div class="post col-7">{{.FormattedPost}}</div>
 
-	<div class="post col-7">{{.FormattedPost}}</div>
-
-	<h3>Comments</h3>
-	{{if not .Resolved}}<form method="post">
-		<div class="col-7">
-			<div class="form-group">
-				<textarea class="form-item" name="text" cols="40" rows="4" required="1"
-					placeholder="Plain text only"></textarea>
-			</div>
-			<input type="hidden" name="_csrf" value="{{.csrf_token}}">
-			<button type="submit" class="btn">Comment</button>
+<h3>Comments</h3>
+{{if not .Resolved}}<form method="post">
+	<div class="col-7">
+		<div class="form-group">
+			<textarea class="form-item" name="text" cols="40" rows="4" required="1" placeholder="Plain text only"></textarea>
 		</div>
-	</form>
-	<br>
-	{{end}}
-
-	<div class="comments col-7">
-		{{range .Ticket.Comments}}
-		<div class="comment">
-			<span id="c-{{.CommentID}}" class="commentInfo">
-				{{.PosterID}} &middot; {{CalcDurationShort .CreatedUnix}} ago
-        {{if $.IsAdmin }}<form method="post" action="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}" class="lineform">
-		<input type="hidden" name="_csrf" value="{{$.csrf_token}}">
-		<button type="submit" class="btn upvote commentBtn">Delete</button>
-	</form>{{end}}
-			</span>
-			<p class="commentText">{{.Text}}</p>
-		</div>
-		{{end}}
+		<input type="hidden" name="_csrf" value="{{.csrf_token}}">
+		<button type="submit" class="btn">Comment</button>
 	</div>
-	{{template "base/footer" .}}
+</form>
+<br>
+{{end}}
+
+<div class="comments col-7">
+	{{range .Ticket.Comments}}
+	<div class="comment">
+		<span id="c-{{.CommentID}}" class="commentInfo">
+			{{.PosterID}} &middot; {{CalcDurationShort .CreatedUnix}} ago
+			{{if $.IsAdmin }}<form method="post" action="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}" class="lineform">
+				<input type="hidden" name="_csrf" value="{{$.csrf_token}}">
+				<button type="submit" class="btn upvote commentBtn">Delete</button>
+			</form>{{end}}
+		</span>
+		<p class="commentText">{{.Text}}</p>
+	</div>
+	{{end}}
+</div>
+{{template "base/footer" .}}

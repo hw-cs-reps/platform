@@ -1,9 +1,25 @@
 {{template "base/head" .}}
 {{template "partials/flash" .}}
-<h1>Tickets</h1>
+<h1>{{if not .Category}}Tickets{{else}}Tickets - {{.Category}}{{end}}</h1>
 <a href="/tickets/new" class="btn">New Ticket</a>
+<form method="post">
+	<div class="form-group">
+		<label for="category">
+			<h3 class="noBottomMargin">Filter Tickets</h3>
+		</label>
+		<select class="form-item col-6" name="category" id="category" onchange="this.form.submit()">
+			<option value="" selected disabled hidden>{{.Category}}</option>
+			<option value="general">General</option>
+			{{range .Courses}}
+			<option value="{{.Code}}">{{.Name}} ({{.Code}})</option>
+			{{end}}
+		</select>
+		<!-- <noscript> -->
+			<button type="submit" class="btn">Sort</button>
+		<!-- </noscript> -->
+	</div>
+</form>
 {{range .Tickets}}
-
 <a class="card" href="/tickets/{{.TicketID}}">
 	<div class="entry">{{.Title}}
 		<div class="meta">

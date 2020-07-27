@@ -91,6 +91,9 @@ func start(clx *cli.Context) (err error) {
 	m.Get("/", routes.HomepageHandler)
 	m.Group("/tickets", func() {
 		m.Get("", routes.TicketsHandler)
+		m.Get("/cat/:category", routes.TicketsHandler)
+		m.Post("", routes.PostTicketSortHandler)
+		m.Post("/cat/:category", routes.PostTicketSortHandler)
 		m.Get("/new", routes.NewTicketHandler)
 		m.Post("/new", csrf.Validate, routes.PostNewTicketHandler)
 		m.Group("/:id", func() {

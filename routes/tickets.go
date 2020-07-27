@@ -23,7 +23,15 @@ import (
 
 // TicketsHandler response for the tickets listing page.
 func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	tickets := models.GetTickets()
+
+	var tickets []models.Ticket
+
+	if ctx.Params("category") != "" {
+		tickets = models.GetCategory(ctx.Params("category"))
+	} else {
+		tickets = models.GetTickets()
+	}
+
 	sort.Sort(models.HotTickets(tickets))
 	for i := range tickets {
 		tickets[i].LoadComments()
@@ -32,6 +40,8 @@ func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 	ctx.Data["Tickets"] = tickets
 	ctx.Data["IsTickets"] = 1
 	ctx.Data["Title"] = "Tickets"
+	ctx.Data["Category"] = ctx.Params("category")
+	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
 	ctx.HTML(200, "tickets")
 }
 
@@ -55,15 +65,17 @@ func markdownToHTML(s string) string {
 	return string(bluemonday.UGCPolicy().SanitizeBytes(buf.Bytes()))
 }
 
-// TicketPageHandler response for the a specific ticket..
+// TicketPageHandler response for the a specific ticket.
 func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["IsTickets"] = 1
+	ctx.Data["Title"] = "Ticket"
 	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
 	if err != nil {
 		log.Println(err)
 		ctx.Redirect("/tickets")
 		return
 	}
+
 	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.Data["FormattedPost"] = template.HTML(markdownToHTML(ticket.Description))
 	ticket.LoadComments()
@@ -100,22 +112,30 @@ func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.
 	ctx.Redirect("/tickets/" + ctx.Params("id"))
 }
 
-// NewTicketsHandler response for posting new ticket.
+// PostTicketSortHandler handles redirecting to a page of filtered tickets by category
+func PostTicketSortHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ctx.Redirect("/tickets/cat/" + ctx.Query("category"))
+}
+
+// NewTicketHandler response for posting new ticket.
 func NewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["IsTickets"] = 1
 	ctx.Data["csrf_token"] = x.GetToken()
+	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
 	ctx.HTML(200, "new-ticket")
 }
 
-// PostNewTicketsHandler post response for posting new ticket.
+// PostNewTicketHandler post response for posting new ticket.
 func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	title := ctx.QueryTrim("title")
 	text := ctx.QueryTrim("text")
+	category := ctx.QueryTrim("category")
 	voterHash := userHash(getIP(ctx), ctx.Req.Header.Get("User-Agent"))
 	ticket := models.Ticket{
 		Title:       title,
 		Description: text,
 		Voters:      []string{voterHash},
+		Category:    category,
 	}
 	err := models.AddTicket(&ticket)
 	if err != nil {

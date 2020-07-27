@@ -9,6 +9,17 @@
 				autofocus="1"{{if .ptitle}} value="{{.ptitle}}"{{end}} />
 			</div>
 			<div class="form-group">
+				<label for="category">
+					<h3 class="noBottomMargin">Category</h3>
+				</label>
+				<select class="form-item" name="category" id="category">
+					<option value="general">General</option>
+					{{range .Courses}}
+					<option value="{{.Code}}">{{.Name}} ({{.Code}})</option>
+					{{end}}
+				</select>
+			</div>
+			<div class="form-group">
 				<label for="text"><h3>Body</h3></label>
 				<textarea class="form-item" id="text" name="text" cols="70" rows="20" required="1" placeholder="Markdown and HTML are supported">{{if .ptext}}{{.ptext}}{{end}}</textarea> 
 			</div>

@@ -4,7 +4,7 @@ package models
 type Ticket struct {
 	TicketID      int64  `xorm:"pk autoincr"`
 	Title         string `xorm:"text"`
-	Tags          string `xorm:"text"`
+	Category      string `xorm:"text"`
 	CreatedUnix   int64  `xorm:"created"`
 	UpdatedUnix   int64  `xorm:"updated"`
 	Description   string `xorm:"text"`
@@ -27,7 +27,7 @@ func UpdateTicket(t *Ticket) (err error) {
 	return
 }
 
-// LoadTicket loads the comments of the ticket into a non-mapped field.
+// LoadComments loads the comments of the ticket into a non-mapped field.
 func (t *Ticket) LoadComments() (err error) {
 	return engine.Where("ticket_id = ?", t.TicketID).Find(&t.Comments)
 }
@@ -49,6 +49,12 @@ func GetTicket(id int64) (*Ticket, error) {
 func GetTickets() (tickets []Ticket) {
 	engine.Find(&tickets)
 	return tickets
+}
+
+// GetCategory creates a new array of type Ticket and populates it with tickets of a certain category
+func GetCategory(category string) (tickets []Ticket) {
+	engine.Where("category = ?", category).Find(&tickets)
+	return
 }
 
 // DelTicket deletes a ticket based on the TicketID
