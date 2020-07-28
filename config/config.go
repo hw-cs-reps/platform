@@ -1,4 +1,3 @@
-
 package config
 
 import (
@@ -175,5 +174,3 @@ func LoadConfig() {
 		}
 	}
 }
-
-
