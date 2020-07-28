@@ -43,7 +43,7 @@ func (waHandler *waHandler) HandleTextMessage(message whatsapp.TextMessage) {
 			Info: whatsapp.MessageInfo{
 				RemoteJid: message.Info.RemoteJid,
 			},
-			Text:        "Message sent by Akilan Selvacoumar",
+			Text:        "TODO send professor info",
 		}
 
 	    msgId, err := waHandler.c.Send(msg)
@@ -60,7 +60,7 @@ func (waHandler *waHandler) HandleTextMessage(message whatsapp.TextMessage) {
 			Info: whatsapp.MessageInfo{
 				RemoteJid: message.Info.RemoteJid,
 			},
-			Text:        "Message sent by Akilan Selvacoumar",
+			Text:        "TODO send class rep info",
 		}
 
 	    msgId, err := waHandler.c.Send(msg)
