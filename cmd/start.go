@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	bot "github.com/hw-cs-reps/platform/bot"
 
 	"github.com/go-macaron/cache"
 	"github.com/go-macaron/captcha"
@@ -36,6 +37,8 @@ func start(clx *cli.Context) (err error) {
 	config.LoadConfig()
 	engine := models.SetupEngine()
 	defer engine.Close()
+
+	go bot.Bot()
 
 	// Run macaron
 	m := macaron.Classic()
