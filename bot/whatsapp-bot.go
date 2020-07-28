@@ -55,7 +55,6 @@ func (waHandler *waHandler) HandleTextMessage(message whatsapp.TextMessage) {
 			Info: whatsapp.MessageInfo{
 				RemoteJid: message.Info.RemoteJid,
 			},
-
 			Text:        output,
 		}
 
