@@ -7,6 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+	config "github.com/hw-cs-reps/platform/config"
 
 	qrcodeTerminal "github.com/Baozisoftware/qrcode-terminal-go"
 	"github.com/Rhymen/go-whatsapp"
@@ -39,11 +40,22 @@ func (waHandler *waHandler) HandleTextMessage(message whatsapp.TextMessage) {
 	fmt.Printf("%v %v %v %v\n\t%v\n", message.Info.Timestamp, message.Info.Id, message.Info.RemoteJid, message.ContextInfo.QuotedMessageID, message.Text)
 
 	if message.Text == "professor info"{
+
+		professor_arr := config.Config.InstanceConfig.Lecturers
+
+		var output string
+
+		for _, prof := range professor_arr {
+			output = output + fmt.Sprintf("*%s*\n%s\nOffice: %s\nTime: %s\n\n", prof.Name , prof.Email , prof.Office , prof.Time)
+		}
+
+		output = output + "\nRead more: https://testing.myhwu.com/lecturers"
+
 		msg := whatsapp.TextMessage{
 			Info: whatsapp.MessageInfo{
 				RemoteJid: message.Info.RemoteJid,
 			},
-			Text:        "TODO send professor info",
+			Text:        output,
 		}
 
 	    msgId, err := waHandler.c.Send(msg)
@@ -54,13 +66,25 @@ func (waHandler *waHandler) HandleTextMessage(message whatsapp.TextMessage) {
 		  fmt.Println("Message Sent -> ID : " + msgId)
 	    }
 	}
-
+	
+	// Class rep info 
 	if message.Text == "classrep info"{
+
+		classrep_arr := config.Config.InstanceConfig.ClassReps
+
+		var output string
+
+		for _, rep := range classrep_arr {
+			output = output + fmt.Sprintf("*%s*\n%s\nCourse: %s\nDegreecode: %s\n\n", rep.Name , rep.Email , rep.Course , rep.DegreeCode)
+		}
+
+		output = output + "\nRead more: https://testing.myhwu.com/classreps"
+
 		msg := whatsapp.TextMessage{
 			Info: whatsapp.MessageInfo{
 				RemoteJid: message.Info.RemoteJid,
 			},
-			Text:        "TODO send class rep info",
+			Text:  output,
 		}
 
 	    msgId, err := waHandler.c.Send(msg)
