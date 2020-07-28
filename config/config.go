@@ -45,14 +45,9 @@ type InstanceSettings struct {
 	NoticeColour string
 	Links        []ExternalResource
 	ClassReps    []ClassRepresentative
-	Courses      []Course
-	Lecturers    []Lecturer
-}
-
-// ExternalResource holds the information to a hyperlink
-type ExternalResource struct {
-	Name, Link string
-}
+	// Configuration represents the configuration file format.
+	type Configuration struct {
+		SiteName        string                // SiteName is the name of 
 
 // ClassRepresentative holds the details of a class representative
 type ClassRepresentative struct {
@@ -68,9 +63,10 @@ type Lecturer struct {
 	Name, Email, Office, Time, Updated string
 }
 
-// DBType represents the type of the database driver which will be used.
-type DBType int
-
+// DBType represents the type of the database driver which will be us
+// Configuration represents the configuration file format.
+type Configuration struct {
+	SiteName        string                // SiteName is the name of 
 const (
 	// MySQL indicates to use the MySQL database driver.
 	MySQL = iota

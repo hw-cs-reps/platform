@@ -18,7 +18,7 @@ type waHandler struct {
 }
 
 //HandleError needs to be implemented to be a valid WhatsApp handler
-func (h *waHandler) HandleError(err error) {
+func (h *waHandler) HandleError(err error) { 
 
 	if e, ok := err.(*whatsapp.ErrConnectionFailed); ok {
 		fmt.Println("Connection failed, underlying error: %v", e.Err)
@@ -43,8 +43,8 @@ func (waHandler *waHandler) HandleTextMessage(message whatsapp.TextMessage) {
 			Info: whatsapp.MessageInfo{
 				RemoteJid: message.Info.RemoteJid,
 			},
-			Text:        "Message sent by Akilan Selvacoumar",
-		}
+
+			Text:        "TODO send professor info",
 
 	    msgId, err := waHandler.c.Send(msg)
 	    if err != nil {
@@ -60,7 +60,7 @@ func (waHandler *waHandler) HandleTextMessage(message whatsapp.TextMessage) {
 			Info: whatsapp.MessageInfo{
 				RemoteJid: message.Info.RemoteJid,
 			},
-			Text:        "Message sent by Akilan Selvacoumar",
+			Text:        "TODO send class rep info",
 		}
 
 	    msgId, err := waHandler.c.Send(msg)
