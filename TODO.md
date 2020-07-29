@@ -5,15 +5,10 @@ This is a vertical kanban.
 
 ## Backlogs
 
-- Ticket redirect when ticket doesn't exist
-- Allow tickets to be resolved
-- Fix creating empty tickets and comments by using space character
 
 ## In Progress
 
-- WhatsApp bot (low priority)
-- Allow editing config from web
-- Sort by category (fix vulnerability in inserting own category) (fix general being lowercase)
+- Make styling better?
 
 ## Done
 
@@ -30,3 +25,11 @@ This is a vertical kanban.
 - Allow reps to edit/delete tickets
 - Allow reps to delete comments
 - Split routes into separate files
+- Allow editing config from web
+- Allow tickets to be resolved
+- Ticket redirect when ticket doesn't exist
+- Sort by category (fix vulnerability in inserting own category) (fix general being lowercase)
+
+## Cancelled
+
+- WhatsApp bot (low priority)

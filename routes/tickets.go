@@ -8,6 +8,8 @@ import (
 	"log"
 	"sort"
 	"strconv"
+	"strings"
+	"unicode"
 
 	"github.com/go-macaron/csrf"
 	"github.com/go-macaron/session"
@@ -23,7 +25,6 @@ import (
 
 // TicketsHandler response for the tickets listing page.
 func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-
 	var tickets []models.Ticket
 
 	if ctx.Params("category") != "" {
@@ -85,6 +86,10 @@ func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flas
 	ctx.HTML(200, "ticket")
 }
 
+func IsImproperChar(r rune) bool {
+	return unicode.IsSpace(r) || !unicode.IsGraphic(r)
+}
+
 // PostTicketPageHandler handles posting a new comment on a ticket.
 func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
@@ -98,10 +103,17 @@ func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.
 		return
 	}
 
+	text := strings.TrimFunc(ctx.QueryTrim("text"), IsImproperChar)
+	if len(text) == 0 {
+		f.Error("Comment cannot be empty!")
+		ctx.Redirect("/tickets/" + ctx.Params("id"))
+		return
+	}
+
 	comment := models.Comment{
 		TicketID: ticket.TicketID,
 		PosterID: sess.Get("id").(string),
-		Text:     ctx.QueryTrim("text"),
+		Text:     text,
 	}
 
 	err = models.AddComment(&comment)
@@ -149,8 +161,8 @@ func isCategory(category string) bool {
 
 // PostNewTicketHandler post response for posting new ticket.
 func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	title := ctx.QueryTrim("title")
-	text := ctx.QueryTrim("text")
+	title := strings.TrimFunc(ctx.QueryTrim("title"), IsImproperChar)
+	text := strings.TrimFunc(ctx.QueryTrim("text"), IsImproperChar)
 	category := ctx.QueryTrim("category")
 
 	if !isCategory(category) {
@@ -160,6 +172,13 @@ func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.F
 	}
 
 	voterHash := userHash(getIP(ctx), ctx.Req.Header.Get("User-Agent"))
+
+	if len(title) == 0 || len(text) == 0 {
+		f.Error("Title or body cannot be empty!")
+		ctx.Redirect("/tickets/new")
+		return
+	}
+
 	ticket := models.Ticket{
 		Title:       title,
 		Description: text,
