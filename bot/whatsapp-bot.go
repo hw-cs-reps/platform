@@ -7,12 +7,12 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+
 	config "github.com/hw-cs-reps/platform/config"
 
 	qrcodeTerminal "github.com/Baozisoftware/qrcode-terminal-go"
 	"github.com/Rhymen/go-whatsapp"
 )
-
 
 type waHandler struct {
 	c *whatsapp.Conn
@@ -39,14 +39,14 @@ func (h *waHandler) HandleError(err error) {
 func (waHandler *waHandler) HandleTextMessage(message whatsapp.TextMessage) {
 	fmt.Printf("%v %v %v %v\n\t%v\n", message.Info.Timestamp, message.Info.Id, message.Info.RemoteJid, message.ContextInfo.QuotedMessageID, message.Text)
 
-	if message.Text == "professor info"{
+	if message.Text == "professor info" {
 
 		professor_arr := config.Config.InstanceConfig.Lecturers
 
 		var output string
 
 		for _, prof := range professor_arr {
-			output = output + fmt.Sprintf("*%s*\n%s\nOffice: %s\nTime: %s\n\n", prof.Name , prof.Email , prof.Office , prof.Time)
+			output = output + fmt.Sprintf("*%s*\n%s\nOffice: %s\nTime: %s\n\n", prof.Name, prof.Email, prof.Office, prof.Time)
 		}
 
 		output = output + "\nRead more: https://testing.myhwu.com/lecturers"
@@ -55,27 +55,27 @@ func (waHandler *waHandler) HandleTextMessage(message whatsapp.TextMessage) {
 			Info: whatsapp.MessageInfo{
 				RemoteJid: message.Info.RemoteJid,
 			},
-			Text:        output,
+			Text: output,
 		}
 
-	    msgId, err := waHandler.c.Send(msg)
-	    if err != nil {
-		  fmt.Fprintf(os.Stderr, "error sending message: %v", err)
-		  os.Exit(1)
-	    } else {
-		  fmt.Println("Message Sent -> ID : " + msgId)
-	    }
+		msgId, err := waHandler.c.Send(msg)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "error sending message: %v", err)
+			os.Exit(1)
+		} else {
+			fmt.Println("Message Sent -> ID : " + msgId)
+		}
 	}
-	
-	// Class rep info 
-	if message.Text == "classrep info"{
+
+	// Class rep info
+	if message.Text == "classrep info" {
 
 		classrep_arr := config.Config.InstanceConfig.ClassReps
 
 		var output string
 
 		for _, rep := range classrep_arr {
-			output = output + fmt.Sprintf("*%s*\n%s\nCourse: %s\nDegreecode: %s\n\n", rep.Name , rep.Email , rep.Course , rep.DegreeCode)
+			output = output + fmt.Sprintf("*%s*\n%s\nCourse: %s\nDegreecode: %s\n\n", rep.Name, rep.Email, rep.Course, rep.DegreeCode)
 		}
 
 		output = output + "\nRead more: https://testing.myhwu.com/classreps"
@@ -84,19 +84,18 @@ func (waHandler *waHandler) HandleTextMessage(message whatsapp.TextMessage) {
 			Info: whatsapp.MessageInfo{
 				RemoteJid: message.Info.RemoteJid,
 			},
-			Text:  output,
+			Text: output,
 		}
 
-	    msgId, err := waHandler.c.Send(msg)
-	    if err != nil {
-		  fmt.Fprintf(os.Stderr, "error sending message: %v", err)
-		  os.Exit(1)
-	    } else {
-		  fmt.Println("Message Sent -> ID : " + msgId)
-	    }
+		msgId, err := waHandler.c.Send(msg)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "error sending message: %v", err)
+			os.Exit(1)
+		} else {
+			fmt.Println("Message Sent -> ID : " + msgId)
+		}
 	}
 }
-
 
 func Bot() {
 	//create new WhatsApp connection
