@@ -14,6 +14,7 @@ This is a vertical kanban.
 - Make styling better?
 - Allow editing config from web
 - Sort by category (fix vulnerability in inserting own category) (fix general being lowercase)
+- Not allow empty comments on tickets
 
 ## Done
 
