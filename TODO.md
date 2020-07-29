@@ -6,6 +6,7 @@ This is a vertical kanban.
 ## Backlogs
 
 - Ticket redirect when ticket doesn't exist
+- Allow tickets to be resolved
 
 ## In Progress
 
