@@ -1,8 +1,12 @@
 package routes
 
 import (
+	"bytes"
+	"log"
+
 	"github.com/hw-cs-reps/platform/config"
 
+	"github.com/BurntSushi/toml"
 	"github.com/go-macaron/session"
 	macaron "gopkg.in/macaron.v1"
 )
@@ -42,5 +46,30 @@ func ConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 		return
 	}
 	ctx.Data["Title"] = "Configuration"
+	buf := new(bytes.Buffer)
+	if err := toml.NewEncoder(buf).Encode(config.Config.InstanceConfig); err != nil {
+		log.Println(err)
+	}
+	ctx.Data["Conf"] = buf.String()
 	ctx.HTML(200, "config")
+}
+
+// PostConfigHandler gets courses page
+func PostConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
+		ctx.Redirect("/")
+		return
+	}
+
+	var conf config.InstanceSettings
+	err := toml.Unmarshal([]byte(ctx.Query("conf")), &conf)
+	if err != nil {
+		f.Error("Incorrect syntax in config! " + err.Error())
+	}
+
+	f.Success("Configuration updated correctly!")
+
+	config.Config.InstanceConfig = conf
+	config.SaveConfig()
+	ctx.Redirect("/config")
 }

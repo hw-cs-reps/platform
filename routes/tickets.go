@@ -188,6 +188,21 @@ func UpvoteTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Fl
 	ctx.Redirect("/tickets/" + strconv.Itoa(ctx.ParamsInt("id")))
 }
 
+// ResolveTicketHandler response for resolving and unresolving a specific ticket.
+func ResolveTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
+	if err != nil {
+		log.Println(err)
+		ctx.Redirect("/tickets")
+		return
+	}
+
+	ticket.IsResolved = !ticket.IsResolved
+	models.UpdateTicketCols(ticket, "is_resolved")
+
+	ctx.Redirect("/tickets/" + strconv.Itoa(ctx.ParamsInt("id")))
+}
+
 // PostTicketEditHandler response for adding posting new ticket.
 func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {

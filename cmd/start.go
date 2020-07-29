@@ -102,6 +102,7 @@ func start(clx *cli.Context) (err error) {
 			m.Get("", routes.TicketPageHandler)
 			m.Post("", csrf.Validate, routes.PostTicketPageHandler) // comment post
 			m.Post("/upvote", csrf.Validate, routes.UpvoteTicketHandler)
+			m.Post("/resolve", csrf.Validate, routes.ResolveTicketHandler)
 			m.Post("/edit", csrf.Validate, routes.PostTicketEditHandler)
 			m.Post("/delete", csrf.Validate, routes.PostTicketDeleteHandler)
 			m.Post("/del/:cid", csrf.Validate, routes.PostCommentDeleteHandler)
@@ -120,6 +121,7 @@ func start(clx *cli.Context) (err error) {
 	m.Get("/logout", routes.LogoutHandler)
 	m.Post("/cancel", routes.CancelHandler)
 	m.Get("/config", routes.ConfigHandler)
+	m.Post("/config", routes.PostConfigHandler)
 
 	log.Printf("Starting web server on port %s\n", config.Config.SitePort)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", config.Config.SitePort), m))
