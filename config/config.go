@@ -119,7 +119,7 @@ func newConfig() Configuration {
 				{Name: "Lecturers & Office Locations", Link: "/lecturers"},
 			},
 			ClassReps: []ClassRepresentative{
-				{Name: "Alakbar", Email: "az40@hw.ac.uk", Course: "Computer Science", DegreeCode: "F291-COS"},
+				{Name: "Alakbar", Email: "az40@hw.ac.uk", Course: "Student Officer", DegreeCode: "F291-COS"},
 				{Name: "Humaid", Email: "ha82@hw.ac.uk", Course: "Computer Science", DegreeCode: "F291-COS"},
 				{Name: "Maleeha", Email: "mr137@hw.ac.uk", Course: "Computer Systems", DegreeCode: "F2CC-CSE"},
 				{Name: "James", Email: "jss2@hw.ac.uk", Course: "Information Systems", DegreeCode: "F2IS-ISY"},

@@ -532,7 +532,7 @@ label {
   .btn {
     background-color: var(--main-bg);
     border: solid 1px #666;
-    color: var(--accent-colour);
+    color: #fefefe;
   }
 
   .btn:hover {
