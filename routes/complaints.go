@@ -50,7 +50,7 @@ func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.
 		// TODO send to respective class reps
 
 		var recipients []string
-		if ctx.QueryTrim("category") == "general" {
+		if ctx.QueryTrim("category") == "General" {
 			for _, c := range config.Config.InstanceConfig.ClassReps {
 				recipients = append(recipients, c.Email)
 			}
@@ -80,14 +80,14 @@ Message:
 	ctx.Data["csrf_token"] = x.GetToken()
 
 	var recipients []string
-	if ctx.QueryTrim("category") == "general" {
+	if ctx.QueryTrim("category") == "General" {
 		for _, c := range config.Config.InstanceConfig.ClassReps {
 			recipients = append(recipients, c.Name)
 		}
 	} else {
 		crs := getClassRepsByCourseCode(ctx.QueryTrim("category"))
 		if len(crs) == 0 {
-			f.Error("Sorry, no class representatives are available for the selected course/category.")
+			f.Error("Sorry, no class representatives are available for the selected course/category")
 			ctx.Redirect("/complaints")
 			return
 		}

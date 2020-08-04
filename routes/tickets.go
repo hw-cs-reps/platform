@@ -114,7 +114,15 @@ func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.
 
 // PostTicketSortHandler handles redirecting to a page of filtered tickets by category
 func PostTicketSortHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	ctx.Redirect("/tickets/cat/" + ctx.Query("category"))
+	category := ctx.Query("category")
+
+	if !isCategory(category) {
+		f.Error("Can't sort by that category")
+		ctx.Redirect("/tickets")
+		return
+	}
+
+	ctx.Redirect("/tickets/cat/" + category)
 }
 
 // NewTicketHandler response for posting new ticket.
@@ -125,11 +133,32 @@ func NewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash
 	ctx.HTML(200, "new-ticket")
 }
 
+// Checks if a category is listed in the configuration
+func isCategory(category string) bool {
+	var found bool
+
+	for _, c := range config.Config.InstanceConfig.Courses {
+		if category == c.Code {
+			return true
+		} else if category == "General" {
+			return true
+		}
+	}
+	return found
+}
+
 // PostNewTicketHandler post response for posting new ticket.
 func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	title := ctx.QueryTrim("title")
 	text := ctx.QueryTrim("text")
 	category := ctx.QueryTrim("category")
+
+	if !isCategory(category) {
+		f.Error("There was an error in creating your ticket")
+		ctx.Redirect("/tickets")
+		return
+	}
+
 	voterHash := userHash(getIP(ctx), ctx.Req.Header.Get("User-Agent"))
 	ticket := models.Ticket{
 		Title:       title,

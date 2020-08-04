@@ -1,15 +1,14 @@
 {{template "base/head" .}}
 {{template "partials/flash" .}}
-<h1>{{if not .Category}}Tickets{{else}}Tickets - {{.Category}}{{end}}</h1>
-<a href="/tickets/new" class="btn">New Ticket</a>
+<div>
+	<h1>{{if not .Category}}Tickets{{else}}Tickets - {{.Category}}{{end}}</h1>
+	<a href="/tickets/new" class="btn" id="newTicket">New Ticket</a>
+</div>
 <form method="post">
 	<div class="form-group">
-		<label for="category">
-			<h3 class="noBottomMargin">Filter Tickets</h3>
-		</label>
 		<select class="form-item col-6" name="category" id="category" onchange="this.form.submit()">
-			<option value="" selected disabled hidden>{{.Category}}</option>
-			<option value="general">General</option>
+			<option value="" selected disabled hidden>Filter by category</option>
+			<option value="General">General</option>
 			{{range .Courses}}
 			<option value="{{.Code}}">{{.Name}} ({{.Code}})</option>
 			{{end}}
@@ -17,16 +16,30 @@
 		<noscript>
 			<button type="submit" class="btn">Sort</button>
 		</noscript>
+		{{if ne .Category ""}}
+		<a href="/tickets" type="submit" class="btn">Clear Filter</a>
+		{{end}}
 	</div>
 </form>
 {{range .Tickets}}
-<a class="card" href="/tickets/{{.TicketID}}">
-	<div class="entry">{{.Title}}
-		<div class="meta">
-			<p>{{Len .Voters}} Upvotes &middot;
-				{{CalcDurationShort .CreatedUnix}} ago &middot; {{.CommentsCount}} comments</p>
+<a class="card ticketCard" href="/tickets/{{.TicketID}}">
+	<div class="tickets-grid-container">
+		<div class="grid-child upvotes">
+			<div>
+				{{Len .Voters}}
+			</div>
+		</div>
+		<div class="grid-child">
+			<div class="ticket-title">
+				{{.Title}}
+			</div>
+			<div class="meta">
+				{{.Category}} &middot; {{CalcDurationShort .CreatedUnix}} ago &middot; {{.CommentsCount}}
+				comments
+			</div>
 		</div>
 	</div>
+
 </a>
 {{end}}
 {{template "base/footer" .}}

@@ -216,18 +216,27 @@ img {
   height: 18px;
 }
 /* Entries listing */
-.entry {
-  display: block;
-  width: 100%;
-  font-weight: bold;
-  text-decoration: none;
+.tickets-grid-container {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  grid-gap: 15px;
+}
+
+.upvotes {
+  font-size: 2em;
+  color: #000;
+  text-align: center;
+}
+
+.ticket-title {
 }
 
 .meta {
   padding: 0;
-  margin: 0 0 5px 15px;
+  margin: 0;
   color: #555;
   font-weight: normal;
+  font-size: 1em;
 }
 
 .meta p {
@@ -359,7 +368,7 @@ label {
 
 .comment {
   margin: 10px 5px 5px 5px;
-  padding: 5px;
+  padding: 5px 10px;
   color: var(--main-text);
   box-sizing: border-box;
   border-left: solid 4px var(--accent-colour);
@@ -462,6 +471,15 @@ label {
     grid-template-columns: 1fr 1fr;
   }
 
+  .ticketCard {
+    padding: 10px;
+    margin: 0 0 10px 0;
+  }
+
+  #newTicket {
+    float: right;
+  }
+
   .btn {
     padding: 10px 15px;
   }
@@ -472,6 +490,11 @@ label {
 
   .gridFullWidth {
     grid-template-columns: 1fr;
+  }
+
+  .tickets-grid-container {
+    grid-template-columns: 40px 1fr;
+    grid-gap: 10px;
   }
 
   ::-webkit-scrollbar {
@@ -569,5 +592,9 @@ label {
   }
   .card {
     background-color: #404040;
+  }
+
+  .upvotes {
+    color: #fff;
   }
 }
