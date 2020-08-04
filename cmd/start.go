@@ -37,8 +37,6 @@ func start(clx *cli.Context) (err error) {
 	engine := models.SetupEngine()
 	defer engine.Close()
 
-	//go bot.Bot()
-
 	// Run macaron
 	m := macaron.Classic()
 	m.Use(macaron.Renderer(macaron.RenderOptions{
