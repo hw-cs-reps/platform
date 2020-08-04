@@ -174,3 +174,16 @@ func LoadConfig() {
 		}
 	}
 }
+
+// SaveConfig saves the configuration from memory to disk.
+func SaveConfig() error {
+	buf := new(bytes.Buffer)
+	if err := toml.NewEncoder(buf).Encode(Config); err != nil {
+		return err
+	}
+
+	if err := ioutil.WriteFile(ConfigPath, buf.Bytes(), 0600); err != nil {
+		return err
+	}
+	return nil
+}

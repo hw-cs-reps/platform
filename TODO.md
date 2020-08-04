@@ -7,14 +7,13 @@ This is a vertical kanban.
 
 - Ticket redirect when ticket doesn't exist
 - Allow tickets to be resolved
+- Fix creating empty tickets and comments by using space character
 
 ## In Progress
 
 - WhatsApp bot (low priority)
-- Make styling better?
 - Allow editing config from web
 - Sort by category (fix vulnerability in inserting own category) (fix general being lowercase)
-- Not allow empty comments on tickets
 
 ## Done
 

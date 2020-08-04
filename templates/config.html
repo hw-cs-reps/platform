@@ -16,19 +16,23 @@
   }
 </style>
 
-<div id="editor">[InstanceConfig]
-  ShowNotice = true
-  NoticeText = "The privacy policy has been updated. Please consider re-reading it for your peace of mind."
-  NoticeLink = "/privacy"
-  NoticeTitle = "Privacy Policy Update"
-  NoticeColour = "alert-green"
-</div>
+<div id="editor">{{.Conf}}</div>
+
+<form method="post" id="form">
+  <input type="hidden" name="conf" id="config" value=""></input>
+  <a class="btn" onclick="submit();">Update</a>
+</form>
 
 <script src="/ace-builds/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/monokai");
   editor.session.setMode("ace/mode/toml");
+
+  function submit() {
+    document.getElementById("config").value = editor.getValue();
+    document.getElementById("form").submit();
+  }
 </script>
 
 {{template "base/footer" .}}

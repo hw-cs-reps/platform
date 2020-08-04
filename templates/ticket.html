@@ -1,6 +1,6 @@
 {{template "base/head" .}}
 {{template "partials/flash" .}}
-<h1>{{.Ticket.Title}}</h1>
+<h1>{{if .Ticket.IsResolved}}<span class="badge">Resolved</span>{{end}} {{.Ticket.Title}}</h1>
 <p>{{if and (not .Ticket.IsResolved) (not .Upvoted)}}
 <form method="post" action="/tickets/{{.Ticket.TicketID}}/upvote" class="lineform">
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
@@ -18,7 +18,12 @@
 <form method="post" action="/tickets/{{.Ticket.TicketID}}/delete" class="lineform">
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
 	<button type="submit" class="btn upvote">Delete</button>
-</form>{{end}}
+</form>
+<form method="post" action="/tickets/{{.Ticket.TicketID}}/resolve" class="lineform">
+	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
+  <button type="submit" class="btn upvote">{{if .Ticket.IsResolved}}Un-resolve{{else}}Resolve{{end}}</button>
+</form>
+{{end}}
 </p>
 
 <div class="post col-7">{{.FormattedPost}}</div>
