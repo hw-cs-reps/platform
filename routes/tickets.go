@@ -253,9 +253,6 @@ func ResolveTicketHandler(ctx *macaron.Context, sess session.Store, f *session.F
 
 // PostTicketEditHandler response for adding posting new ticket.
 func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
-	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
-		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
-	}
 	if ctx.QueryTrim("title") == "" || ctx.QueryTrim("title") == "" {
 		ctx.Data["IsTickets"] = 1
 		ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
@@ -296,9 +293,6 @@ func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.
 
 // PostTicketDeleteHandler response for deleting a ticket.
 func PostTicketDeleteHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
-		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
-	}
 	models.DelTicket(ctx.ParamsInt64("id"))
 	f.Success("Ticket deleted!")
 	ctx.Redirect("/tickets")
@@ -306,9 +300,6 @@ func PostTicketDeleteHandler(ctx *macaron.Context, sess session.Store, f *sessio
 
 // PostCommentDeleteHandler response for deleting a ticket's comment.
 func PostCommentDeleteHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
-		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
-	}
 	models.DeleteComment(ctx.ParamsInt64("cid"))
 	f.Success("Comment deleted!")
 	ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))

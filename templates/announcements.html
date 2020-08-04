@@ -1,0 +1,21 @@
+{{template "base/head" .}}
+{{template "partials/flash" .}}
+<div>
+	<h1>Announcements</h1>
+  {{if .IsAdmin}}<a href="/a/new" class="btn" id="newTicket">New Announcement</a>{{end}}
+</div>
+{{range .Announcements}}
+<a class="card ticketCard" href="/a/{{.AnnouncementID}}">
+	<div class="tickets-grid-container">
+		<div class="grid-child">
+			<div class="ticket-title">
+				{{.Title}}
+			</div>
+			<div class="meta">
+				{{.Tags}} &middot; {{CalcDurationShort .CreatedUnix}} ago
+			</div>
+		</div>
+	</div>
+</a>
+{{end}}
+{{template "base/footer" .}}

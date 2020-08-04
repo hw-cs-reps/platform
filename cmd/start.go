@@ -100,12 +100,24 @@ func start(clx *cli.Context) (err error) {
 			m.Get("", routes.TicketPageHandler)
 			m.Post("", csrf.Validate, routes.PostTicketPageHandler) // comment post
 			m.Post("/upvote", csrf.Validate, routes.UpvoteTicketHandler)
-			m.Post("/resolve", csrf.Validate, routes.ResolveTicketHandler)
-			m.Post("/edit", csrf.Validate, routes.PostTicketEditHandler)
-			m.Post("/delete", csrf.Validate, routes.PostTicketDeleteHandler)
-			m.Post("/del/:cid", csrf.Validate, routes.PostCommentDeleteHandler)
+
+			// Admin
+			m.Post("/resolve", routes.RequireAdmin, csrf.Validate, routes.ResolveTicketHandler)
+			m.Post("/edit", routes.RequireAdmin, csrf.Validate, routes.PostTicketEditHandler)
+			m.Post("/delete", routes.RequireAdmin, csrf.Validate, routes.PostTicketDeleteHandler)
+			m.Post("/del/:cid", routes.RequireAdmin, csrf.Validate, routes.PostCommentDeleteHandler)
 		})
 	})
+
+	m.Group("/a", func() {
+		m.Get("", routes.AnnouncementsHandler)
+		m.Get("/:id", routes.AnnouncementHandler)
+
+		// Admin
+		m.Get("/new", routes.RequireAdmin, routes.NewAnnouncementHandler)
+		m.Post("/new", routes.RequireAdmin, routes.PostNewAnnouncementHandler)
+	})
+
 	m.Get("/complaints", routes.ComplaintsHandler)
 	m.Post("/complaints", csrf.Validate, routes.PostComplaintsHandler)
 	m.Get("/courses", routes.CoursesHandler)
@@ -117,9 +129,11 @@ func start(clx *cli.Context) (err error) {
 	m.Get("/verify", routes.VerifyHandler)
 	m.Post("/verify", csrf.Validate, routes.PostVerifyHandler)
 	m.Get("/logout", routes.LogoutHandler)
-	m.Post("/cancel", routes.CancelHandler)
-	m.Get("/config", routes.ConfigHandler)
-	m.Post("/config", routes.PostConfigHandler)
+	m.Post("/cancel", csrf.Validate, routes.CancelHandler)
+
+	// Admin
+	m.Get("/config", routes.RequireAdmin, routes.ConfigHandler)
+	m.Post("/config", routes.RequireAdmin, csrf.Validate, routes.PostConfigHandler)
 
 	log.Printf("Starting web server on port %s\n", config.Config.SitePort)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("0.0.0.0:%s", config.Config.SitePort), m))
