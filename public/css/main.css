@@ -157,6 +157,7 @@ input:focus, textarea:focus, a:focus, .btn:focus, select:focus {
   border-radius: var(--card-radius);
   transition: background-color 0.3s ease, outline 0.1s ease;
   outline: solid 0 var(--accent-colour-dim);
+  font-weight: bold;
 }
 
 .btn-danger {
@@ -333,7 +334,7 @@ pre.badge {
 }
 
 textarea, input, select {
-  border-radius: 0;
+  border-radius: var(--card-radius);
   border: #ccc 1px solid;
   padding: 5px;
   max-width: 100%;
@@ -530,11 +531,8 @@ label {
 
   .btn {
     background-color: var(--main-bg);
-    color: #efefef;
-  }
-
-  .btn {
     border: solid 1px #666;
+    color: var(--accent-colour);
   }
 
   .btn:hover {
