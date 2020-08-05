@@ -1,6 +1,8 @@
 package routes
 
 import (
+	"fmt"
+
 	"github.com/go-macaron/session"
 	"github.com/hw-cs-reps/platform/config"
 	"github.com/hw-cs-reps/platform/namegen"
@@ -44,5 +46,12 @@ func ContextInit() macaron.Handler {
 			sess.Set("id", namegen.GetName())
 		}
 		ctx.Data["SiteTitle"] = config.Config.SiteName
+	}
+}
+
+func RequireAdmin(ctx *macaron.Context, sess session.Store) {
+	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
+		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
+		return
 	}
 }

@@ -8,6 +8,8 @@ import (
 	"log"
 	"sort"
 	"strconv"
+	"strings"
+	"unicode"
 
 	"github.com/go-macaron/csrf"
 	"github.com/go-macaron/session"
@@ -23,7 +25,6 @@ import (
 
 // TicketsHandler response for the tickets listing page.
 func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-
 	var tickets []models.Ticket
 
 	if ctx.Params("category") != "" {
@@ -85,6 +86,10 @@ func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flas
 	ctx.HTML(200, "ticket")
 }
 
+func IsImproperChar(r rune) bool {
+	return unicode.IsSpace(r) || !unicode.IsGraphic(r)
+}
+
 // PostTicketPageHandler handles posting a new comment on a ticket.
 func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
@@ -98,10 +103,17 @@ func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.
 		return
 	}
 
+	text := strings.TrimFunc(ctx.QueryTrim("text"), IsImproperChar)
+	if len(text) == 0 {
+		f.Error("Comment cannot be empty!")
+		ctx.Redirect("/tickets/" + ctx.Params("id"))
+		return
+	}
+
 	comment := models.Comment{
 		TicketID: ticket.TicketID,
 		PosterID: sess.Get("id").(string),
-		Text:     ctx.QueryTrim("text"),
+		Text:     text,
 	}
 
 	err = models.AddComment(&comment)
@@ -149,8 +161,8 @@ func isCategory(category string) bool {
 
 // PostNewTicketHandler post response for posting new ticket.
 func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	title := ctx.QueryTrim("title")
-	text := ctx.QueryTrim("text")
+	title := strings.TrimFunc(ctx.QueryTrim("title"), IsImproperChar)
+	text := strings.TrimFunc(ctx.QueryTrim("text"), IsImproperChar)
 	category := ctx.QueryTrim("category")
 
 	if !isCategory(category) {
@@ -160,6 +172,13 @@ func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.F
 	}
 
 	voterHash := userHash(getIP(ctx), ctx.Req.Header.Get("User-Agent"))
+
+	if len(title) == 0 || len(text) == 0 {
+		f.Error("Title or body cannot be empty!")
+		ctx.Redirect("/tickets/new")
+		return
+	}
+
 	ticket := models.Ticket{
 		Title:       title,
 		Description: text,
@@ -234,9 +253,6 @@ func ResolveTicketHandler(ctx *macaron.Context, sess session.Store, f *session.F
 
 // PostTicketEditHandler response for adding posting new ticket.
 func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
-	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
-		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
-	}
 	if ctx.QueryTrim("title") == "" || ctx.QueryTrim("title") == "" {
 		ctx.Data["IsTickets"] = 1
 		ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
@@ -277,9 +293,6 @@ func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.
 
 // PostTicketDeleteHandler response for deleting a ticket.
 func PostTicketDeleteHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
-		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
-	}
 	models.DelTicket(ctx.ParamsInt64("id"))
 	f.Success("Ticket deleted!")
 	ctx.Redirect("/tickets")
@@ -287,9 +300,6 @@ func PostTicketDeleteHandler(ctx *macaron.Context, sess session.Store, f *sessio
 
 // PostCommentDeleteHandler response for deleting a ticket's comment.
 func PostCommentDeleteHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
-		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
-	}
 	models.DeleteComment(ctx.ParamsInt64("cid"))
 	f.Success("Comment deleted!")
 	ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))

@@ -1,5 +1,7 @@
 package models
 
+import "errors"
+
 // Ticket represents an issue
 type Ticket struct {
 	TicketID      int64  `xorm:"pk autoincr"`
@@ -39,7 +41,7 @@ func GetTicket(id int64) (*Ticket, error) {
 	if err != nil {
 		return t, err
 	} else if !has {
-		return t, err
+		return t, errors.New("Doesn't exist")
 	}
 
 	return t, nil

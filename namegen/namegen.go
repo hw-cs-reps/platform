@@ -20,14 +20,17 @@ var (
 		"rational", "reliable", "romantic", "thoughtful", "tidy"}
 
 	// NOUN is a list of nouns used in the name generator.
-	NOUN = []string{"Ada", "Alef", "ALGOL", "Asm", "Awk", "Bash", "BASIC",
+	NOUN = []string{"Ada", "Alef", "ALGOL", "Assembly", "Awk", "Bash", "BASIC",
 		"BCPL", "C", "C++", "C#", "Chicken", "Chapel", "COBOL", "CoffeeScript",
-		"Crystal", "D", "Dart", "Eiffel", "Elixer", "Elm", "Elisp", "Erlang",
+		"Crystal", "D", "Dart", "Eiffel", "Elixir", "Elm", "Elisp", "Erlang",
 		"F#", "Forth", "Fortran", "Guile", "Go", "Hack", "Haskell", "Haxe", "HolyC",
 		"Io", "Idris", "Java", "JavaScript", "Julia", "Kotlin", "Limbo", "Lisp", "Lua",
 		"MATLAB", "Nim", "OCaml", "Octave", "Pascal", "Perl", "PHP", "PowerShell", "Prolog",
 		"Python", "R", "ReasonML", "Ruby", "Rust", "SAS", "Scala", "Scheme", "Scratch",
-		"Smalltalk", "SML", "Swift", "Tcl", "TeX", "TypeScript", "Vala"}
+		"Smalltalk", "SML", "Swift", "Tcl", "TeX", "TypeScript", "Vala", "SQL", "Groovy",
+		"Objective-C", "Delphi", "Modula", "Befunge", "PureScript", "Racket", "Wolfram",
+		"MLton", "AppleScript", "Cool",
+	}
 )
 
 var rnd *rand.Rand

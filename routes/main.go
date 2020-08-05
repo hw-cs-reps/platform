@@ -41,10 +41,6 @@ func PrivacyHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 
 // ConfigHandler gets courses page
 func ConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
-		ctx.Redirect("/")
-		return
-	}
 	ctx.Data["Title"] = "Configuration"
 	buf := new(bytes.Buffer)
 	if err := toml.NewEncoder(buf).Encode(config.Config.InstanceConfig); err != nil {
@@ -56,11 +52,6 @@ func ConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 
 // PostConfigHandler gets courses page
 func PostConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
-		ctx.Redirect("/")
-		return
-	}
-
 	var conf config.InstanceSettings
 	err := toml.Unmarshal([]byte(ctx.Query("conf")), &conf)
 	if err != nil {
