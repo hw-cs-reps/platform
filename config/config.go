@@ -65,7 +65,7 @@ type Course struct {
 }
 
 type Lecturer struct {
-	Name, Email, Office, Time, Updated string
+	Name, Email, Office, Updated string
 }
 
 // DBType represents the type of the database driver which will be used.
@@ -125,18 +125,325 @@ func newConfig() Configuration {
 				{Name: "James", Email: "jss2@hw.ac.uk", Course: "Information Systems", DegreeCode: "F2IS-ISY"},
 			},
 			Courses: []Course{
-				{Code: "F29FB", Name: "Foundations 2", DegreeCode: []string{"F291-COS"}},
-				{Code: "F29LP", Name: "Language Processors", DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
-				{Code: "F29OC", Name: "Operating Systems & Concurrency", DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
-				{Code: "F29PD", Name: "Professional Development", DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
-				{Code: "F29SO", Name: "Software Engineering", DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
+				{Code: "F20GA",
+					Name:       "3D Graphics and Animation",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+
+				{Code: "F20AD",
+					Name:       "Advanced Interaction Design",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
+
+				{Code: "F20AN",
+					Name:       "Advanced Network Security",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+
+				{Code: "F20AA",
+					Name:       "Applied Text Analytics [DXB]",
+					DegreeCode: []string{"F291-COS"}},
+
+				{Code: "F20BD",
+					Name:       "Big Data Management",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
+
+				{Code: "F20BC",
+					Name:       "Biologically Inspired Computation",
+					DegreeCode: []string{"F291-COS"}},
+
+				{Code: "F20GP",
+					Name:       "Computer Games Programming",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+
+				{Code: "F20CN",
+					Name:       "Computer Network Security",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+
+				{Code: "F20CA",
+					Name:       "Conversational Agents and Spoken Language Processing [EDI]",
+					DegreeCode: []string{"F291-COS"}},
+
+				{Code: "F28CD",
+					Name:       "Creative Design Project [EDI]",
+					DegreeCode: []string{"F2CC-CSE"}},
+
+				{Code: "F20DL",
+					Name:       "Data Mining and Machine Learning",
+					DegreeCode: []string{"F291-COS"}},
+
+				{Code: "F20DV",
+					Name:       "Data Visualisation and Analytics [DXB]",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+
+				{Code: "F20PB",
+					Name:       "Design & Implementation",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
+
+				{Code: "F20DE",
+					Name:       "Digital and Knowledge Economy",
+					DegreeCode: []string{"F2CC-CSE", "F2IS-ISY"}},
+
+				{Code: "F20FO",
+					Name:       "Digital Forensics [DXB]",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+
+				{Code: "C10DM",
+					Name:       "Digital Marketing [EDI]",
+					DegreeCode: []string{"F2IS-ISY"}},
+
+				{Code: "F17SC",
+					Name:       "Discrete Mathematics",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+
+				{Code: "F20EC",
+					Name:       "e-Commerce Technology",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
+
+				{Code: "C17EC",
+					Name:       "Enterprise and its Business Environment [DXB]",
+					DegreeCode: []string{"F2CC-CSE"}},
+
+				{Code: "F28HS",
+					Name:       "Hardware-Software Interface",
+					DegreeCode: []string{"F2CC-CSE"}},
+
+				{Code: "F20SC",
+					Name:       "Industrial Programming",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+
+				{Code: "F20IF",
+					Name:       "Information Systems Methodologies",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
+
+				{Code: "F20IM",
+					Name:       "Information Technology Master Class [EDI]",
+					DegreeCode: []string{"F2IS-ISY"}},
+
+				{Code: "F20RO",
+					Name:       "Intelligent Robotics",
+					DegreeCode: []string{"F291-COS"}},
+
+				{Code: "F17LP",
+					Name:       "Logic and Proof",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+
+				{Code: "C10SM",
+					Name:       "Marketing and Management of SMEs [EDI]",
+					DegreeCode: []string{"F2IS-ISY"}},
+
+				{Code: "C18OP",
+					Name:       "Operations Management",
+					DegreeCode: []string{"F2CC-CSE"}},
+
+				{Code: "F20PC",
+					Name:       "Project Testing and Presentation",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
+
+				{Code: "F20PA",
+					Name:       "Research Methods & Requirements Engineering",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE", "F2IS-ISY"}},
+
+				{Code: "C10RS",
+					Name:       "Retail Marketing [EDI]",
+					DegreeCode: []string{"F2IS-ISY"}},
+
+				{Code: "F20RS",
+					Name:       "Rigorous Methods for Software Engineering",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+
+				{Code: "F20SF",
+					Name:       "Software Engineering Foundations [EDI]",
+					DegreeCode: []string{"F2IS-ISY"}},
+				{Code: "F20SA",
+					Name:       "Statistical Modelling and Analysis",
+					DegreeCode: []string{"F291-COS", "F2CC-CSE"}},
+
+				{Code: "F27TS",
+					Name:       "Technology in Society [EDI]",
+					DegreeCode: []string{"F2CC-CSE"}},
+
+				{Code: "C10CW",
+					Name:       "The Contemporary Workfore [EDI]",
+					DegreeCode: []string{"F2IS-ISY"}},
 			},
 			Lecturers: []Lecturer{
-				{Name: "Arash Eshghi", Email: "A.Eshghi@hw.ac.uk", Office: "Unknown", Time: "Unknown", Updated: "24/07/20"},
-				{Name: "Fairouz Kamareddine", Email: "F.D.Kamareddine@hw.ac.uk", Office: "EM1.65", Time: "Tuesday 10:15-11:15", Updated: "24/07/20"},
-				{Name: "Nick Taylor", Email: "N.K.Taylor@hw.ac.uk", Office: "Unknown", Time: "Unknown", Updated: "24/07/20"},
-				{Name: "Ron Petrick", Email: "R.Petrick@hw.ac.uk", Office: "EM1.65", Time: "Appointment Only", Updated: "24/07/20"},
-				{Name: "Mike Chantler", Email: "M.J.Chantler@hw.ac.uk", Office: "Unknown", Time: "Unknown", Updated: "24/07/20"},
+
+				// EDINBURGH
+
+				{Name: "Alasdair Gray",
+					Email:   "A.J.G.Gray@hw.ac.uk",
+					Office:  "EM 1.39",
+					Updated: "04/08/20"},
+
+				{Name: "Andrew Ireland",
+					Email:   "A.Ireland@hw.ac.uk",
+					Office:  "EM G.57",
+					Updated: "04/08/20"},
+
+				{Name: "Ben Kenwright",
+					Email:   "B.Kenwright@hw.ac.uk",
+					Office:  "EM 1.43",
+					Updated: "04/08/20"},
+
+				{Name: "Christian Dondrup",
+					Email:   "C.Dondrup@hw.ac.uk",
+					Office:  "EM 1.44",
+					Updated: "04/08/20"},
+
+				{Name: "Diana Bental",
+					Email:   "D.S.Bental@hw.ac.uk",
+					Office:  "EM 1.05",
+					Updated: "04/08/20"},
+
+				{Name: "Ekaterina 'Katya' Komendantskaya",
+					Email:   "E.Komendantskaya@hw.ac.uk",
+					Office:  "EM G.26",
+					Updated: "04/08/20"},
+
+				{Name: "Fairouz Kamareddine",
+					Email:   "F.D.Kamareddine@hw.ac.uk",
+					Office:  "EM 1.65",
+					Updated: "24/07/20"},
+
+				{Name: "Hans Wolfgang Loidl",
+					Email:   "H.W.Loidl@hw.ac.uk",
+					Office:  "EM G.51",
+					Updated: "04/08/20"},
+
+				{Name: "Jennifer 'Jenny' Coady",
+					Email:   "J.Coady@hw.ac.uk",
+					Office:  "EM G.37",
+					Updated: "04/08/20"},
+
+				{Name: "Jessica Chen-Burger",
+					Email:   "Y.J.ChenBurger@hw.ac.uk",
+					Office:  "EM G.38",
+					Updated: "04/08/20"},
+
+				{Name: "Lilia Georgieva",
+					Email:   "L.Georgieva@hw.ac.uk",
+					Office:  "EM G.54",
+					Updated: "04/08/20"},
+
+				{Name: "Lynne Baillie",
+					Email:   "L.Baillie@hw.ac.uk",
+					Office:  "EM G.30",
+					Updated: "04/08/20"},
+
+				{Name: "Manuel Maarek",
+					Email:   "M.Maarek@hw.ac.uk",
+					Office:  "EM 1.63",
+					Updated: "04/08/20"},
+
+				{Name: "Marcelo Pereyra",
+					Email:   "M.Pereyra@hw.ac.uk",
+					Office:  "Unknown",
+					Updated: "04/08/20"},
+
+				{Name: "Michael Lones",
+					Email:   "M.Lones@hw.ac.uk",
+					Office:  "EM G.31",
+					Updated: "04/08/20"},
+
+				{Name: "Mike Chantler",
+					Email:   "M.J.Chantler@hw.ac.uk",
+					Office:  "Unknown",
+					Updated: "24/07/20"},
+
+				{Name: "Mike Just",
+					Email:   "M.Just@hw.ac.uk",
+					Office:  "EM 1.37",
+					Updated: "04/08/20"},
+
+				{Name: "Nick Taylor",
+					Email:   "N.K.Taylor@hw.ac.uk",
+					Office:  "EM 1.62",
+					Updated: "24/07/20"},
+
+				{Name: "Oliver Lemon",
+					Email:   "O.Lemon@hw.ac.uk",
+					Office:  "EM 1.40",
+					Updated: "04/08/20"},
+
+				{Name: "Phil Bartie",
+					Email:   "Phil.Bartie@hw.ac.uk",
+					Office:  "EM G.29",
+					Updated: "04/08/20"},
+
+				{Name: "Ron Petrick",
+					Email:   "R.Petrick@hw.ac.uk",
+					Office:  "EM 1.60",
+					Updated: "04/08/20"},
+
+				{Name: "Santiago Chumbe",
+					Email:   "S.Chumbe@hw.ac.uk",
+					Office:  "EM G.41",
+					Updated: "04/08/20"},
+
+				{Name: "Smitha Kumar",
+					Email:   "Smitha.Kumar@hw.ac.uk",
+					Office:  "Unknown",
+					Updated: "04/08/20"},
+
+				{Name: "Stefano Padilla",
+					Email:   "S.Padilla@hw.ac.uk",
+					Office:  "EM 1.38",
+					Updated: "04/08/20"},
+
+				{Name: "Verena Rieser",
+					Email:   "V.T.Rieser@hw.ac.uk",
+					Office:  "EM 1.36",
+					Updated: "04/08/20"},
+
+				{Name: "Wei Pang",
+					Email:   "pang.wei@abdn.ac.uk",
+					Office:  "Unknown",
+					Updated: "04/08/20"},
+
+				// DUBAI
+
+				{Name: "Adrian Turcanu",
+					Email:   "A.Turcanu@hw.ac.uk",
+					Office:  "S2-36",
+					Updated: "04/08/20"},
+
+				{Name: "Abrar Ullah",
+					Email:   "A.Ullah@hw.ac.uk",
+					Office:  "Unknown",
+					Updated: "04/08/20"},
+
+				{Name: "Hani Ragab Hassen",
+					Email:   "H.RagabHassen@hw.ac.uk",
+					Office:  "S2-33",
+					Updated: "04/08/20"},
+
+				{Name: "Hind Zantout",
+					Email:   "H.Zantout@hw.ac.uk",
+					Office:  "S3-12",
+					Updated: "04/08/20"},
+
+				{Name: "Mohammad Hamdan",
+					Email:   "M.Hamdan@hw.ac.uk",
+					Office:  "S3-14",
+					Updated: "04/08/20"},
+
+				{Name: "Neamat El Gayar",
+					Email:   "N.Elgayar@hw.ac.uk",
+					Office:  "S2-55",
+					Updated: "04/08/20"},
+
+				{Name: "Ryad Soobany",
+					Email:   "R.Soobhany@hw.ac.uk",
+					Office:  "Unknown",
+					Updated: "04/08/20"},
+
+				{Name: "Stephen 'Steve' Gill",
+					Email:   "S.Gill@hw.ac.uk",
+					Office:  "S3-13",
+					Updated: "04/08/20"},
+
+				{Name: "Talal Shaikh",
+					Email:   "T.A.G.Shaikh@hw.ac.uk",
+					Office:  "S3-11",
+					Updated: "04/08/20"},
 			},
 		},
 	}
