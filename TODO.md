@@ -7,6 +7,7 @@ This is a vertical kanban.
 
 - Edit/Delete acnnouncements button
 - Adding tags to announcements
+- Make Platform logo black
 
 ## In Progress
 
