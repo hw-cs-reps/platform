@@ -10,7 +10,7 @@ This is a vertical kanban.
 
 ## In Progress
 
-- Make styling better?
+- Create design guide to unify look and feel
 
 ## Done
 
