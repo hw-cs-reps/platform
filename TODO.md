@@ -5,6 +5,8 @@ This is a vertical kanban.
 
 ## Backlogs
 
+- Edit/Delete acnnouncements button
+- Adding tags to announcements
 
 ## In Progress
 

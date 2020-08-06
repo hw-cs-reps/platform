@@ -54,6 +54,9 @@ func start(clx *cli.Context) (err error) {
 			"CalcDurationShort": func(unix int64) string {
 				return durafmt.Parse(time.Since(time.Unix(unix, 0))).LimitFirstN(1).String()
 			},
+			"Date": func(unix int64) string {
+				return time.Unix(unix, 0).Format("Jan 2 2006")
+			},
 			"Len": func(arr []string) int {
 				return len(arr)
 			},
