@@ -1,6 +1,7 @@
 {{template "base/head" .}}
 {{template "partials/flash" .}}
 <h1>{{.Announcement.Title}}</h1>
+<p>{{range Csv .Announcement.Tags}}<span class="badge">{{.}}</span> {{end}}</p>
 {{if .IsAdmin}}<p>
 <form method="post" action="/a/{{.Announcement.AnnouncementID}}/edit" class="lineform">
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
