@@ -253,7 +253,7 @@ func ResolveTicketHandler(ctx *macaron.Context, sess session.Store, f *session.F
 
 // PostTicketEditHandler response for adding posting new ticket.
 func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
-	if ctx.QueryTrim("title") == "" || ctx.QueryTrim("title") == "" {
+	if ctx.QueryTrim("title") == "" || ctx.QueryTrim("text") == "" {
 		ctx.Data["IsTickets"] = 1
 		ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
 		if err != nil {

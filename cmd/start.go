@@ -114,7 +114,11 @@ func start(clx *cli.Context) (err error) {
 
 	m.Group("/a", func() {
 		m.Get("", routes.AnnouncementsHandler)
-		m.Get("/:id", routes.AnnouncementHandler)
+		m.Group("/:id", func() {
+			m.Get("", routes.AnnouncementHandler)
+			m.Post("/edit", routes.RequireAdmin, csrf.Validate, routes.PostAnnouncementEditHandler)
+			m.Post("/delete", routes.RequireAdmin, csrf.Validate, routes.PostAnnouncementDeleteHandler)
+		})
 
 		// Admin
 		m.Get("/new", routes.RequireAdmin, routes.NewAnnouncementHandler)

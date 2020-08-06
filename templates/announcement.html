@@ -1,5 +1,16 @@
 {{template "base/head" .}}
 {{template "partials/flash" .}}
 <h1>{{.Announcement.Title}}</h1>
+{{if .IsAdmin}}<p>
+<form method="post" action="/a/{{.Announcement.AnnouncementID}}/edit" class="lineform">
+	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
+	<button type="submit" class="btn upvote">Edit</button>
+</form>
+<form method="post" action="/a/{{.Announcement.AnnouncementID}}/delete" class="lineform">
+	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
+	<button type="submit" class="btn upvote">Delete</button>
+</form>
+</p>
+{{end}}
 <div class="post col-7">{{.FormattedPost}}</div>
 {{template "base/footer" .}}
