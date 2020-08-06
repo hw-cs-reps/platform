@@ -62,6 +62,7 @@ func PostNewAnnouncementHandler(ctx *macaron.Context, sess session.Store, f *ses
 	announcement := models.Announcement{
 		Title:       title,
 		Description: text,
+		Tags:        ctx.QueryTrim("tags"),
 	}
 
 	err := models.AddAnnouncement(&announcement)
@@ -87,6 +88,7 @@ func PostAnnouncementEditHandler(ctx *macaron.Context, sess session.Store, f *se
 		ctx.Data["Announcement"] = announcement
 		ctx.Data["ptitle"] = announcement.Title
 		ctx.Data["ptext"] = announcement.Description
+		ctx.Data["ptags"] = announcement.Tags
 		ctx.Data["edit"] = 1
 
 		ctx.HTML(200, "new-ticket")
@@ -105,6 +107,7 @@ func PostAnnouncementEditHandler(ctx *macaron.Context, sess session.Store, f *se
 		AnnouncementID: announcement.AnnouncementID,
 		Title:          title,
 		Description:    text,
+		Tags:           ctx.QueryTrim("tags"),
 	})
 	if err != nil {
 		panic(err)

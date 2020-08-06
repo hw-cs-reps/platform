@@ -12,7 +12,8 @@
       {{if .Announcement}}
 			<div class="form-group">
         <label for="tags"><h3>Tags <small>(comma-separated, no spaces)</small></h3></label>
-				<input class="form-item" type="text" id="tags" name="tags" />
+				<input class="form-item" type="text" id="tags" name="tags"
+				{{if .ptags}}value="{{.ptags}}"{{end}} />
 			</div>
       {{else}}
 			<div class="form-group">

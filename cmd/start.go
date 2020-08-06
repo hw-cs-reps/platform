@@ -60,6 +60,9 @@ func start(clx *cli.Context) (err error) {
 			"Len": func(arr []string) int {
 				return len(arr)
 			},
+			"Csv": func(s string) []string {
+				return strings.Split(s, ",")
+			},
 		}},
 		IndentJSON: true,
 	}))

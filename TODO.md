@@ -5,8 +5,6 @@ This is a vertical kanban.
 
 ## Backlogs
 
-- Edit/Delete acnnouncements button
-- Adding tags to announcements
 - Make Platform logo black
 
 ## In Progress
@@ -32,6 +30,8 @@ This is a vertical kanban.
 - Allow tickets to be resolved
 - Ticket redirect when ticket doesn't exist
 - Sort by category (fix vulnerability in inserting own category) (fix general being lowercase)
+- Edit/Delete acnnouncements button
+- Adding tags to announcements
 
 ## Cancelled
 

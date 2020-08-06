@@ -1,8 +1,7 @@
 {{template "base/head" .}} {{template "partials/flash" .}}
 <div>
   <h1>Announcements</h1>
-  {{if .IsAdmin}}<a href="/a/new" class="btn" id="newTicket">New Announcement</a
-  >{{end}}
+  {{if .IsAdmin}}<a href="/a/new" class="btn" id="newTicket">New Announcement</a>{{end}}
 </div>
 {{range .Announcements}}
 <a class="card ticketCard" href="/a/{{.AnnouncementID}}">
@@ -12,7 +11,7 @@
         {{.Title}}
       </div>
       <div class="meta">
-        {{.Tags}} &middot; {{Date .CreatedUnix}} &middot; {{CalcDurationShort .CreatedUnix}} ago
+        {{range Csv .Tags}}<span>{{.}} </span>{{end}}{{if .Tags}} &middot; {{end}}{{Date .CreatedUnix}} &middot; {{CalcDurationShort .CreatedUnix}} ago
       </div>
     </div>
   </div>
