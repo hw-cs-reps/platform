@@ -56,7 +56,7 @@ html {
 }
 
 body {
-  font-family: "Inter-Regular", "Roboto", sans-serif;
+  font-family: "SF Pro Text", "Inter-Regular", "Roboto", sans-serif;
   font-size: 1.2em;
   background-color: var(--main-bg);
   color: var(--main-text);
@@ -99,7 +99,8 @@ small {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 25px 0 0 0;
+  margin: 25px 0 5px 0;
+  letter-spacing: 2px;
 }
 
 p {
@@ -241,9 +242,11 @@ img {
   font-size: 2em;
   color: #000;
   text-align: center;
+  margin-top: 3px;
 }
 
 .ticket-title {
+  margin-bottom: 3px;
 }
 
 .meta {
@@ -281,9 +284,14 @@ a.card {
 
 blockquote {
   color: #666;
-  border-left: 4px solid #ccc;
-  padding-left: 8px;
-  margin-left: 0;
+  box-sizing: border-box;
+  border-left: solid 4px var(--accent-colour);
+  background: linear-gradient(120deg, rgba(2,104,178,0.15) 0%, rgba(255,255,255,0) 75%);
+  padding: 5px 8px;
+}
+
+ul, ol {
+  margin: 10px 0 10px 0;
 }
 
 pre, .commentText {
@@ -327,7 +335,7 @@ pre.badge {
 .alert-title {
   font-weight: bold;
   font-size: 1.25em;
-  margin-top: 0;
+  margin: 0 0 5px 0;
 }
 
 .alert-green {
@@ -482,6 +490,10 @@ label {
     margin-left: 0;
   }
 
+  blockquote {
+    margin-left: 25px;
+  }
+
   .card-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -536,6 +548,10 @@ label {
     --info-bg: #3c4043;
     --accent-colour: #0095ff;
     --accent-colour-dim: rgba(0, 149, 255, 0.5);
+  }
+
+  blockquote {
+    color: var(--dim-text);
   }
 
   .badge {

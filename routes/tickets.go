@@ -86,6 +86,7 @@ func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flas
 	ctx.HTML(200, "ticket")
 }
 
+// IsImproperChar checks to make sure that an empty message or ticket is not being submitted
 func IsImproperChar(r rune) bool {
 	return unicode.IsSpace(r) || !unicode.IsGraphic(r)
 }

@@ -1,0 +1,136 @@
+{{template "base/head" .}} {{template "partials/flash" .}}
+
+<h1>Page Title</h1>
+<p>The title of the current page is done using a h1 tag</p>
+
+<h2>Heading 2</h2>
+<p>The main headings use h2</p>
+
+<h3>Heading 3</h3>
+<p>
+  Paragraph to start capitalising on low hanging fruit to identify a ballpark
+  value added activity to beta test.
+</p>
+
+<h4>Heading 4</h4>
+<p>Some text here about something useful I guess.</p>
+
+A wise man once said:
+<blockquote>Fiat lux</blockquote>
+But he added later:
+<blockquote>
+  <p>
+    I think it is time to rethink our strategy.
+  </p>
+  Let us adopt a brighter future for humanity.
+</blockquote>
+
+<h2>Input Fields</h2>
+<div class="col-5">
+  <div class="form-group">
+    <label for="email">Name:</label>
+    <input type="text" id="name" name="name" required="1" />
+  </div>
+  <button type="submit" class="btn">Continue</button>
+</div>
+
+<h2>Lists</h2>
+
+<h3>Unordered Lists</h3>
+<ul>
+  <li>Some text</li>
+  <li>A list item</li>
+  <li>Yet another thing</li>
+  <li>Hello</li>
+</ul>
+
+<h3>Ordered Lists</h3>
+<ol>
+  <li>Some text</li>
+  <li>A list item</li>
+  <li>Yet another thing</li>
+  <li>Hello</li>
+</ol>
+
+<h2>Tickets</h2>
+<a class="card ticketCard" href="">
+  <div class="tickets-grid-container">
+    <div class="grid-child upvotes">
+      <div>
+        24
+      </div>
+    </div>
+    <div class="grid-child">
+      <div class="ticket-title">
+        Issue Regarding Water
+      </div>
+      <div class="meta">
+        General &middot; 7 days ago &middot; 12 comments
+      </div>
+    </div>
+  </div>
+</a>
+<a class="card ticketCard" href="">
+  <div class="tickets-grid-container">
+    <div class="grid-child upvotes">
+      <div>
+        17
+      </div>
+    </div>
+    <div class="grid-child">
+      <div class="ticket-title">
+        Something That Will Affect Everyone
+      </div>
+      <div class="meta">
+        F20PA &middot; 3 days ago &middot; 4 comments
+      </div>
+    </div>
+  </div>
+</a>
+
+<h2>Announcements</h2>
+<a class="card ticketCard" href="">
+  <div class="announcements-grid-container">
+    <div class="grid-child">
+			<div class="ticket-title">
+        Third Year Grade Averages Released
+      </div>
+      <div class="meta">
+        General &middot; 25 Jan 2020 &middot; 3 days ago
+      </div>
+    </div>
+  </div>
+</a>
+
+<h2>Alert Boxes</h2>
+
+<div class="alert alert-grey">
+  <p class="alert-title">Alert</p>
+  <p class="noBottomMargin">
+    Officia illum et cumque. Nam ad assumenda rerum velit iure labore.
+  </p>
+  <a href="" class="btn">Read more</a>
+</div>
+
+<div class="alert alert-green">
+  <p class="alert-title">Alert</p>
+  <p class="noBottomMargin">
+    Officia illum et cumque. Nam ad assumenda rerum velit iure labore.
+  </p>
+</div>
+
+<div class="alert alert-yellow">
+  <p class="alert-title">Alert</p>
+  <p class="noBottomMargin">
+    Officia illum et cumque. Nam ad assumenda rerum velit iure labore.
+  </p>
+</div>
+
+<div class="alert alert-red">
+  <p class="alert-title">Alert</p>
+  <p class="noBottomMargin">
+    Officia illum et cumque. Nam ad assumenda rerum velit iure labore.
+  </p>
+</div>
+
+{{template "base/footer" .}}

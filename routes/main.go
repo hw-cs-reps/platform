@@ -64,3 +64,9 @@ func PostConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flas
 	config.SaveConfig()
 	ctx.Redirect("/config")
 }
+
+// PreviewHandler gets the privacy policy page
+func PreviewHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ctx.Data["Title"] = "Preview"
+	ctx.HTML(200, "preview")
+}

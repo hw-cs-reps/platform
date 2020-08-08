@@ -1,45 +1,47 @@
-{{template "base/head" .}}
-{{template "partials/flash" .}}
+{{template "base/head" .}} {{template "partials/flash" .}}
 <div>
-	<h1>{{if not .Category}}Tickets{{else}}Tickets - {{.Category}}{{end}}</h1>
-	<a href="/tickets/new" class="btn" id="newTicket">New Ticket</a>
+  <h1>{{if not .Category}}Tickets{{else}}Tickets - {{.Category}}{{end}}</h1>
+  <a href="/tickets/new" class="btn" id="newTicket">New Ticket</a>
 </div>
 <form method="post">
-	<div class="form-group">
-		<select class="form-item col-6" name="category" id="category" onchange="this.form.submit()">
-			<option value="" selected disabled hidden>Filter by category</option>
-			<option value="General">General</option>
-			{{range .Courses}}
-			<option value="{{.Code}}">{{.Name}} ({{.Code}})</option>
-			{{end}}
-		</select>
-		<noscript>
-			<button type="submit" class="btn">Sort</button>
-		</noscript>
-		{{if ne .Category ""}}
-		<a href="/tickets" type="submit" class="btn">Clear Filter</a>
-		{{end}}
-	</div>
+  <div class="form-group">
+    <select
+      class="form-item col-6"
+      name="category"
+      id="category"
+      onchange="this.form.submit()"
+    >
+      <option value="" selected disabled hidden>Filter by category</option>
+      <option value="General">General</option>
+      {{range .Courses}}
+      <option value="{{.Code}}">{{.Name}} ({{.Code}})</option>
+      {{end}}
+    </select>
+    <noscript>
+      <button type="submit" class="btn">Sort</button>
+    </noscript>
+    {{if ne .Category ""}}
+    <a href="/tickets" type="submit" class="btn">Clear Filter</a>
+    {{end}}
+  </div>
 </form>
 {{range .Tickets}}
 <a class="card ticketCard" href="/tickets/{{.TicketID}}">
-	<div class="tickets-grid-container">
-		<div class="grid-child upvotes">
-			<div>
-				{{Len .Voters}}
-			</div>
-		</div>
-		<div class="grid-child">
-			<div class="ticket-title">
-				{{.Title}}
-			</div>
-			<div class="meta">
-				{{.Category}} &middot; {{CalcDurationShort .CreatedUnix}} ago &middot; {{.CommentsCount}}
-				comments
-			</div>
-		</div>
-	</div>
-
+  <div class="tickets-grid-container">
+    <div class="grid-child upvotes">
+      <div>
+        {{Len .Voters}}
+      </div>
+    </div>
+    <div class="grid-child">
+      <div class="ticket-title">
+        {{.Title}}
+      </div>
+      <div class="meta">
+        {{.Category}} &middot; {{CalcDurationShort .CreatedUnix}} ago &middot;
+        {{.CommentsCount}} comments
+      </div>
+    </div>
+  </div>
 </a>
-{{end}}
-{{template "base/footer" .}}
+{{end}} {{template "base/footer" .}}

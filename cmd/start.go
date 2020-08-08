@@ -92,6 +92,7 @@ func start(clx *cli.Context) (err error) {
 	m.Use(routes.ContextInit())
 
 	m.Get("/", routes.HomepageHandler)
+	m.Get("/preview", routes.PreviewHandler)
 	m.Group("/tickets", func() {
 		m.Get("", routes.TicketsHandler)
 		m.Get("/cat/:category", routes.TicketsHandler)

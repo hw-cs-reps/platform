@@ -49,6 +49,7 @@ func ContextInit() macaron.Handler {
 	}
 }
 
+// RequireAdmin redirects if user is not an administrator
 func RequireAdmin(ctx *macaron.Context, sess session.Store) {
 	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
 		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
