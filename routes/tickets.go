@@ -23,6 +23,15 @@ import (
 	macaron "gopkg.in/macaron.v1"
 )
 
+func getUsedCourses() (courses []config.Course) {
+	for _, c := range config.Config.InstanceConfig.Courses {
+		if models.HasTicketWithCategory(c.Code) {
+			courses = append(courses, c)
+		}
+	}
+	return
+}
+
 // TicketsHandler response for the tickets listing page.
 func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	var tickets []models.Ticket
@@ -42,7 +51,7 @@ func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 	ctx.Data["IsTickets"] = 1
 	ctx.Data["Title"] = "Tickets"
 	ctx.Data["Category"] = ctx.Params("category")
-	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
+	ctx.Data["Courses"] = getUsedCourses()
 	ctx.HTML(200, "tickets")
 }
 

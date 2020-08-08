@@ -17,6 +17,11 @@ type Ticket struct {
 	Comments      []Comment `xorm:"-"`
 }
 
+func HasTicketWithCategory(c string) bool {
+	total, _ := engine.Where("category = ?", c).Count(new(Ticket))
+	return total > 0
+}
+
 // AddTicket inserts a new ticket into the database
 func AddTicket(t *Ticket) (err error) {
 	_, err = engine.Insert(t)

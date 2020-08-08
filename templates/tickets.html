@@ -22,24 +22,15 @@
 	</div>
 </form>
 {{range .Tickets}}
-<a class="card ticketCard" href="/tickets/{{.TicketID}}">
-	<div class="tickets-grid-container">
-		<div class="grid-child upvotes">
-			<div>
-				{{Len .Voters}}
-			</div>
-		</div>
-		<div class="grid-child">
-			<div class="ticket-title">
-				{{.Title}}
-			</div>
-			<div class="meta">
-				{{.Category}} &middot; {{CalcDurationShort .CreatedUnix}} ago &middot; {{.CommentsCount}}
-				comments
-			</div>
-		</div>
-	</div>
-
-</a>
+{{if not .IsResolved}}
+{{template "ticket_card" .}}
 {{end}}
+{{end}}
+<h2>Resolved</h2>
+{{range .Tickets}}
+{{if .IsResolved}}
+{{template "ticket_card" .}}
+{{end}}
+{{end}}
+
 {{template "base/footer" .}}

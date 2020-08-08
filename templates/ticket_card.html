@@ -1,0 +1,19 @@
+<a class="card ticketCard" href="/tickets/{{.TicketID}}">
+	<div class="tickets-grid-container">
+		<div class="grid-child upvotes">
+			<div>
+				{{Len .Voters}}
+			</div>
+		</div>
+		<div class="grid-child">
+			<div class="ticket-title">
+				{{.Title}}
+			</div>
+			<div class="meta">
+				{{.Category}} &middot; {{CalcDurationShort .CreatedUnix}} ago &middot; {{.CommentsCount}}
+				comments
+			</div>
+		</div>
+	</div>
+</a>
+
