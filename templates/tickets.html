@@ -5,12 +5,7 @@
 </div>
 <form method="post">
   <div class="form-group">
-    <select
-      class="form-item col-6"
-      name="category"
-      id="category"
-      onchange="this.form.submit()"
-    >
+    <select class="form-item col-6" name="category" id="category" onchange="this.form.submit()">
       <option value="" selected disabled hidden>Filter by category</option>
       <option value="General">General</option>
       {{range .Courses}}

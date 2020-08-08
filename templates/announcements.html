@@ -11,7 +11,7 @@
         {{.Title}}
       </div>
       <div class="meta">
-        {{range Csv .Tags}}<span>{{.}} </span>{{end}}{{if .Tags}} &middot; {{end}}{{Date .CreatedUnix}} &middot; {{CalcDurationShort .CreatedUnix}} ago
+        {{range Csv .Tags}}<span class="tag">{{.}}</span>&MediumSpace;{{end}}{{if .Tags}} &middot; {{end}}{{Date .CreatedUnix}} &middot; {{CalcDurationShort .CreatedUnix}} ago
       </div>
     </div>
   </div>

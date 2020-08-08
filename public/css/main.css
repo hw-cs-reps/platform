@@ -412,6 +412,13 @@ label {
   margin: 0;
 }
 
+.tag {
+  background-color: #000;
+  color: #fff;
+  border-radius: var(--card-radius);
+  padding: 0 5px;
+}
+
 /* Responsive Layout */
 .col-1 {
   width: 8.33%;
@@ -504,7 +511,7 @@ label {
   }
 
   #newTicket {
-    float: right;
+    margin-bottom: 10px;
   }
 
   .btn {
