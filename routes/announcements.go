@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"html/template"
 	"log"
+	"sort"
 	"strings"
+	"time"
 
 	"github.com/hw-cs-reps/platform/models"
 
@@ -13,13 +15,39 @@ import (
 	macaron "gopkg.in/macaron.v1"
 )
 
+type byDate []models.Announcement
+
+func (d byDate) Len() int {
+	return len(d)
+}
+
+func (d byDate) Swap(i, j int) {
+	d[i], d[j] = d[j], d[i]
+}
+
+func (d byDate) Less(i, j int) bool {
+	return time.Unix(d[i].CreatedUnix, 0).After(time.Unix(d[j].CreatedUnix, 0))
+}
+
 // AnnouncementsHandler response for the announcements listing page.
 func AnnouncementsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	announcements := models.GetAnnouncements()
+
+	for i := range announcements {
+		sep := strings.Split(announcements[i].Description, " ")
+		if len(sep) < 25 {
+			announcements[i].Summary = announcements[i].Description
+		} else {
+			announcements[i].Summary = strings.Join(sep[:25], " ") + "..."
+		}
+	}
+
+	sort.Sort(byDate(announcements))
+
 	ctx.Data["Title"] = "Announcements"
 	ctx.Data["IsAnnouncements"] = 1
 	ctx.Data["Announcements"] = announcements
-
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "announcements")
 }
 
@@ -30,13 +58,14 @@ func AnnouncementHandler(ctx *macaron.Context, sess session.Store, f *session.Fl
 	announcement, err := models.GetAnnouncement(ctx.ParamsInt64("id"))
 	if err != nil {
 		log.Println(err)
-		ctx.Redirect("/tickets")
+		ctx.Redirect("/a")
 		return
 	}
 
 	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.Data["FormattedPost"] = template.HTML(markdownToHTML(announcement.Description))
 	ctx.Data["Announcement"] = announcement
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "announcement")
 }
 
@@ -45,6 +74,7 @@ func NewAnnouncementHandler(ctx *macaron.Context, sess session.Store, f *session
 	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.Data["IsAnnouncements"] = 1
 	ctx.Data["Announcement"] = 1
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "new-ticket")
 }
 
@@ -81,7 +111,7 @@ func PostAnnouncementEditHandler(ctx *macaron.Context, sess session.Store, f *se
 		announcement, err := models.GetAnnouncement(ctx.ParamsInt64("id"))
 		if err != nil {
 			log.Println(err)
-			ctx.Redirect("/tickets")
+			ctx.Redirect("/a")
 			return
 		}
 		ctx.Data["csrf_token"] = x.GetToken()

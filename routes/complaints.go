@@ -14,6 +14,7 @@ func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flas
 	ctx.Data["IsComplaints"] = 1
 	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
 	ctx.Data["csrf_token"] = x.GetToken()
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "complaints")
 }
 
@@ -98,5 +99,6 @@ Message:
 	}
 
 	ctx.Data["Recipients"] = recipients
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "complaints-confirm")
 }

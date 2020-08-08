@@ -1,17 +1,23 @@
 {{template "base/head" .}} {{template "partials/flash" .}}
 <div>
   <h1>Announcements</h1>
+  <p>These are announcements posted by class representatives.</p>
+  <p>Note: These announcements are not official nor endorsed by the university.</p>
   {{if .IsAdmin}}<a href="/a/new" class="btn" id="newTicket">New Announcement</a>{{end}}
 </div>
 {{range .Announcements}}
 <a class="card ticketCard" href="/a/{{.AnnouncementID}}">
   <div class="announcements-grid-container">
     <div class="grid-child">
-			<div class="ticket-title">
-        {{.Title}}
+      <div>
+        <h2 class="a-title">{{.Title}}</h2>
+      </div>
+      <div class="a-summary">
+        {{.Summary}}
       </div>
       <div class="meta">
-        {{range Csv .Tags}}<span class="tag">{{.}}</span>&MediumSpace;{{end}}{{if .Tags}} &middot; {{end}}{{Date .CreatedUnix}} &middot; {{CalcDurationShort .CreatedUnix}} ago
+        {{range Csv .Tags}}<span class="tag">{{.}}</span>&MediumSpace;{{end}}{{if .Tags}} &middot;
+        {{end}}{{Date .CreatedUnix}} &middot; {{CalcDurationShort .CreatedUnix}} ago
       </div>
     </div>
   </div>

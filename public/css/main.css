@@ -29,7 +29,7 @@
 
 /* Page style */
 html {
-  overflow-y: scroll;
+  overflow-y: auto;
   scroll-behavior: smooth;
 }
 
@@ -100,7 +100,7 @@ small {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 25px 0 5px 0;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 p {
@@ -185,6 +185,19 @@ input:focus, textarea:focus, a:focus, .btn:focus, select:focus {
   color: #fff;
 }
 
+.scope {
+  background: #000;
+  color: #fff;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+  border-radius: var(--card-radius);
+}
+
+#complaint-btn {
+  /* margin-top: 0; */
+}
+
 .muted-text {
   color: #6f6f6f;
   font-size: 0.9rem;
@@ -247,6 +260,16 @@ img {
 
 .ticket-title {
   margin-bottom: 3px;
+}
+
+.a-title {
+  margin: 0;
+}
+
+.a-summary {
+  color: var(--dim-text);
+  font-weight: normal;
+  margin-bottom: 5px;
 }
 
 .meta {
@@ -419,6 +442,10 @@ label {
   padding: 0 5px;
 }
 
+#category, #newTicket, button {
+  display: inline-block;
+}
+
 /* Responsive Layout */
 .col-1 {
   width: 8.33%;
@@ -481,6 +508,10 @@ label {
   .content {
     padding: 15px;
   }
+
+  .scope {
+    margin-bottom: 15px;
+  }
 }
 
 
@@ -503,6 +534,15 @@ label {
 
   .card-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .card, .alert {
+    margin: 0;
+  }
+
+  .form-item {
+    margin: 0;
   }
 
   .ticketCard {
@@ -514,7 +554,7 @@ label {
     margin-bottom: 10px;
   }
 
-  .btn {
+  .btn, select {
     padding: 10px 15px;
   }
 
@@ -530,12 +570,6 @@ label {
     grid-template-columns: 40px 1fr;
     grid-gap: 10px;
   }
-
-  ::-webkit-scrollbar {
-    /* display: none; */
-    position: relative;
-  }
-
 }
 
 @media only screen and (max-width: 400px) {
@@ -570,6 +604,10 @@ label {
     background-color: var(--main-bg);
     border: solid 1px #666;
     color: #fefefe;
+  }
+
+  .btn-danger {
+    background-color: var(--danger-btn);
   }
 
   .btn:hover {

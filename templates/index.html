@@ -1,5 +1,6 @@
 {{template "base/head" .}}
 {{if .IsHome}}
+
 {{if .Config.ShowNotice}}
 <div class="alert {{if eq .Config.NoticeColour ""}}alert-grey{{end}}{{.Config.NoticeColour}}">
   <p class="alert-title">{{if eq .Config.NoticeTitle ""}}Update{{end}} {{.Config.NoticeTitle}}</p>
@@ -17,8 +18,15 @@
   {{end}}
 </div>
 
+
 <h2>Your Class Representatives</h2>
+
 <div class="card-grid">
+  
+  <div class="card">
+    <p>Send an anonymous direct complaint</p>
+    <p><a href="/complaints" id="complaint-btn" class="btn btn-danger">Send complaint</a></p>
+  </div>
   {{ range .Config.ClassReps }}
   <div class="card">
     <p class="cardTitle">{{.Name}}</p>

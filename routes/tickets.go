@@ -52,6 +52,7 @@ func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 	ctx.Data["Title"] = "Tickets"
 	ctx.Data["Category"] = ctx.Params("category")
 	ctx.Data["Courses"] = getUsedCourses()
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "tickets")
 }
 
@@ -92,6 +93,7 @@ func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flas
 	ctx.Data["Ticket"] = ticket
 	voterHash := userHash(getIP(ctx), ctx.Req.Header.Get("User-Agent"))
 	ctx.Data["Upvoted"] = containsString(voterHash, ticket.Voters)
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "ticket")
 }
 
@@ -130,7 +132,6 @@ func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.
 	if err != nil {
 		log.Println(err)
 	}
-
 	ctx.Redirect("/tickets/" + ctx.Params("id"))
 }
 
@@ -152,6 +153,7 @@ func NewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash
 	ctx.Data["IsTickets"] = 1
 	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "new-ticket")
 }
 

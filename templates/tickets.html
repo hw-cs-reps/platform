@@ -1,10 +1,13 @@
 {{template "base/head" .}} {{template "partials/flash" .}}
-<div>
+<div class="col-8">
   <h1>{{if not .Category}}Tickets{{else}}Tickets - {{.Category}}{{end}}</h1>
-  <a href="/tickets/new" class="btn" id="newTicket">New Ticket</a>
+  <p>You can submit a public issue where others may comment on and upvote your submission. If you'd like to make a
+    private complaint to the class representatives, visit the <a href="/complaints">complaints page</a>.
+  </p>
 </div>
 <form method="post">
   <div class="form-group">
+    <a href="/tickets/new" class="btn" id="newTicket">New Ticket</a>
     <select class="form-item col-6" name="category" id="category" onchange="this.form.submit()">
       <option value="" selected disabled hidden>Filter by category</option>
       <option value="General">General</option>

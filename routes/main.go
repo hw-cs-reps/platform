@@ -16,6 +16,7 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 	ctx.Data["Config"] = config.Config.InstanceConfig
 	ctx.Data["IsHome"] = 1
 	ctx.Data["Title"] = config.Config.SiteName
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "index")
 }
 
@@ -23,6 +24,7 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 func CoursesHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
 	ctx.Data["Title"] = "Courses"
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "courses")
 }
 
@@ -30,6 +32,7 @@ func CoursesHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 func LecturerHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Lecturers"] = config.Config.InstanceConfig.Lecturers
 	ctx.Data["Title"] = "Lecturers"
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "lecturers")
 }
 
@@ -47,6 +50,7 @@ func ConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 		log.Println(err)
 	}
 	ctx.Data["Conf"] = buf.String()
+	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "config")
 }
 

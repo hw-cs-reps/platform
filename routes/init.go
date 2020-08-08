@@ -46,6 +46,7 @@ func ContextInit() macaron.Handler {
 			sess.Set("id", namegen.GetName())
 		}
 		ctx.Data["SiteTitle"] = config.Config.SiteName
+		ctx.Data["SiteScope"] = config.Config.SiteScope
 	}
 }
 

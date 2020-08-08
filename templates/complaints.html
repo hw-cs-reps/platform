@@ -2,12 +2,12 @@
 {{template "partials/flash" .}}
 <h1>Submit a Complaint</h1>
 <div class="col-8">
-	<p>You to submit a private complaint directly to the class
-		representatives. If you'd like to make a public ticket, <a href="/tickets">visit the tickets page</a>.
+	<p>You can submit a private complaint directly to the class
+		representatives. If you'd like to make a public ticket, visit the <a href="/tickets">tickets page</a>.
 	</p>
-	<p>We may reply or ask further clarifications if you provide your email
-  address. However, your identity will remain private and will not be revealed
-  to the university, unless you specify otherwise.</p>
+	<p>We may reply or ask for further clarifications if you provide your email
+		address. Your identity will remain private and will not be revealed
+		to the university, unless you specify otherwise.</p>
 </div>
 <form method="post">
 	<div class="col-8">
@@ -15,14 +15,14 @@
 			<label for="category">
 				<h3 class="noBottomMargin">Category</h3>
 			</label>
-      <select class="form-item" name="category" id="category">
-        <option value="General">General</option>
-        {{range .Courses}}
-        <option value="{{.Code}}">{{.Name}} ({{.Code}})</option>
-        {{end}}
-      </select>
-      <p><small>Note: The complaint will automatically be sent to the
-        corresponding class representatives.</small></p>
+			<select class="form-item" name="category" id="category">
+				<option value="General">General</option>
+				{{range .Courses}}
+				<option value="{{.Code}}">{{.Name}} ({{.Code}})</option>
+				{{end}}
+			</select>
+			<p><small>Note: The complaint will automatically be sent to the
+					corresponding class representatives.</small></p>
 		</div>
 		<div class="form-group">
 			<label for="subject">
@@ -34,8 +34,8 @@
 			<label for="message">
 				<h3 class="noBottomMargin">Message</h3>
 			</label>
-			<textarea class="form-item" id="message" name="message" cols="70" rows="20"
-				placeholder="Plain text only" required="1">{{if .ptext}}{{.ptext}}{{end}}</textarea>
+			<textarea class="form-item" id="message" name="message" cols="70" rows="20" placeholder="Plain text only"
+				required="1">{{if .ptext}}{{.ptext}}{{end}}</textarea>
 		</div>
 		<div class="form-group">
 			<label for="email">
@@ -46,7 +46,7 @@
 	</div>
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
 	<br>
-  <p class="noBottomMargin">You will confirm the recipients next.</p>
+	<p class="noBottomMargin">You will confirm the recipients next.</p>
 	<button type="submit" class="btn">Continue</button>
 </form>
 </div>

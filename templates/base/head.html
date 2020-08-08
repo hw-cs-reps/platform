@@ -24,9 +24,10 @@
 		<div class="nav">
 			<div class="nav-left">
 				<a href="/" class="nav-title">
-					<span class="nav-extra {{if .IsHome}}active{{end}}">{{.SiteTitle}}{{if .DevMode}} [DEV]{{end}}</span></a>
-					<a class="{{if .IsAnnouncements}}active{{end}}" href="/a">Announcements</a>
+					<span class="nav-extra {{if .IsHome}}active{{end}}">{{.SiteTitle}}</span></a>
+				<a class="{{if .IsAnnouncements}}active{{end}}" href="/a">Announcements</a>
 				<a class="{{if .IsTickets}}active{{end}}" href="/tickets">Tickets</a>
 			</div>
 		</div>
 		<div class="content">
+			{{if .HasScope}}<center><div class="scope">{{.SiteScope}}{{if .DevMode}} [DEV]{{end}}</div></center>{{end}}

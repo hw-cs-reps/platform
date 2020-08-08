@@ -5,6 +5,7 @@ import "errors"
 // Announcement represents an announcement
 type Announcement struct {
 	AnnouncementID int64  `xorm:"pk autoincr"`
+	Summary        string `xorm:"-"`
 	Title          string `xorm:"text"`
 	Tags           string `xorm:"text"`
 	CreatedUnix    int64  `xorm:"created"`
@@ -37,7 +38,7 @@ func GetAnnouncement(id int64) (*Announcement, error) {
 	return a, nil
 }
 
-// GetAnnouncement fetches all announcement in the database
+// GetAnnouncements fetches all announcement in the database
 func GetAnnouncements() (announcements []Announcement) {
 	engine.Find(&announcements)
 	return announcements

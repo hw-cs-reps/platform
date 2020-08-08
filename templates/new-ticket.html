@@ -1,46 +1,62 @@
 {{template "base/head" .}}
-	{{template "partials/flash" .}}
-  <h1>{{if .edit}}Edit a{{if .Announcement}}n{{end}}{{else}}Post a New{{end}}
-    {{if .Announcement}}Announcement{{else}}Ticket{{end}}</h1>
-	<form method="post">
-		<div class="col-7">
-			<div class="form-group">
-				<label for="title"><h3>Title</h3></label>
-				<input class="form-item" type="text" id="title" name="title" required="1"
-				autofocus="1"{{if .ptitle}} value="{{.ptitle}}"{{end}} />
-			</div>
-      {{if .Announcement}}
-			<div class="form-group">
-        <label for="tags"><h3>Tags <small>(comma-separated, no spaces)</small></h3></label>
-				<input class="form-item" type="text" id="tags" name="tags"
-				{{if .ptags}}value="{{.ptags}}"{{end}} />
-			</div>
-      {{else}}
-			<div class="form-group">
-				<label for="category">
-					<h3 class="noBottomMargin">Category</h3>
-				</label>
-				<select class="form-item" name="category" id="category" aria-placeholder="Hello">
-					<option value="General">General</option>
-					{{range .Courses}}
-					<option value="{{.Code}}">{{.Name}} ({{.Code}})</option>
-					{{end}}
-				</select>
-			</div>
-      {{end}}
-			<div class="form-group">
-				<label for="text"><h3>Body</h3></label>
-				<textarea class="form-item" id="text" name="text" rows="12" required="1" placeholder="Markdown and HTML are supported">{{if .ptext}}{{.ptext}}{{end}}</textarea> 
-			</div>
+{{template "partials/flash" .}}
+<h1>{{if .edit}}Edit a{{if .Announcement}}n{{end}}{{else}}Post a New{{end}}
+	{{if .Announcement}}Announcement{{else}}Ticket{{end}}</h1>
+
+<div class="col-7">
+	<p>
+		Your ticket will be posted publicly and anonymously.
+	</p>
+	<p>
+		Please do not include any private information such
+		as names or email addresses.
+	</p>
+</div>
+<form method="post">
+	<div class="col-7">
+		<div class="form-group">
+			<label for="title">
+				<h2>Title</h2>
+			</label>
+			<input class="form-item" type="text" id="title" name="title" required="1" autofocus="1" {{if .ptitle}}
+				value="{{.ptitle}}" {{end}} />
 		</div>
-		<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
-    {{if .edit}}
-    <button type="submit" class="btn">Submit</button>
-    {{else}}
-    {{if not .Announcement}}
-    <p><small>Ticket will be posted publicly and anonymously.</small></p>
-    {{end}}
-    <button type="submit" class="btn">Submit</button>{{end}}
-		<br><br>
-	</form>
+		{{if .Announcement}}
+		<div class="form-group">
+			<label for="tags">
+				<h2>Tags</h2>
+			</label>
+			<input class="form-item" type="text" id="tags" name="tags" {{if .ptags}}value="{{.ptags}}" {{end}} />
+			<small>(comma-separated, no spaces)</small>
+		</div>
+		{{else}}
+		<div class="form-group">
+			<label for="category">
+				<h2>Category</h2>
+			</label>
+			<select class="form-item" name="category" id="category" aria-placeholder="Hello">
+				<option value="General">General</option>
+				{{range .Courses}}
+				<option value="{{.Code}}">{{.Name}} ({{.Code}})</option>
+				{{end}}
+			</select>
+		</div>
+		{{end}}
+		<div class="form-group">
+			<label for="text">
+				<h2>Body</h2>
+			</label>
+			<textarea class="form-item" id="text" name="text" rows="12" required="1"
+				placeholder="Markdown and HTML are supported">{{if .ptext}}{{.ptext}}{{end}}</textarea>
+		</div>
+	</div>
+	<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
+	{{if .edit}}
+	<button type="submit" class="btn">Submit</button>
+	{{else}}
+	{{if not .Announcement}}
+	{{end}}
+	<button type="submit" class="btn">Submit</button>{{end}}
+	<br><br>
+</form>
 {{template "base/footer" .}}

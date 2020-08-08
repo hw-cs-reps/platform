@@ -26,6 +26,7 @@ var (
 // Configuration represents the configuration file format.
 type Configuration struct {
 	SiteName        string                // SiteName is the name of the site.
+	SiteScope       string                // SiteScope is the campus, department, and university year of the site.
 	SitePort        string                // SitePort is the port to run the web server on.
 	VoterPepper     string                // VoterPepper is the salt used in the voter ID hash.
 	DevMode         bool                  // DevMode is whether to disable authentication for development.
@@ -92,6 +93,7 @@ type DatabaseConfiguration struct {
 func newConfig() Configuration {
 	return Configuration{
 		SiteName:        "Platform",
+		SiteScope:       "Edinburgh MACS Year 4",
 		SitePort:        "8080",
 		VoterPepper:     uuid.New().String(),
 		DevMode:         true,
