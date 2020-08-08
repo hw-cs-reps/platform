@@ -5,12 +5,14 @@ This is a vertical kanban.
 
 ## Backlogs
 
-- Edit/Delete acnnouncements button
-- Adding tags to announcements
+- Make Platform logo black
+- Allow sorting by degree instead of course in tickets
 
 ## In Progress
 
-- Make styling better?
+- Create design guide to unify look and feel
+	- Make tags look correct on announcements
+- Move complaints to a button, announcements to the nav
 
 ## Done
 
@@ -31,6 +33,8 @@ This is a vertical kanban.
 - Allow tickets to be resolved
 - Ticket redirect when ticket doesn't exist
 - Sort by category (fix vulnerability in inserting own category) (fix general being lowercase)
+- Edit/Delete acnnouncements button
+- Adding tags to announcements
 
 ## Cancelled
 

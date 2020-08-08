@@ -1,6 +1,7 @@
 {{template "base/head" .}}
 	{{template "partials/flash" .}}
-  <h1>{{if .edit}}Edit a Ticket{{else}}Post a New Ticket{{end}}</h1>
+  <h1>{{if .edit}}Edit a{{if .Announcement}}n{{end}}{{else}}Post a New{{end}}
+    {{if .Announcement}}Announcement{{else}}Ticket{{end}}</h1>
 	<form method="post">
 		<div class="col-7">
 			<div class="form-group">
@@ -8,6 +9,13 @@
 				<input class="form-item" type="text" id="title" name="title" required="1"
 				autofocus="1"{{if .ptitle}} value="{{.ptitle}}"{{end}} />
 			</div>
+      {{if .Announcement}}
+			<div class="form-group">
+        <label for="tags"><h3>Tags <small>(comma-separated, no spaces)</small></h3></label>
+				<input class="form-item" type="text" id="tags" name="tags"
+				{{if .ptags}}value="{{.ptags}}"{{end}} />
+			</div>
+      {{else}}
 			<div class="form-group">
 				<label for="category">
 					<h3 class="noBottomMargin">Category</h3>
@@ -19,6 +27,7 @@
 					{{end}}
 				</select>
 			</div>
+      {{end}}
 			<div class="form-group">
 				<label for="text"><h3>Body</h3></label>
 				<textarea class="form-item" id="text" name="text" rows="12" required="1" placeholder="Markdown and HTML are supported">{{if .ptext}}{{.ptext}}{{end}}</textarea> 
@@ -28,8 +37,10 @@
     {{if .edit}}
     <button type="submit" class="btn">Submit</button>
     {{else}}
+    {{if not .Announcement}}
     <p><small>Ticket will be posted publicly and anonymously.</small></p>
-    <button type="submit" class="btn">Submit ticket</button>{{end}}
+    {{end}}
+    <button type="submit" class="btn">Submit</button>{{end}}
 		<br><br>
 	</form>
 {{template "base/footer" .}}
