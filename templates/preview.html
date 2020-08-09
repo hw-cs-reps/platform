@@ -2,6 +2,7 @@
 
 <h1>Page Title</h1>
 <p>The title of the current page is done using a h1 tag</p>
+<small>This is small text</small>
 
 <h2>Heading 2</h2>
 <p>The main headings use h2</p>
@@ -17,7 +18,7 @@
 
 A wise man once said:
 <blockquote>Fiat lux</blockquote>
-But he added later:
+But he later added:
 <blockquote>
   <p>
     I think it is time to rethink our strategy.
@@ -31,8 +32,46 @@ But he added later:
     <label for="email">Name:</label>
     <input type="text" id="name" name="name" required="1" />
   </div>
-  <button type="submit" class="btn">Continue</button>
+  <button type="submit" class="btn">Form button</button>
 </div>
+
+<h2>Components</h2>
+<h3>Buttons</h3>
+<a href="" class="btn">Button</a>
+<a href="" class="btn btn-danger">Danger</a>
+
+<h3>Radial Buttons</h3>
+<input type="radio" id="male" name="gender" value="male">
+<label for="male">Male</label><br>
+<input type="radio" id="female" name="gender" value="female">
+<label for="female">Female</label><br>
+<input type="radio" id="other" name="gender" value="other">
+<label for="other">Other</label>
+
+<h3>Checkboxes</h3>
+<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+<label for="vehicle1"> I have a bike</label><br>
+<input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+<label for="vehicle2"> I have a car</label><br>
+<input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+<label for="vehicle3"> I have a boat</label><br>
+
+<h3>Drop Down</h3>
+<select class="form-item col-5" name="category" id="category" aria-placeholder="Hello">
+  <option value="General">General</option>
+  <option value="F29AP">Foundational Controllers (F29AP)</option>
+  <option value="E74IN" disabled>Extraterrestrial Invaders (E74IN)</option>
+</select>
+
+<h3>Sort Buttons</h3>
+<p>
+  <span>
+    Sort by:
+    <a href="">Hot</a> |
+    <a href="">Top</a> |
+    <a href="">New</a>
+  </span>
+</p>
 
 <h2>Lists</h2>
 
@@ -52,6 +91,25 @@ But he added later:
   <li>Hello</li>
 </ol>
 
+<h2>Announcements</h2>
+<a class="card ticketCard" href="">
+  <div class="announcements-grid-container">
+    <div class="grid-child">
+      <div>
+        <h2 class="a-title">{{.Title}}</h2>
+      </div>
+      <div class="a-summary">
+        This summary is twenty five words long and if it exceeds that amount the text will be cut off at hello some
+        twenty four seven...
+      </div>
+      <div class="meta">
+        <span class="tag">Important</span>&MediumSpace;<span class="tag">General</span>
+        &MediumSpace;&middot; 25 Jan 2020 &middot; 3 days ago
+      </div>
+    </div>
+  </div>
+</a>
+
 <h2>Tickets</h2>
 <a class="card ticketCard" href="">
   <div class="tickets-grid-container">
@@ -65,7 +123,7 @@ But he added later:
         Issue Regarding Water
       </div>
       <div class="meta">
-        General &middot; 7 days ago &middot; 12 comments
+        <span class="tag">General</span> &MediumSpace;&middot; 7 days ago &middot; 12 comments
       </div>
     </div>
   </div>
@@ -82,50 +140,55 @@ But he added later:
         Something That Will Affect Everyone
       </div>
       <div class="meta">
-        F20PA &middot; 3 days ago &middot; 4 comments
+        <span class="tag">F20PA</span> &MediumSpace;&middot; 3 days ago &middot; 4 comments
       </div>
     </div>
   </div>
 </a>
 
-<h2>Announcements</h2>
-<a class="card ticketCard" href="">
-  <div class="announcements-grid-container">
-    <div class="grid-child">
-			<div class="ticket-title">
-        Third Year Grade Averages Released
-      </div>
-      <div class="meta">
-        General &middot; 25 Jan 2020 &middot; 3 days ago
-      </div>
+<h2>Comments</h2>
+
+<div class="comment">
+  <span id="c-{{.CommentID}}" class="commentInfo">
+    Grateful Golang &middot; 10 minutes ago
+    <div class="lineform">
+      <button type="submit" class="btn upvote commentBtn">Delete</button>
     </div>
-  </div>
-</a>
+  </span>
+  <p class="commentText">This is what a comment looks like to users with admin access</p>
+</div>
+
+<div class="comment">
+  <span id="c-{{.CommentID}}" class="commentInfo">
+    Grateful Golang &middot; 10 minutes ago
+  </span>
+  <p class="commentText">This is what it looks like for normal users</p>
+</div>
 
 <h2>Alert Boxes</h2>
 
-<div class="alert alert-grey">
+<div class="card alert-grey">
   <p class="alert-title">Alert</p>
   <p class="noBottomMargin">
     Officia illum et cumque. Nam ad assumenda rerum velit iure labore.
   </p>
   <a href="" class="btn">Read more</a>
 </div>
-
-<div class="alert alert-green">
+<br class="mobile">
+<div class="card alert-green">
   <p class="alert-title">Alert</p>
   <p class="noBottomMargin">
     Officia illum et cumque. Nam ad assumenda rerum velit iure labore.
   </p>
 </div>
-
-<div class="alert alert-yellow">
+<br class="mobile">
+<div class="card alert-yellow">
   <p class="alert-title">Alert</p>
   <p class="noBottomMargin">
     Officia illum et cumque. Nam ad assumenda rerum velit iure labore.
   </p>
 </div>
-
+<br class="mobile">
 <div class="alert alert-red">
   <p class="alert-title">Alert</p>
   <p class="noBottomMargin">

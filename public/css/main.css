@@ -172,12 +172,14 @@ input:focus, textarea:focus, a:focus, .btn:focus, select:focus {
 .btn-danger {
   background-color: var(--danger-btn);
   color: #fff;
+  border: solid 1px var(--danger-btn);
 }
 
 .btn:hover {
   cursor: pointer;
   color: #fff;
   background-color: var(--accent-colour);
+  border: solid 1px #fff;
 }
 
 .btn:focus {
@@ -506,11 +508,28 @@ label {
   }
 
   .content {
-    padding: 15px;
+    padding: 10px;
   }
 
   .scope {
-    margin-bottom: 15px;
+    margin-bottom: 15px !important;
+  }
+
+  .btn, select {
+    padding: 10px 15px;
+  }
+
+  .card-grid {
+    gap: 10px !important;
+  }
+
+  .tickets-grid-container {
+    grid-template-columns: 45px 1fr !important;
+    grid-gap: 10px;
+  }
+
+  input[type="radio"], input[type="checkbox"] {
+    margin: 10px 0;
   }
 }
 
@@ -532,9 +551,13 @@ label {
     margin-left: 25px;
   }
 
+  .scope {
+    margin-bottom: 20px;
+  }
+
   .card-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 20px;
   }
   
   .card, .alert {
@@ -554,10 +577,6 @@ label {
     margin-bottom: 10px;
   }
 
-  .btn, select {
-    padding: 10px 15px;
-  }
-
   .card-grid {
     box-sizing: border-box;
   }
@@ -567,7 +586,7 @@ label {
   }
 
   .tickets-grid-container {
-    grid-template-columns: 40px 1fr;
+    grid-template-columns: 60px 1fr;
     grid-gap: 10px;
   }
 }
@@ -575,6 +594,12 @@ label {
 @media only screen and (max-width: 400px) {
   .card-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (min-width: 860px) {
+  .mobile {
+    display: none;
   }
 }
 
