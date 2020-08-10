@@ -185,8 +185,14 @@ func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.F
 
 	voterHash := userHash(getIP(ctx), ctx.Req.Header.Get("User-Agent"))
 
-	if len(title) == 0 || len(text) == 0 {
+	if len(title) == 0 || len(text) < 4 {
 		f.Error("Title or body cannot be empty!")
+		ctx.Redirect("/tickets/new")
+		return
+	}
+
+	if len(title) > 80 || len(text) > 2048 {
+		f.Error("Title or body is too long!")
 		ctx.Redirect("/tickets/new")
 		return
 	}
