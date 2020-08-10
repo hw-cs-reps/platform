@@ -21,7 +21,7 @@
 </form>
 <form method="post" action="/tickets/{{.Ticket.TicketID}}/resolve" class="lineform">
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
-  <button type="submit" class="btn upvote">{{if .Ticket.IsResolved}}Un-resolve{{else}}Resolve{{end}}</button>
+	<button type="submit" class="btn upvote">{{if .Ticket.IsResolved}}Un-resolve{{else}}Resolve{{end}}</button>
 </form>
 {{end}}
 </p>

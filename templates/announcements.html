@@ -5,21 +5,25 @@
   <p>Note: These announcements are not official nor endorsed by the university.</p>
   {{if .IsAdmin}}<a href="/a/new" class="btn" id="newTicket">New Announcement</a>{{end}}
 </div>
-{{range .Announcements}}
-<a class="card ticketCard" href="/a/{{.AnnouncementID}}">
-  <div class="announcements-grid-container">
-    <div class="grid-child">
-      <div>
-        <h2 class="a-title">{{.Title}}</h2>
-      </div>
-      <div class="a-summary">
-        {{.Summary}}
-      </div>
-      <div class="meta">
-        {{range Csv .Tags}}<span class="tag">{{.}}</span>&MediumSpace;{{end}}{{if .Tags}} &middot;
-        {{end}}{{Date .CreatedUnix}} &middot; {{CalcDurationShort .CreatedUnix}} ago
+
+<div class="card-grid-vertical">
+  {{range .Announcements}}
+  <a class="card ticketCard" href="/a/{{.AnnouncementID}}">
+    <div class="announcements-grid-container">
+      <div class="grid-child">
+        <div>
+          <h2 class="a-title">{{.Title}}</h2>
+        </div>
+        <div class="a-summary">
+          {{.Summary}}
+        </div>
+        <div class="meta">
+          {{range Csv .Tags}}<span class="tag">{{.}}</span>&MediumSpace;{{end}}{{if .Tags}} &middot;
+          {{end}}{{Date .CreatedUnix}} &middot; {{CalcDurationShort .CreatedUnix}} ago
+        </div>
       </div>
     </div>
-  </div>
-</a>
-{{end}} {{template "base/footer" .}}
+  </a>
+  {{end}}
+</div>
+{{template "base/footer" .}}
