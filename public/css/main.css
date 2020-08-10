@@ -374,26 +374,18 @@ a.card {
 }
 
 
-
-
+/* MISC */
 .item-title {
   font-weight: bold;
 }
-
 .form-item {
   display: block;
   width: 100%;
   margin-top: 5px;
 }
-
 .form-group {
   padding-bottom: 10px;
 }
-
-
-
-
-
 #category, #newTicket, button {
   display: inline-block;
 }
@@ -424,8 +416,10 @@ a.card {
   .card-grid-vertical {
     gap: 10px;
   }
+  .grid-wide {
+    grid-template-columns: 1fr !important;
+  }
 }
-
 
 @media only screen and (max-width: 1250px) {
   .nav {
@@ -450,6 +444,7 @@ a.card {
   }
   .card-grid {
     grid-template-columns: 1fr 1fr;
+    box-sizing: border-box;
   }
   .card, .alert {
     margin: 0;
@@ -464,14 +459,8 @@ a.card {
   #newTicket {
     margin-bottom: 10px;
   }
-  .card-grid {
-    box-sizing: border-box;
-  }
-  .gridFullWidth {
-    grid-template-columns: 1fr;
-  }
-  .tickets-grid-container {
-    grid-template-columns: 60px 1fr;
+  .score-grid-container {
+    grid-template-columns: 50px 1fr;
     grid-gap: 10px;
   }
 }
@@ -480,13 +469,12 @@ a.card {
   .card-grid {
     grid-template-columns: 1fr;
   }
-  .tickets-grid-container {
-    grid-template-columns: 60px 1fr;
-    grid-gap: 10px;
+  #ticket-card {
+    padding: 10px;
   }
 }
 
-/* Dark theme */
+/* DARK THEME */
 @media (prefers-color-scheme: dark) {
   :root {
     --main-bg: #202020;
