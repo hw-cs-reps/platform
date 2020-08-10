@@ -23,16 +23,19 @@
     {{end}}
   </div>
 </form>
-{{range .Tickets}}
-{{if not .IsResolved}}
-{{template "ticket_card" .}}
-{{end}}
-{{end}}
+<div class="card-grid-vertical">
+  {{range .Tickets}}
+  {{if not .IsResolved}}
+  {{template "ticket_card" .}}
+  {{end}}
+  {{end}}
+</div>
 <h2>Resolved</h2>
-{{range .Tickets}}
-{{if .IsResolved}}
-{{template "ticket_card" .}}
-{{end}}
-{{end}}
-
+<div class="card-grid-vertical">
+  {{range .Tickets}}
+  {{if .IsResolved}}
+  {{template "ticket_card" .}}
+  {{end}}
+  {{end}}
+</div>
 {{template "base/footer" .}}

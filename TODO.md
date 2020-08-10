@@ -2,6 +2,8 @@
 
 This is a vertical kanban.
 
+## Maybe Probably Might Do In The Future
+- Separate announcements by today, last week, last month, older
 
 ## Backlogs
 

@@ -8,9 +8,8 @@
   --accent-colour: #0268B2;
   --accent-colour-dim: rgba(2, 104, 178, 0.5);
 
-  --card-radius: 5px;
+  --card-radius: 5px; 
   --card-padding: 15px;
-
   
   --card-grey: #d7d7d7;
   --card-green: #0c7c0c;
@@ -197,7 +196,7 @@ input:focus, textarea:focus, a:focus, .btn:focus, select:focus {
   background: #000;
   color: #fff;
   padding: 5px 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   display: inline-block;
   border-radius: var(--card-radius);
 }
@@ -222,31 +221,6 @@ input:focus, textarea:focus, a:focus, .btn:focus, select:focus {
   color: #6f6f6f;
   font-size: 0.9rem;
 }
-.meta {
-  padding: 0;
-  margin: 0;
-  color: #555;
-  font-weight: normal;
-  font-size: 1em;
-}
-.meta p {
-  margin: 0;
-}
-
-
-/* BADGES AND TAGS */
-.badge {
-  background: #dedede;
-  padding: 5px 7px;
-  border-radius: var(--card-radius);
-  color: #3f3f3f;
-}
-.tag {
-  background-color: #000;
-  color: #fff;
-  border-radius: var(--card-radius);
-  padding: 0 5px;
-}
 
 
 /* CARDS */
@@ -254,7 +228,12 @@ input:focus, textarea:focus, a:focus, .btn:focus, select:focus {
   padding: var(--card-padding);
   display: block;
   background-color: var(--card-bg);
-  border-radius: 5px;
+  border-radius: var(--card-radius);
+}
+.card-title {
+  font-weight: bold;
+  font-size: 1.25em;
+  margin: 0 0 5px 0;
 }
 .card-score-title {
   margin-bottom: 3px;
@@ -270,6 +249,29 @@ a.card {
   font-size: 0.8em;
   line-height: 0.75em;
 }
+.badge {
+  background: #dedede;
+  padding: 5px 7px;
+  border-radius: var(--card-radius);
+  color: #3f3f3f;
+}
+.tag {
+  display: inline-block;
+  background-color: #000;
+  color: #fff;
+  border-radius: var(--card-radius);
+  padding: 0 5px;
+}
+.meta {
+  padding: 0;
+  margin: 0;
+  color: #555;
+  font-weight: normal;
+  font-size: 1em;
+}
+.meta p {
+  margin: 0;
+}
 
 
 /* CARD GRIDS */
@@ -277,14 +279,14 @@ a.card {
 .card-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
+  gap: 20px;
 }
 .card-grid-vertical {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
-.tickets-grid-container {
+.score-grid-container {
   display: grid;
   grid-template-columns: 50px 1fr;
   grid-gap: 15px;
@@ -297,19 +299,6 @@ a.card {
 
 
 /* ALERTS */
-
-.alert {
-  display: block;
-  margin: 10px 10px 20px 10px;
-  padding: var(--card-padding);
-  color: #000;
-  border-radius: var(--card-radius);
-}
-.alert-title {
-  font-weight: bold;
-  font-size: 1.25em;
-  margin: 0 0 5px 0;
-}
 .alert-green {
   background-color: var(--card-green);
   color: #fff;
@@ -326,11 +315,21 @@ a.card {
 }
 
 
+/* ANNOUNCEMENT */
+.a-title {
+  margin: 0;
+}
+.a-summary {
+  color: var(--dim-text);
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+
+
 /* SCORED CARDS */
 
 
 /* COMMENTS */
-
 .comments {
   box-sizing: border-box;
 }
@@ -356,7 +355,6 @@ a.card {
 
 
 /* UPVOTES */
-
 .upvotes {
   font-size: 2em;
   color: #000;
@@ -375,15 +373,8 @@ a.card {
   color: var(--dim-text);
 }
 
-.a-title {
-  margin: 0;
-}
 
-.a-summary {
-  color: var(--dim-text);
-  font-weight: normal;
-  margin-bottom: 5px;
-}
+
 
 .item-title {
   font-weight: bold;
@@ -422,7 +413,7 @@ a.card {
     padding: 10px;
   }
   .scope {
-    margin-bottom: 15px !important;
+    margin-bottom: 10px !important;
   }
   .btn, select {
     padding: 10px 15px;
@@ -432,13 +423,6 @@ a.card {
   }
   .card-grid-vertical {
     gap: 10px;
-  }
-  .tickets-grid-container {
-    grid-template-columns: 45px 1fr !important;
-    grid-gap: 10px;
-  }
-  input[type="radio"], input[type="checkbox"] {
-    margin: 10px 0;
   }
 }
 
@@ -458,54 +442,47 @@ a.card {
     box-sizing: border-box;
     margin-left: 0;
   }
-
   blockquote {
     margin-left: 25px;
   }
-
   .scope {
     margin-bottom: 20px;
   }
-
   .card-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
   }
-  
   .card, .alert {
     margin: 0;
   }
-
   .form-item {
     margin: 0;
   }
-
   .card-score {
     padding: 10px;
     margin: 0 0 10px 0;
   }
-
   #newTicket {
     margin-bottom: 10px;
   }
-
   .card-grid {
     box-sizing: border-box;
   }
-
   .gridFullWidth {
     grid-template-columns: 1fr;
   }
-
   .tickets-grid-container {
     grid-template-columns: 60px 1fr;
     grid-gap: 10px;
   }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
   .card-grid {
     grid-template-columns: 1fr;
+  }
+  .tickets-grid-container {
+    grid-template-columns: 60px 1fr;
+    grid-gap: 10px;
   }
 }
 

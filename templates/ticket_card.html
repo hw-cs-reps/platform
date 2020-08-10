@@ -1,19 +1,14 @@
-<a class="card card-score" href="/tickets/{{.TicketID}}">
-	<div class="tickets-grid-container">
+<a class="card" href="/tickets/{{.TicketID}}">
+	<div class="score-grid-container">
 		<div class="grid-child upvotes">
-			<div>
-				{{Len .Voters}}
-			</div>
+			<div>{{Len .Voters}}</div>
 		</div>
-		<div class="grid-child">
-			<div class="card-score-title">
-				{{.Title}}
-			</div>
+		<div>
+			<div class="card-score-title">{{.Title}}</div>
 			<div class="meta">
-				<span class="tag">{{.Category}}</span> &middot; {{CalcDurationShort .CreatedUnix}} ago &middot; {{.CommentsCount}}
-				comments
+				<span class="tag">{{.Category}}</span> &middot; {{CalcDurationShort .CreatedUnix}} ago &middot;
+				{{.CommentsCount}} comments
 			</div>
 		</div>
 	</div>
 </a>
-

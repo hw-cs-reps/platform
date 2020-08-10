@@ -2,8 +2,8 @@
 {{if .IsHome}}
 
 {{if .Config.ShowNotice}}
-<div class="alert {{if eq .Config.NoticeColour ""}}alert-grey{{end}}{{.Config.NoticeColour}}">
-  <p class="alert-title">{{if eq .Config.NoticeTitle ""}}Update{{end}} {{.Config.NoticeTitle}}</p>
+<div class="card {{if eq .Config.NoticeColour ""}}alert-grey{{end}}{{.Config.NoticeColour}}">
+  <p class="card-title">{{if eq .Config.NoticeTitle ""}}Update{{end}} {{.Config.NoticeTitle}}</p>
   <p>{{.Config.NoticeText}}</p>
   {{if .Config.NoticeLink}}<a class="btn" href="{{.Config.NoticeLink}}">Read
     more</a>{{end}}
@@ -30,7 +30,7 @@
   {{ range .Config.ClassReps }}
   <div class="card">
     <p class="cardTitle">{{.Name}}</p>
-    <p><i>{{.Course}}</i></p>
+    <p class="meta">{{.Course}}</p>
     <p><a href="mailto:{{.Email}}" class="btn">Contact</a></p>
   </div>
   {{end}}
