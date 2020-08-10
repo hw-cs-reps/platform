@@ -8,6 +8,7 @@ This is a vertical kanban.
 ## Backlogs
 
 - Allow sorting by degree instead of course in tickets
+- Show tickets and comments from admins
 
 ## In Progress
 
