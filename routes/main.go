@@ -7,6 +7,7 @@ import (
 	"github.com/hw-cs-reps/platform/config"
 
 	"github.com/BurntSushi/toml"
+	"github.com/go-macaron/csrf"
 	"github.com/go-macaron/session"
 	macaron "gopkg.in/macaron.v1"
 )
