@@ -380,11 +380,6 @@ func newConfig() Configuration {
 					Office:  "EM G.41",
 					Updated: "04/08/20"},
 
-				{Name: "Smitha Kumar",
-					Email:   "Smitha.Kumar@hw.ac.uk",
-					Office:  "Unknown",
-					Updated: "04/08/20"},
-
 				{Name: "Stefano Padilla",
 					Email:   "S.Padilla@hw.ac.uk",
 					Office:  "EM 1.38",
@@ -434,6 +429,11 @@ func newConfig() Configuration {
 
 				{Name: "Ryad Soobany",
 					Email:   "R.Soobhany@hw.ac.uk",
+					Office:  "Unknown",
+					Updated: "04/08/20"},
+
+				{Name: "Smitha Kumar",
+					Email:   "Smitha.Kumar@hw.ac.uk",
 					Office:  "Unknown",
 					Updated: "04/08/20"},
 
