@@ -7,6 +7,7 @@ import (
 	"github.com/hw-cs-reps/platform/config"
 
 	"github.com/BurntSushi/toml"
+	"github.com/go-macaron/csrf"
 	"github.com/go-macaron/session"
 	macaron "gopkg.in/macaron.v1"
 )
@@ -43,7 +44,7 @@ func PrivacyHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 }
 
 // ConfigHandler gets courses page
-func ConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func ConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["Title"] = "Configuration"
 	buf := new(bytes.Buffer)
 	if err := toml.NewEncoder(buf).Encode(config.Config.InstanceConfig); err != nil {
@@ -51,6 +52,7 @@ func ConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	}
 	ctx.Data["Conf"] = buf.String()
 	ctx.Data["HasScope"] = 1
+	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.HTML(200, "config")
 }
 
