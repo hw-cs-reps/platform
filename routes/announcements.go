@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/hw-cs-reps/platform/models"
+	"github.com/microcosm-cc/bluemonday"
 
 	"github.com/go-macaron/csrf"
 	"github.com/go-macaron/session"
@@ -29,17 +30,22 @@ func (d byDate) Less(i, j int) bool {
 	return time.Unix(d[i].CreatedUnix, 0).After(time.Unix(d[j].CreatedUnix, 0))
 }
 
+// summaryPolicy is a simple policy for stripping HTML tags.
+var summaryPolicy = bluemonday.NewPolicy()
+
 // AnnouncementsHandler response for the announcements listing page.
 func AnnouncementsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	announcements := models.GetAnnouncements()
 
 	for i := range announcements {
-		sep := strings.Split(announcements[i].Description, " ")
+		desc := summaryPolicy.Sanitize(markdownToHTML(announcements[i].Description))
+		sep := strings.Split(desc, " ")
 		if len(sep) < 25 {
-			announcements[i].Summary = announcements[i].Description
+			announcements[i].Summary = desc
 		} else {
 			announcements[i].Summary = strings.Join(sep[:25], " ") + "..."
 		}
+
 	}
 
 	sort.Sort(byDate(announcements))
