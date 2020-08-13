@@ -128,6 +128,11 @@ func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.
 		Text:     text,
 	}
 
+	if sess.Get("isadmin") == 1 && ctx.Query("as_admin") == "on" {
+		comment.IsAdmin = true
+		comment.PosterID = ctx.Data["User"].(config.ClassRepresentative).Name
+	}
+
 	err = models.AddComment(&comment)
 	if err != nil {
 		log.Println(err)
