@@ -30,12 +30,12 @@
   {{end}}
   {{end}}
 </div>
-<h2>Resolved</h2>
+{{if .HasResolved}}<h2>Resolved</h2>
 <div class="card-grid-vertical">
   {{range .Tickets}}
   {{if .IsResolved}}
   {{template "ticket_card" .}}
   {{end}}
   {{end}}
-</div>
+</div>{{end}}
 {{template "base/footer" .}}

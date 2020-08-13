@@ -43,12 +43,18 @@ func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 	}
 
 	sort.Sort(models.HotTickets(tickets))
+	hasResolved := false
 	for i := range tickets {
 		tickets[i].LoadComments()
 		tickets[i].CommentsCount = len(tickets[i].Comments)
+		if tickets[i].IsResolved {
+			hasResolved = true
+		}
 	}
+
 	ctx.Data["Tickets"] = tickets
 	ctx.Data["IsTickets"] = 1
+	ctx.Data["HasResolved"] = hasResolved
 	ctx.Data["Title"] = "Tickets"
 	ctx.Data["Category"] = ctx.Params("category")
 	ctx.Data["Courses"] = getUsedCourses()
