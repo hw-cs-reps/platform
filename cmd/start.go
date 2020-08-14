@@ -63,6 +63,16 @@ func start(clx *cli.Context) (err error) {
 			"Csv": func(s string) []string {
 				return strings.Split(s, ",")
 			},
+			"Sep": func(sep string, s []string) string {
+				str := strings.Builder{}
+				for i, k := range s {
+					str.WriteString(k)
+					if i < len(s)-1 {
+						str.WriteString(sep)
+					}
+				}
+				return str.String()
+			},
 		}},
 		IndentJSON: true,
 	}))
@@ -99,8 +109,10 @@ func start(clx *cli.Context) (err error) {
 	m.Group("/tickets", func() {
 		m.Get("", routes.TicketsHandler)
 		m.Get("/cat/:category", routes.TicketsHandler)
-		m.Post("", routes.PostTicketSortHandler)
-		m.Post("/cat/:category", routes.PostTicketSortHandler)
+		m.Get("/deg/:degree", routes.TicketsHandler)
+		m.Post("", csrf.Validate, routes.PostTicketSortHandler)
+		m.Post("/cat/:category", csrf.Validate, routes.PostTicketSortHandler)
+		m.Post("/deg/:degree", csrf.Validate, routes.PostTicketSortHandler)
 		m.Get("/new", routes.NewTicketHandler)
 		m.Post("/new", csrf.Validate, routes.PostNewTicketHandler)
 		m.Group("/:id", func() {

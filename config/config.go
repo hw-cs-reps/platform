@@ -21,6 +21,8 @@ var (
 	Config Configuration
 	// StartTime is the time when the server started.
 	StartTime = time.Now()
+	// LoadedDegrees is a list of degrees discovered in the config.
+	LoadedDegrees []string
 )
 
 // Configuration represents the configuration file format.
@@ -480,6 +482,16 @@ func LoadConfig() {
 				log.Fatal(err)
 			}
 			os.Exit(0)
+		}
+	}
+
+	has := make(map[string]bool)
+	for _, c := range Config.InstanceConfig.Courses {
+		for _, dc := range c.DegreeCode {
+			if !has[dc] {
+				LoadedDegrees = append(LoadedDegrees, dc)
+				has[dc] = true
+			}
 		}
 	}
 }

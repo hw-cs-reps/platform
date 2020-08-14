@@ -1,15 +1,31 @@
 {{template "base/head" .}} {{template "partials/flash" .}}
 <div class="col-8">
-  <h1>{{if not .Category}}Tickets{{else}}Tickets - {{.Category}}{{end}}</h1>
+  <h1>Tickets {{if .Category}}- {{.Category}}{{else if .Degree}}- {{.Degree}}{{end}}</h1>
   <p>You can submit a public issue where others may comment on and upvote your submission. If you'd like to make a
     private complaint to the class representatives, visit the <a href="/complaints">complaints page</a>.
   </p>
 </div>
-<form method="post">
-  <div class="form-group">
-    <a href="/tickets/new" class="btn" id="newTicket">New Ticket</a>
-    <select class="form-item col-6" name="category" id="category" onchange="this.form.submit()">
-      <option value="" selected disabled hidden>Filter by category</option>
+<a href="/tickets/new" class="btn" id="newTicket">New Ticket</a>
+<div class="form-group">
+<form method="post" class="lineform">
+    <select class="form-item col-4" name="category" id="category" onchange="this.form.submit()">
+      <option value="" selected disabled hidden>{{if .Degree}}{{.Degree}}{{else}}Filter by degree{{end}}</option>
+      {{range .LoadedDegrees}}
+      <option value="{{.}}">{{.}}</option>
+      {{end}}
+    </select>
+    <noscript>
+      <button type="submit" class="btn">Sort</button>
+    </noscript>
+    <input type="hidden" name="type" value="degree" />
+    <input type="hidden" name="_csrf" value="{{.csrf_token}}" />
+    {{if ne .Degree ""}}
+    <a href="/tickets" type="submit" class="btn">Clear Filter</a>
+    {{end}}
+</form>
+<form method="post" class="lineform">
+    <select class="form-item col-4" name="category" id="category" onchange="this.form.submit()">
+      <option value="" selected disabled hidden>{{if .Category}}{{.Category}}{{else}}Filter by course{{end}}</option>
       <option value="General">General</option>
       {{range .Courses}}
       <option value="{{.Code}}">{{.Name}} ({{.Code}})</option>
@@ -18,11 +34,13 @@
     <noscript>
       <button type="submit" class="btn">Sort</button>
     </noscript>
+    <input type="hidden" name="type" value="category" />
+    <input type="hidden" name="_csrf" value="{{.csrf_token}}" />
     {{if ne .Category ""}}
     <a href="/tickets" type="submit" class="btn">Clear Filter</a>
     {{end}}
-  </div>
 </form>
+</div>
 <div class="card-grid-vertical">
   {{range .Tickets}}
   {{if not .IsResolved}}

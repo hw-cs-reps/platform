@@ -3,12 +3,11 @@
 This is a vertical kanban.
 
 ## Maybe Probably Might Do In The Future
+
 - Separate announcements by today, last week, last month, older
 
 ## Backlogs
 
-- Allow sorting by degree instead of course in tickets
-- Show tickets and comments from admins
 
 ## In Progress
 
@@ -38,6 +37,8 @@ This is a vertical kanban.
 - Create design guide to unify look and feel
 	- Make tags look correct on announcements
 - Move complaints to a button, announcements to the nav
+- Show tickets and comments from admins
+- Allow sorting by degree instead of course in tickets
 
 ## Cancelled
 

@@ -32,18 +32,41 @@ func getUsedCourses() (courses []config.Course) {
 	return
 }
 
+func isCourseOfDegree(code string, deg string) bool {
+	for _, c := range config.Config.InstanceConfig.Courses {
+		if c.Code == code {
+			for _, d := range c.DegreeCode {
+				if d == deg {
+					return true
+				}
+			}
+
+			break
+		}
+	}
+	return false
+}
+
 // TicketsHandler response for the tickets listing page.
-func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	var tickets []models.Ticket
 
 	if ctx.Params("category") != "" {
 		tickets = models.GetCategory(ctx.Params("category"))
+	} else if ctx.Params("degree") != "" {
+		t := models.GetTickets()
+		for i, tic := range t {
+			if isCourseOfDegree(tic.Category, ctx.Params("degree")) {
+				tickets = append(tickets, t[i])
+			}
+		}
 	} else {
 		tickets = models.GetTickets()
 	}
 
 	sort.Sort(models.HotTickets(tickets))
 	hasResolved := false
+
 	for i := range tickets {
 		tickets[i].LoadComments()
 		tickets[i].CommentsCount = len(tickets[i].Comments)
@@ -57,7 +80,10 @@ func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 	ctx.Data["HasResolved"] = hasResolved
 	ctx.Data["Title"] = "Tickets"
 	ctx.Data["Category"] = ctx.Params("category")
+	ctx.Data["Degree"] = ctx.Params("degree")
 	ctx.Data["Courses"] = getUsedCourses()
+	ctx.Data["LoadedDegrees"] = config.LoadedDegrees
+	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "tickets")
 }
@@ -150,13 +176,27 @@ func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.
 func PostTicketSortHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	category := ctx.Query("category")
 
-	if !isCategory(category) {
-		f.Error("Can't sort by that category")
-		ctx.Redirect("/tickets")
-		return
-	}
+	switch ctx.Query("type") {
+	case "category":
+		if !hasCategory(category) {
+			f.Error("Can't sort by that category")
+			ctx.Redirect("/tickets")
+			return
+		}
 
-	ctx.Redirect("/tickets/cat/" + category)
+		ctx.Redirect("/tickets/cat/" + category)
+	case "degree":
+		if !hasDegree(category) {
+			f.Error("Can't sort by that degree")
+			ctx.Redirect("/tickets")
+			return
+		}
+
+		ctx.Redirect("/tickets/deg/" + category)
+	default:
+		f.Error("Unknown filter")
+		ctx.Redirect("/tickets")
+	}
 }
 
 // NewTicketHandler response for posting new ticket.
@@ -168,18 +208,24 @@ func NewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash
 	ctx.HTML(200, "new-ticket")
 }
 
-// Checks if a category is listed in the configuration
-func isCategory(category string) bool {
-	var found bool
-
+// hasCategory checks if a category is listed in the configuration..
+func hasCategory(category string) bool {
 	for _, c := range config.Config.InstanceConfig.Courses {
-		if category == c.Code {
-			return true
-		} else if category == "General" {
+		if category == c.Code || category == "General" {
 			return true
 		}
 	}
-	return found
+	return false
+}
+
+// hasDegree checks if a degree is listed in the configuration.
+func hasDegree(deg string) bool {
+	for _, d := range config.LoadedDegrees {
+		if d == deg {
+			return true
+		}
+	}
+	return false
 }
 
 // PostNewTicketHandler post response for posting new ticket.
@@ -188,7 +234,7 @@ func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.F
 	text := strings.TrimFunc(ctx.QueryTrim("text"), IsImproperChar)
 	category := ctx.QueryTrim("category")
 
-	if !isCategory(category) {
+	if !hasCategory(category) {
 		f.Error("There was an error in creating your ticket")
 		ctx.Redirect("/tickets")
 		return
