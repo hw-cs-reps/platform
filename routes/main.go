@@ -3,6 +3,7 @@ package routes
 import (
 	"bytes"
 	"log"
+	"sort"
 
 	"github.com/hw-cs-reps/platform/config"
 	"github.com/hw-cs-reps/platform/models"
@@ -25,7 +26,9 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 // ModLogsHandler response for the moderation log page.
 func ModLogsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Title"] = "Moderation Log"
-	ctx.Data["Logs"] = models.GetModerations()
+	logs := models.GetModerations()
+	sort.Sort(models.ModerationSort(logs))
+	ctx.Data["Logs"] = logs
 	ctx.HTML(200, "moderations")
 }
 

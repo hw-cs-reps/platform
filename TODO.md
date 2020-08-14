@@ -8,12 +8,16 @@ This is a vertical kanban.
 
 ## Backlogs
 
+- Update category for ticket
 
 ## In Progress
 
 - Add moderation log
 	- Tickets
-		- Resolving/editing/deleting
+		- [x] Resolving
+		- [ ] Editing (not category
+		- [ ] Deleting
+		- [ ] Comment Deletion
 	- Announcement creation
 
 ## Done
