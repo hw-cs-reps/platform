@@ -373,6 +373,10 @@ a.card {
 
 
 /* COMMENTS */
+#admin {
+ background-color: var(--card-red);
+ color: #fff;
+}
 .comments {
   box-sizing: border-box;
 }

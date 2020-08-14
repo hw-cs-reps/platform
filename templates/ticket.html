@@ -48,7 +48,7 @@
 	{{range .Ticket.Comments}}
 	<div class="comment">
 		<span id="c-{{.CommentID}}" class="commentInfo">
-      {{.PosterID}} {{ if .IsAdmin}}<span class="badge">Admin</span> {{end}}&middot; {{CalcDurationShort .CreatedUnix}} ago
+      {{.PosterID}} {{ if .IsAdmin}}<span class="badge" id="admin">Rep</span> {{end}}&middot; {{CalcDurationShort .CreatedUnix}} ago
 			{{if $.IsAdmin }}<form method="post" action="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}" class="lineform">
 				<input type="hidden" name="_csrf" value="{{$.csrf_token}}">
 				<button type="submit" class="btn upvote commentBtn">Delete</button>
