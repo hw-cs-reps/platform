@@ -6,7 +6,7 @@
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
 	<button type="submit" class="btn upvote">▲ {{Len .Ticket.Voters}} Upvotes</button>
 	&middot;
-	<span class="upvoteInfo">{{CalcDurationShort .Ticket.CreatedUnix}} ago</span>
+  <span class="upvoteInfo" title="{{DateFull .Ticket.CreatedUnix}}">{{CalcDurationShort .Ticket.CreatedUnix}} ago</span>
 </form>
 {{else if .Upvoted}}<p class="badge alert-green upvoted">{{Len .Ticket.Voters}} Upvotes</p><span class="upvoteInfo">
 	&middot; {{.Ticket.Category}} &middot; {{CalcDurationShort .Ticket.CreatedUnix}} ago </span>{{end}}
@@ -48,7 +48,8 @@
 	{{range .Ticket.Comments}}
 	<div class="comment">
 		<span id="c-{{.CommentID}}" class="commentInfo">
-      {{.PosterID}} {{ if .IsAdmin}}<span class="badge" id="admin">Rep</span> {{end}}&middot; {{CalcDurationShort .CreatedUnix}} ago
+      {{.PosterID}} {{ if .IsAdmin}}<span class="badge">Admin</span> {{end}}&middot;
+      <span title="{{DateFull .CreatedUnix}}">{{CalcDurationShort .CreatedUnix}} ago</span>
 			{{if $.IsAdmin }}<form method="post" action="/tickets/{{$.Ticket.TicketID}}/del/{{.CommentID}}" class="lineform">
 				<input type="hidden" name="_csrf" value="{{$.csrf_token}}">
 				<button type="submit" class="btn upvote commentBtn">Delete</button>

@@ -1,8 +1,8 @@
 {{template "base/head" .}}
 {{template "partials/flash" .}}
 <h1>Moderation Log</h1>
-<p>To increase transparency, every moderation action is logged publicly and
-automatically on this page.</p>
+<p>To increase transparency, moderative activities are logged on this page
+automatically.</p>
 <table>
   <tr>
     <th>Date/Time</th>
@@ -17,7 +17,8 @@ automatically on this page.</p>
   </tr>
   <tr>
     <td colspan="2"></td>
-    <td>{{if and .DescriptionSensitive (not $.IsAdmin)}}<span class="badge">Contains Sensitive Information</span>{{else}}{{.Description}}{{end}}</td>
+    <td>{{if and .DescriptionSensitive (not $.IsAdmin)}}<i>Description hidden
+        as it contains sensitive information</i>{{else}}{{.Description}}{{end}}</td>
   </tr>
   {{if .Reason}}
   <tr>
