@@ -7,7 +7,8 @@
   <span><a href="/login">Login</a></span>
   {{end}}
   {{if .LoggedIn}}<span><a href="/config">Configure</a></span> &middot; <span>You are logged in as {{.User.Name}}. <a href="/logout">Logout?</a></span>{{end}}
-  <span> &middot; <a href="/privacy">Privacy</a></span>
+  <span> &middot; <a href="/privacy">Privacy</a> &middot;
+    <a href="/logs">Moderation Log</a></span>
   <p>This website is not affiliated with Heriot-Watt University.</p>
   <p>{{.SiteTitle}}</a> is
       released under AGPL 3.0. Contribute on <a rel="noopener noreferrer"

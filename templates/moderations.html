@@ -1,0 +1,31 @@
+{{template "base/head" .}}
+{{template "partials/flash" .}}
+<h1>Moderation Log</h1>
+<p>To increase transparency, every moderation action is logged publicly and
+automatically on this page.</p>
+<table>
+  <tr>
+    <th>Date/Time</th>
+    <th>Moderator</th>
+    <th>Action</th>
+  </tr>
+{{range .Logs}}
+  <tr>
+    <td>{{DateFull .CreatedUnix}}</td>
+    <td>{{.Admin}}</td>
+    <td><b>{{.Title}}</b></td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+    <td>{{if and .DescriptionSensitive (not $.IsAdmin)}}<span class="badge">Contains Sensitive Information</span>{{else}}{{.Description}}{{end}}</td>
+  </tr>
+  {{if .Reason}}
+  <tr>
+    <td colspan="2"></td>
+    <td>{{.Reason}}</td>
+  </tr>
+  {{end}}
+
+{{end}}
+</table>
+{{template "base/footer" .}}

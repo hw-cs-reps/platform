@@ -57,6 +57,9 @@ func start(clx *cli.Context) (err error) {
 			"Date": func(unix int64) string {
 				return time.Unix(unix, 0).Format("Jan 2 2006")
 			},
+			"DateFull": func(unix int64) string {
+				return time.Unix(unix, 0).Format("2006-01-02 15:04 -0700")
+			},
 			"Len": func(arr []string) int {
 				return len(arr)
 			},
@@ -146,6 +149,7 @@ func start(clx *cli.Context) (err error) {
 	m.Get("/courses", routes.CoursesHandler)
 	m.Get("/lecturers", routes.LecturerHandler)
 	m.Get("/privacy", routes.PrivacyHandler)
+	m.Get("/logs", routes.ModLogsHandler)
 
 	m.Get("/login", routes.LoginHandler)
 	m.Post("/login", csrf.Validate, routes.PostLoginHandler)

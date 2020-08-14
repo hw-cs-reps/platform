@@ -323,6 +323,17 @@ func ResolveTicketHandler(ctx *macaron.Context, sess session.Store, f *session.F
 	ticket.IsResolved = !ticket.IsResolved
 	models.UpdateTicketCols(ticket, "is_resolved")
 
+	m := models.Moderation{
+		Admin: ctx.Data["User"].(config.ClassRepresentative).Name,
+		Title: "Ticket \"" + ticket.Title + "\"",
+	}
+	if ticket.IsResolved {
+		m.Description = "Marked ticket as resolved"
+	} else {
+		m.Description = "Marked ticket as unresolved"
+	}
+	models.AddModeration(&m)
+
 	ctx.Redirect("/tickets/" + strconv.Itoa(ctx.ParamsInt("id")))
 }
 
@@ -351,9 +362,34 @@ func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.
 		return
 	}
 
+	m := models.Moderation{
+		Admin: ctx.Data["User"].(config.ClassRepresentative).Name,
+		Title: "Ticket \"" + ticket.Title + "\"",
+	}
+
 	title := ctx.QueryTrim("title")
 	text := ctx.QueryTrim("text")
 
+	modDesc := strings.Builder{}
+
+	if title != "" && title != ticket.Title {
+		modDesc.WriteString("changed title from \"" + ticket.Title + "\" to \"" + title + "\"")
+	}
+	if text != "" && text != ticket.Description {
+		if modDesc.Len() > 0 {
+			modDesc.WriteString(" and also ")
+		}
+		modDesc.WriteString("changed description from \"" + ticket.Description + "\" to \"" + text + "\"")
+	}
+
+	m.DescriptionSensitive = (ctx.Query("sensitive") == "on")
+
+	m.Reason = ctx.QueryTrim("reason")
+	m.Description = modDesc.String()
+
+	models.AddModeration(&m)
+
+	// TODO update category
 	err = models.UpdateTicket(&models.Ticket{
 		TicketID:    ticket.TicketID,
 		Title:       title,

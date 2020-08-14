@@ -49,6 +49,23 @@
 			<textarea class="form-item" id="text" name="text" rows="12" required="1"
 				placeholder="Markdown and HTML are supported">{{if .ptext}}{{.ptext}}{{end}}</textarea>
 		</div>
+  {{if and (.edit) (not .Announcement)}}
+		<div class="form-group">
+			<label for="reason">
+				<h2>Reason</h2>
+			</label>
+			<input class="form-item" type="text" id="reason" name="reason" />
+			<small>Please be detailed for transparency. This is logged publicly.</small>
+		</div>
+		<div class="form-group">
+			<label for="sensitive">
+				Contains Sensitive Information
+			</label>
+			<input type="checkbox" id="sensitive" name="sensitive" />
+      <p><small>Please only tick if there is sensitive information which can
+        potentially expose identities of users.</small></p>
+		</div>
+  {{end}}
 	</div>
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}" />
 	{{if .edit}}

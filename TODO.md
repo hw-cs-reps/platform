@@ -11,6 +11,10 @@ This is a vertical kanban.
 
 ## In Progress
 
+- Add moderation log
+	- Tickets
+		- Resolving/editing/deleting
+	- Announcement creation
 
 ## Done
 

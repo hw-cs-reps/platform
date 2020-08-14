@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/hw-cs-reps/platform/config"
+	"github.com/hw-cs-reps/platform/models"
 
 	"github.com/BurntSushi/toml"
 	"github.com/go-macaron/csrf"
@@ -19,6 +20,13 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 	ctx.Data["Title"] = config.Config.SiteName
 	ctx.Data["HasScope"] = 1
 	ctx.HTML(200, "index")
+}
+
+// ModLogsHandler response for the moderation log page.
+func ModLogsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	ctx.Data["Title"] = "Moderation Log"
+	ctx.Data["Logs"] = models.GetModerations()
+	ctx.HTML(200, "moderations")
 }
 
 // CoursesHandler gets courses page

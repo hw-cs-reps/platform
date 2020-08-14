@@ -72,6 +72,25 @@ code {
 img {
   max-width: 100%;
 }
+table {
+  width: 100%;
+}
+th {
+  background-color: #eaeaea;
+  text-align: left;
+}
+td {
+  background-color: #f8f8f8;
+}
+table, th, td {
+  border-bottom: 1px solid #bbb;
+  border-top: 1px solid #bbb;
+  border-collapse: collapse;
+}
+table {
+  border: 1px solid #bbb;
+}
+
 blockquote {
   color: #666;
   box-sizing: border-box;
