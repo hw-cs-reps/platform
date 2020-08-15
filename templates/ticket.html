@@ -6,6 +6,8 @@
 	<input type="hidden" name="_csrf" value="{{.csrf_token}}">
 	<button type="submit" class="btn upvote">▲ {{Len .Ticket.Voters}} Upvotes</button>
 	&middot;
+  <span class="tag">{{.Ticket.Category}}</span>
+	&middot;
   <span class="upvoteInfo" title="{{DateFull .Ticket.CreatedUnix}}">{{CalcDurationShort .Ticket.CreatedUnix}} ago</span>
 </form>
 {{else if .Upvoted}}<p class="badge alert-green upvoted">{{Len .Ticket.Voters}} Upvotes</p><span class="upvoteInfo">

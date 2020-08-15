@@ -35,6 +35,7 @@
 				<h2>Category</h2>
 			</label>
 			<select class="form-item" name="category" id="category" aria-placeholder="Hello">
+        {{if .pcategory}}<option value="{{.pcategory}}">{{.pcategory}}</option>{{end}}
 				<option value="General">General</option>
 				{{range .Courses}}
 				<option value="{{.Code}}">{{.Name}} ({{.Code}})</option>

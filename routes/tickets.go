@@ -350,6 +350,8 @@ func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.
 		ctx.Data["csrf_token"] = x.GetToken()
 		ctx.Data["Ticket"] = ticket
 		ctx.Data["ptitle"] = ticket.Title
+		ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
+		ctx.Data["pcategory"] = ticket.Category
 		ctx.Data["ptext"] = ticket.Description
 		ctx.Data["edit"] = 1
 
@@ -369,6 +371,7 @@ func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.
 
 	title := ctx.QueryTrim("title")
 	text := ctx.QueryTrim("text")
+	category := ctx.QueryTrim("category")
 
 	modDesc := strings.Builder{}
 
@@ -381,11 +384,23 @@ func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.
 		}
 		modDesc.WriteString("changed description from \"" + ticket.Description + "\" to \"" + text + "\"")
 	}
+	if category != "" && category != ticket.Category {
+		if modDesc.Len() > 0 {
+			modDesc.WriteString(" and also ")
+		}
+		modDesc.WriteString("changed category from \"" + ticket.Category + "\" to \"" + category + "\"")
+	}
 
 	m.DescriptionSensitive = (ctx.Query("sensitive") == "on")
 
 	m.Reason = ctx.QueryTrim("reason")
 	m.Description = modDesc.String()
+
+	if !hasCategory(category) {
+		f.Error("Invalid category, ticket unchanged")
+		ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
+		return
+	}
 
 	models.AddModeration(&m)
 
@@ -394,6 +409,7 @@ func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.
 		TicketID:    ticket.TicketID,
 		Title:       title,
 		Description: text,
+		Category:    category,
 	})
 	if err != nil {
 		panic(err)
