@@ -8,17 +8,9 @@ This is a vertical kanban.
 
 ## Backlogs
 
-- Update category for ticket
 
 ## In Progress
 
-- Add moderation log
-	- Tickets
-		- [x] Resolving
-		- [ ] Editing (not category
-		- [ ] Deleting
-		- [ ] Comment Deletion
-	- Announcement creation
 
 ## Done
 
@@ -47,6 +39,14 @@ This is a vertical kanban.
 - Move complaints to a button, announcements to the nav
 - Show tickets and comments from admins
 - Allow sorting by degree instead of course in tickets
+- Update category for ticket
+- Add moderation log
+	- Tickets
+		- [x] Resolving
+		- [x] Editing (incl. category)
+		- [x] Deleting
+		- [x] Comment Deletion
+	- Announcement edit
 
 ## Cancelled
 

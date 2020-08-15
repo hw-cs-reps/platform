@@ -31,7 +31,7 @@ func UpdateComment(c *Comment) (err error) {
 
 // GetComment gets a comment based on the ID.
 // It will return the pointer to the Comment, and whether there was an error.
-func GetComment(id string) (*Comment, error) {
+func GetComment(id int64) (*Comment, error) {
 	c := new(Comment)
 	has, err := engine.ID(id).Get(c)
 	if err != nil {

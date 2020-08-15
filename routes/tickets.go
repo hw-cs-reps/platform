@@ -420,6 +420,19 @@ func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.
 
 // PostTicketDeleteHandler response for deleting a ticket.
 func PostTicketDeleteHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+	t, err := models.GetTicket(ctx.ParamsInt64("id"))
+	if err != nil {
+		f.Error("Ticket not found!")
+		ctx.Redirect("/tickets")
+		return
+	}
+	m := models.Moderation{
+		Admin:       ctx.Data["User"].(config.ClassRepresentative).Name,
+		Title:       "Ticket \"" + t.Title + "\"",
+		Description: "Deleted",
+	}
+	models.AddModeration(&m)
+
 	models.DelTicket(ctx.ParamsInt64("id"))
 	f.Success("Ticket deleted!")
 	ctx.Redirect("/tickets")
@@ -427,7 +440,26 @@ func PostTicketDeleteHandler(ctx *macaron.Context, sess session.Store, f *sessio
 
 // PostCommentDeleteHandler response for deleting a ticket's comment.
 func PostCommentDeleteHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
-	models.DeleteComment(ctx.ParamsInt64("cid"))
+	c, err := models.GetComment(ctx.ParamsInt64("id"))
+	if err != nil {
+		f.Error("Comment not found!")
+		ctx.Redirect("/tickets")
+		return
+	}
+	t, err := models.GetTicket(c.TicketID)
+	if err != nil {
+		f.Error("Ticket of comment not found!")
+		ctx.Redirect("/tickets")
+		return
+	}
+	m := models.Moderation{
+		Admin:       ctx.Data["User"].(config.ClassRepresentative).Name,
+		Title:       "Comment by \"" + c.PosterID + "\" on \"" + t.Title + "\"",
+		Description: "Deleted",
+	}
+	models.AddModeration(&m)
+
 	f.Success("Comment deleted!")
+	models.DeleteComment(ctx.ParamsInt64("cid"))
 	ctx.Redirect(fmt.Sprintf("/tickets/%d", ctx.ParamsInt64("id")))
 }

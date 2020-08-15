@@ -8,11 +8,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/hw-cs-reps/platform/config"
 	"github.com/hw-cs-reps/platform/models"
-	"github.com/microcosm-cc/bluemonday"
 
 	"github.com/go-macaron/csrf"
 	"github.com/go-macaron/session"
+	"github.com/microcosm-cc/bluemonday"
 	macaron "gopkg.in/macaron.v1"
 )
 
@@ -108,6 +109,7 @@ func PostNewAnnouncementHandler(ctx *macaron.Context, sess session.Store, f *ses
 		ctx.Redirect("/a")
 		return
 	}
+
 	ctx.Redirect(fmt.Sprintf("/a/%d", announcement.AnnouncementID))
 }
 
@@ -148,6 +150,13 @@ func PostAnnouncementEditHandler(ctx *macaron.Context, sess session.Store, f *se
 	if err != nil {
 		panic(err)
 	}
+
+	m := models.Moderation{
+		Admin:       ctx.Data["User"].(config.ClassRepresentative).Name,
+		Title:       "Announcement \"" + title + "\"",
+		Description: "Updated",
+	}
+	models.AddModeration(&m)
 
 	ctx.Redirect(fmt.Sprintf("/a/%d", ctx.ParamsInt64("id")))
 }
