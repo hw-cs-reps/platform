@@ -8,6 +8,7 @@ This is a vertical kanban.
 
 ## Backlogs
 
+- Fix table colours in dark mode
 
 ## In Progress
 

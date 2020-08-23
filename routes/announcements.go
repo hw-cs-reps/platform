@@ -34,19 +34,22 @@ func (d byDate) Less(i, j int) bool {
 // summaryPolicy is a simple policy for stripping HTML tags.
 var summaryPolicy = bluemonday.NewPolicy()
 
+// summariseMarkdown takes a markdown content and creates a summary text which
+// is less than 25 words. It strips out any Markdown or HTML syntax.
+func summariseMarkdown(md string) string {
+	desc := summaryPolicy.Sanitize(markdownToHTML(md))
+	sep := strings.Split(desc, " ")
+	if len(sep) < 25 {
+		return desc
+	}
+	return strings.Join(sep[:25], " ") + "..."
+}
+
 // AnnouncementsHandler response for the announcements listing page.
 func AnnouncementsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
 	announcements := models.GetAnnouncements()
-
 	for i := range announcements {
-		desc := summaryPolicy.Sanitize(markdownToHTML(announcements[i].Description))
-		sep := strings.Split(desc, " ")
-		if len(sep) < 25 {
-			announcements[i].Summary = desc
-		} else {
-			announcements[i].Summary = strings.Join(sep[:25], " ") + "..."
-		}
-
+		announcements[i].Summary = summariseMarkdown(announcements[i].Description)
 	}
 
 	sort.Sort(byDate(announcements))
@@ -60,7 +63,6 @@ func AnnouncementsHandler(ctx *macaron.Context, sess session.Store, f *session.F
 
 // AnnouncementHandler response for the announcements listing page.
 func AnnouncementHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
-	ctx.Data["Title"] = "Announcement"
 	ctx.Data["IsAnnouncements"] = 1
 	announcement, err := models.GetAnnouncement(ctx.ParamsInt64("id"))
 	if err != nil {
@@ -68,6 +70,8 @@ func AnnouncementHandler(ctx *macaron.Context, sess session.Store, f *session.Fl
 		ctx.Redirect("/a")
 		return
 	}
+	ctx.Data["Title"] = announcement.Title + " - Announcement"
+	ctx.Data["Description"] = summariseMarkdown(announcement.Description)
 
 	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.Data["FormattedPost"] = template.HTML(markdownToHTML(announcement.Description))
@@ -109,6 +113,13 @@ func PostNewAnnouncementHandler(ctx *macaron.Context, sess session.Store, f *ses
 		ctx.Redirect("/a")
 		return
 	}
+
+	m := models.Moderation{
+		Admin:       ctx.Data["User"].(config.ClassRepresentative).Name,
+		Title:       "Announcement \"" + title + "\"",
+		Description: "Created",
+	}
+	models.AddModeration(&m)
 
 	ctx.Redirect(fmt.Sprintf("/a/%d", announcement.AnnouncementID))
 }

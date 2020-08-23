@@ -111,13 +111,14 @@ func markdownToHTML(s string) string {
 // TicketPageHandler response for the a specific ticket.
 func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["IsTickets"] = 1
-	ctx.Data["Title"] = "Ticket"
 	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
 	if err != nil {
 		log.Println(err)
 		ctx.Redirect("/tickets")
 		return
 	}
+	ctx.Data["Title"] = ticket.Title + " - Ticket"
+	ctx.Data["Description"] = summariseMarkdown(ticket.Description)
 
 	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.Data["FormattedPost"] = template.HTML(markdownToHTML(ticket.Description))
