@@ -8,7 +8,6 @@ This is a vertical kanban.
 
 ## Backlogs
 
-- Fix table colours in dark mode
 
 ## In Progress
 
@@ -48,6 +47,7 @@ This is a vertical kanban.
 		- [x] Deleting
 		- [x] Comment Deletion
 	- Announcement edit
+- Fix table colours in dark mode
 
 ## Cancelled
 

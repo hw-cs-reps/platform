@@ -603,4 +603,18 @@ a.card {
   .upvotes {
     color: #fff;
   }
+
+  th {
+    background-color: #1f2021;
+  }
+  td {
+    background-color: var(--card-grey);
+  }
+  table, th, td {
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+  }
+  table {
+    border: 1px solid #000;
+  }
 }
