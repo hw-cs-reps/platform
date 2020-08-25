@@ -11,8 +11,9 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/go-macaron/csrf"
-	"github.com/go-macaron/session"
+	"github.com/go-emmanuel/csrf"
+	"github.com/go-emmanuel/emmanuel"
+	"github.com/go-emmanuel/session"
 	"github.com/hw-cs-reps/platform/config"
 	"github.com/hw-cs-reps/platform/models"
 	"github.com/microcosm-cc/bluemonday"
@@ -20,7 +21,6 @@ import (
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/renderer/html"
-	macaron "gopkg.in/macaron.v1"
 )
 
 func getUsedCourses() (courses []config.Course) {
@@ -48,7 +48,7 @@ func isCourseOfDegree(code string, deg string) bool {
 }
 
 // TicketsHandler response for the tickets listing page.
-func TicketsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func TicketsHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	var tickets []models.Ticket
 
 	if ctx.Params("category") != "" {
@@ -109,7 +109,7 @@ func markdownToHTML(s string) string {
 }
 
 // TicketPageHandler response for the a specific ticket.
-func TicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func TicketPageHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["IsTickets"] = 1
 	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
 	if err != nil {
@@ -136,7 +136,7 @@ func IsImproperChar(r rune) bool {
 }
 
 // PostTicketPageHandler handles posting a new comment on a ticket.
-func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostTicketPageHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
 	if err != nil {
 		log.Println(err)
@@ -174,7 +174,7 @@ func PostTicketPageHandler(ctx *macaron.Context, sess session.Store, f *session.
 }
 
 // PostTicketSortHandler handles redirecting to a page of filtered tickets by category
-func PostTicketSortHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostTicketSortHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	category := ctx.Query("category")
 
 	switch ctx.Query("type") {
@@ -201,7 +201,7 @@ func PostTicketSortHandler(ctx *macaron.Context, sess session.Store, f *session.
 }
 
 // NewTicketHandler response for posting new ticket.
-func NewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func NewTicketHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["IsTickets"] = 1
 	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
@@ -230,7 +230,7 @@ func hasDegree(deg string) bool {
 }
 
 // PostNewTicketHandler post response for posting new ticket.
-func PostNewTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostNewTicketHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	title := strings.TrimFunc(ctx.QueryTrim("title"), IsImproperChar)
 	text := strings.TrimFunc(ctx.QueryTrim("text"), IsImproperChar)
 	category := ctx.QueryTrim("category")
@@ -277,7 +277,7 @@ func userHash(ip string, useragent string) string {
 	return fmt.Sprintf("%x", h.Sum(nil))
 }
 
-func getIP(ctx *macaron.Context) string {
+func getIP(ctx *emmanuel.Context) string {
 	xf := ctx.Header().Get("X-Forwarded-For")
 	if len(xf) > 0 {
 		return xf
@@ -295,7 +295,7 @@ func containsString(s string, arr []string) bool {
 }
 
 // UpvoteTicketHandler response for upvoting a specific ticket.
-func UpvoteTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func UpvoteTicketHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
 	if err != nil {
 		log.Println(err)
@@ -313,7 +313,7 @@ func UpvoteTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Fl
 }
 
 // ResolveTicketHandler response for resolving and unresolving a specific ticket.
-func ResolveTicketHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func ResolveTicketHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
 	if err != nil {
 		log.Println(err)
@@ -339,7 +339,7 @@ func ResolveTicketHandler(ctx *macaron.Context, sess session.Store, f *session.F
 }
 
 // PostTicketEditHandler response for adding posting new ticket.
-func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func PostTicketEditHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	if ctx.QueryTrim("title") == "" || ctx.QueryTrim("text") == "" {
 		ctx.Data["IsTickets"] = 1
 		ticket, err := models.GetTicket(ctx.ParamsInt64("id"))
@@ -420,7 +420,7 @@ func PostTicketEditHandler(ctx *macaron.Context, sess session.Store, f *session.
 }
 
 // PostTicketDeleteHandler response for deleting a ticket.
-func PostTicketDeleteHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostTicketDeleteHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	t, err := models.GetTicket(ctx.ParamsInt64("id"))
 	if err != nil {
 		f.Error("Ticket not found!")
@@ -440,7 +440,7 @@ func PostTicketDeleteHandler(ctx *macaron.Context, sess session.Store, f *sessio
 }
 
 // PostCommentDeleteHandler response for deleting a ticket's comment.
-func PostCommentDeleteHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostCommentDeleteHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	c, err := models.GetComment(ctx.ParamsInt64("id"))
 	if err != nil {
 		f.Error("Comment not found!")

@@ -9,13 +9,13 @@ import (
 	"github.com/hw-cs-reps/platform/models"
 
 	"github.com/BurntSushi/toml"
-	"github.com/go-macaron/csrf"
-	"github.com/go-macaron/session"
-	macaron "gopkg.in/macaron.v1"
+	"github.com/go-emmanuel/csrf"
+	"github.com/go-emmanuel/emmanuel"
+	"github.com/go-emmanuel/session"
 )
 
 // HomepageHandler response for the home page.
-func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func HomepageHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Config"] = config.Config.InstanceConfig
 	ctx.Data["IsHome"] = 1
 	ctx.Data["Title"] = config.Config.SiteName
@@ -24,7 +24,7 @@ func HomepageHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 }
 
 // ModLogsHandler response for the moderation log page.
-func ModLogsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func ModLogsHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Title"] = "Moderation Log"
 	logs := models.GetModerations()
 	sort.Sort(models.ModerationSort(logs))
@@ -33,7 +33,7 @@ func ModLogsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 }
 
 // CoursesHandler gets courses page
-func CoursesHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func CoursesHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
 	ctx.Data["Title"] = "Courses"
 	ctx.Data["HasScope"] = 1
@@ -41,7 +41,7 @@ func CoursesHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) 
 }
 
 // LecturerHandler gets courses page
-func LecturerHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func LecturerHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Lecturers"] = config.Config.InstanceConfig.Lecturers
 	ctx.Data["Title"] = "Lecturers"
 	ctx.Data["HasScope"] = 1
@@ -49,13 +49,13 @@ func LecturerHandler(ctx *macaron.Context, sess session.Store, f *session.Flash)
 }
 
 // PrivacyHandler gets the privacy policy page
-func PrivacyHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PrivacyHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Title"] = "Privacy Policy"
 	ctx.HTML(200, "privacy")
 }
 
 // ConfigHandler gets courses page
-func ConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func ConfigHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["Title"] = "Configuration"
 	buf := new(bytes.Buffer)
 	if err := toml.NewEncoder(buf).Encode(config.Config.InstanceConfig); err != nil {
@@ -68,7 +68,7 @@ func ConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x
 }
 
 // PostConfigHandler gets courses page
-func PostConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostConfigHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	var conf config.InstanceSettings
 	err := toml.Unmarshal([]byte(ctx.Query("conf")), &conf)
 	if err != nil {
@@ -83,7 +83,7 @@ func PostConfigHandler(ctx *macaron.Context, sess session.Store, f *session.Flas
 }
 
 // PreviewHandler gets the privacy policy page
-func PreviewHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PreviewHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Title"] = "Preview"
 	ctx.HTML(200, "preview")
 }

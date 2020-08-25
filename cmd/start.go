@@ -13,14 +13,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-macaron/cache"
-	"github.com/go-macaron/captcha"
-	"github.com/go-macaron/csrf"
-	"github.com/go-macaron/session"
-	_ "github.com/go-macaron/session/mysql" // MySQL driver for persistent sessions
+	"github.com/go-emmanuel/cache"
+	"github.com/go-emmanuel/captcha"
+	"github.com/go-emmanuel/csrf"
+	"github.com/go-emmanuel/emmanuel"
+	"github.com/go-emmanuel/session"
+	_ "github.com/go-emmanuel/session/mysql" // MySQL driver for persistent sessions
 	"github.com/hako/durafmt"
 	"github.com/urfave/cli/v2"
-	macaron "gopkg.in/macaron.v1"
 )
 
 // CmdStart represents a command-line command
@@ -37,9 +37,9 @@ func start(clx *cli.Context) (err error) {
 	engine := models.SetupEngine()
 	defer engine.Close()
 
-	// Run macaron
-	m := macaron.Classic()
-	m.Use(macaron.Renderer(macaron.RenderOptions{
+	// Run emmanuel
+	m := emmanuel.Classic()
+	m.Use(emmanuel.Renderer(emmanuel.RenderOptions{
 		Funcs: []template.FuncMap{map[string]interface{}{
 			"CalcTime": func(sTime time.Time) string {
 				return fmt.Sprint(time.Since(sTime).Nanoseconds() / int64(time.Millisecond))
@@ -82,10 +82,10 @@ func start(clx *cli.Context) (err error) {
 
 	if config.Config.DevMode {
 		fmt.Println("In development mode.")
-		macaron.Env = macaron.DEV
+		emmanuel.Env = emmanuel.DEV
 	} else {
 		fmt.Println("In production mode.")
-		macaron.Env = macaron.PROD
+		emmanuel.Env = emmanuel.PROD
 	}
 
 	m.Use(cache.Cacher())

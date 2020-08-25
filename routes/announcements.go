@@ -11,10 +11,10 @@ import (
 	"github.com/hw-cs-reps/platform/config"
 	"github.com/hw-cs-reps/platform/models"
 
-	"github.com/go-macaron/csrf"
-	"github.com/go-macaron/session"
+	"github.com/go-emmanuel/csrf"
+	"github.com/go-emmanuel/emmanuel"
+	"github.com/go-emmanuel/session"
 	"github.com/microcosm-cc/bluemonday"
-	macaron "gopkg.in/macaron.v1"
 )
 
 type byDate []models.Announcement
@@ -46,7 +46,7 @@ func summariseMarkdown(md string) string {
 }
 
 // AnnouncementsHandler response for the announcements listing page.
-func AnnouncementsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func AnnouncementsHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	announcements := models.GetAnnouncements()
 	for i := range announcements {
 		announcements[i].Summary = summariseMarkdown(announcements[i].Description)
@@ -62,7 +62,7 @@ func AnnouncementsHandler(ctx *macaron.Context, sess session.Store, f *session.F
 }
 
 // AnnouncementHandler response for the announcements listing page.
-func AnnouncementHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func AnnouncementHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["IsAnnouncements"] = 1
 	announcement, err := models.GetAnnouncement(ctx.ParamsInt64("id"))
 	if err != nil {
@@ -81,7 +81,7 @@ func AnnouncementHandler(ctx *macaron.Context, sess session.Store, f *session.Fl
 }
 
 // NewAnnouncementHandler response for posting new announcement.
-func NewAnnouncementHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func NewAnnouncementHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.Data["IsAnnouncements"] = 1
 	ctx.Data["Announcement"] = 1
@@ -90,7 +90,7 @@ func NewAnnouncementHandler(ctx *macaron.Context, sess session.Store, f *session
 }
 
 // PostNewAnnouncementHandler post response for posting new announcement.
-func PostNewAnnouncementHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostNewAnnouncementHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	title := strings.TrimFunc(ctx.QueryTrim("title"), IsImproperChar)
 	text := strings.TrimFunc(ctx.QueryTrim("text"), IsImproperChar)
 
@@ -125,7 +125,7 @@ func PostNewAnnouncementHandler(ctx *macaron.Context, sess session.Store, f *ses
 }
 
 // PostAnnouncementEditHandler response for adding posting a new announcement.
-func PostAnnouncementEditHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func PostAnnouncementEditHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	if ctx.QueryTrim("title") == "" || ctx.QueryTrim("text") == "" {
 		announcement, err := models.GetAnnouncement(ctx.ParamsInt64("id"))
 		if err != nil {
@@ -173,7 +173,7 @@ func PostAnnouncementEditHandler(ctx *macaron.Context, sess session.Store, f *se
 }
 
 // PostAnnouncementDeleteHandler response for deleting an announcement.
-func PostAnnouncementDeleteHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostAnnouncementDeleteHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	models.DelAnnouncement(ctx.ParamsInt64("id"))
 	f.Success("Announcement deleted!")
 	ctx.Redirect("/a")

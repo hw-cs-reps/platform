@@ -1,15 +1,16 @@
 package routes
 
 import (
-	"github.com/go-macaron/csrf"
-	"github.com/go-macaron/session"
+	"github.com/go-emmanuel/csrf"
+	"github.com/go-emmanuel/emmanuel"
+	"github.com/go-emmanuel/session"
+
 	"github.com/hw-cs-reps/platform/config"
 	"github.com/hw-cs-reps/platform/mailer"
-	macaron "gopkg.in/macaron.v1"
 )
 
 // ComplaintsHandler response for the complaints page.
-func ComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func ComplaintsHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["Title"] = "Complaints"
 	ctx.Data["IsComplaints"] = 1
 	ctx.Data["Courses"] = config.Config.InstanceConfig.Courses
@@ -39,7 +40,7 @@ func getClassRepsByCourseCode(code string) (recipients []*config.ClassRepresenta
 }
 
 // PostComplaintsHandler response for the complaints page.
-func PostComplaintsHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func PostComplaintsHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["IsComplaints"] = 1
 	if ctx.QueryTrim("confirm") == "1" { // confirm sending
 		var sender string

@@ -1,13 +1,13 @@
 package routes
 
 import (
-	"github.com/go-macaron/session"
+	"github.com/go-emmanuel/emmanuel"
+	"github.com/go-emmanuel/session"
+
 	"github.com/hw-cs-reps/platform/config"
 	"github.com/hw-cs-reps/platform/namegen"
 
 	"time"
-
-	macaron "gopkg.in/macaron.v1"
 )
 
 const (
@@ -21,8 +21,8 @@ const (
 
 // ContextInit is a middleware which initialises some global variables, and
 // verifies the login status.
-func ContextInit() macaron.Handler {
-	return func(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func ContextInit() emmanuel.Handler {
+	return func(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 		ctx.Data["PageStartTime"] = time.Now()
 		if sess.Get("auth") == nil {
 			sess.Set("auth", LoggedOut)
@@ -49,7 +49,7 @@ func ContextInit() macaron.Handler {
 }
 
 // RequireAdmin redirects if user is not an administrator
-func RequireAdmin(ctx *macaron.Context, sess session.Store) {
+func RequireAdmin(ctx *emmanuel.Context, sess session.Store) {
 	if !(sess.Get("auth") == LoggedIn && sess.Get("isadmin") == 1) {
 		ctx.Redirect("/")
 		return

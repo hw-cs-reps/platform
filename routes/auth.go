@@ -5,15 +5,15 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/go-macaron/csrf"
-	"github.com/go-macaron/session"
+	"github.com/go-emmanuel/csrf"
+	"github.com/go-emmanuel/emmanuel"
+	"github.com/go-emmanuel/session"
 	"github.com/hw-cs-reps/platform/config"
 	"github.com/hw-cs-reps/platform/mailer"
-	macaron "gopkg.in/macaron.v1"
 )
 
 // LoginHandler response for the login page.
-func LoginHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func LoginHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	ctx.Data["Title"] = config.Config.SiteName
 	ctx.Data["csrf_token"] = x.GetToken()
 	ctx.HTML(200, "login")
@@ -28,7 +28,7 @@ func randIntRange(min, max int) int {
 }
 
 // PostLoginHandler post response for the login page.
-func PostLoginHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostLoginHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	if sess.Get("auth") == Verification {
 		ctx.Redirect("/verify")
 		return
@@ -60,7 +60,7 @@ func PostLoginHandler(ctx *macaron.Context, sess session.Store, f *session.Flash
 }
 
 // VerifyHandler post response for the login page.
-func VerifyHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func VerifyHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	if sess.Get("auth") == LoggedOut {
 		ctx.Redirect("/login")
 		return
@@ -76,7 +76,7 @@ func VerifyHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x
 }
 
 // PostVerifyHandler post response for the login page.
-func PostVerifyHandler(ctx *macaron.Context, sess session.Store, f *session.Flash) {
+func PostVerifyHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	if sess.Get("auth") == LoggedOut {
 		ctx.Redirect("/login")
 		return
@@ -103,7 +103,7 @@ func PostVerifyHandler(ctx *macaron.Context, sess session.Store, f *session.Flas
 }
 
 // CancelHandler post response for canceling verification.
-func CancelHandler(ctx *macaron.Context, sess session.Store) {
+func CancelHandler(ctx *emmanuel.Context, sess session.Store) {
 	if sess.Get("auth") != Verification {
 		ctx.Redirect("/login")
 		return
@@ -114,7 +114,7 @@ func CancelHandler(ctx *macaron.Context, sess session.Store) {
 }
 
 // LogoutHandler response for the login page.
-func LogoutHandler(ctx *macaron.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+func LogoutHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
 	sess.Set("auth", LoggedOut)
 	sess.Set("isadmin", 0)
 	sess.Set("user", "")
