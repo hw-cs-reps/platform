@@ -273,6 +273,7 @@ input:focus, textarea:focus, a:focus, .btn:focus, select:focus {
   display: block;
   background-color: var(--card-bg);
   border-radius: var(--card-radius);
+  margin-bottom: 20px;
 }
 .card-title {
   font-weight: 900;

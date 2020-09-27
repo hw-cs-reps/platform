@@ -1,0 +1,16 @@
+{{template "base/head" .}}
+{{template "partials/flash" .}}
+<h1>Request</h1>
+<p>You may request the links to the WhatsApp group chats by entering your
+Heriot-Watt University email address.</p>
+<form method="post">
+  <div class="col-5">
+    <div class="form-group">
+      <label for="email">Email: &MediumSpace;</label>
+      <input type="text" id="email" name="email" required="1" size="8" autofocus="1">&MediumSpace; {{.UniEmailDomain}}
+    </div>
+    <input type="hidden" name="_csrf" value="{{.csrf_token}}">
+    <button type="submit" class="btn">Request</button>
+  </div>
+</form>
+{{template "base/footer" .}}

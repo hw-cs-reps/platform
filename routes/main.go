@@ -6,6 +6,7 @@ import (
 	"sort"
 
 	"github.com/hw-cs-reps/platform/config"
+	"github.com/hw-cs-reps/platform/mailer"
 	"github.com/hw-cs-reps/platform/models"
 
 	"github.com/BurntSushi/toml"
@@ -86,4 +87,19 @@ func PostConfigHandler(ctx *emmanuel.Context, sess session.Store, f *session.Fla
 func PreviewHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
 	ctx.Data["Title"] = "Preview"
 	ctx.HTML(200, "preview")
+}
+
+// RequestHandler gets the request chat links page
+func RequestHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash, x csrf.CSRF) {
+	ctx.Data["Title"] = "Request"
+	ctx.Data["csrf_token"] = x.GetToken()
+	ctx.HTML(200, "request")
+}
+
+// PostRequestHandler handles the post for the request chat links page
+func PostRequestHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
+	mailer.Email([]string{ctx.QueryTrim("email") + config.Config.UniEmailDomain},
+		"Access to group chat", config.Config.InstanceConfig.RequestChatEmail)
+	f.Success("Check your email!")
+	ctx.Redirect("/")
 }

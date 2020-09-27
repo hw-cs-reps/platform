@@ -1,4 +1,6 @@
 {{template "base/head" .}}
+{{template "partials/flash" .}}
+
 {{if .IsHome}}
 
 {{if .Config.ShowNotice}}
@@ -12,6 +14,10 @@
 <h2>Links &amp; Resources</h2>
 
 <div class="card-grid">
+  <div class="card">
+    <p>Request access to group chats</p>
+    <p><a href="/request" class="btn">Request</a></p>
+  </div>
   {{ range .Config.Links }}
   <a class="card" href="{{.Link}}">{{.Name}}</a>
   {{end}}

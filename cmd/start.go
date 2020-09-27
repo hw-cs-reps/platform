@@ -157,6 +157,8 @@ func start(clx *cli.Context) (err error) {
 	m.Post("/verify", csrf.Validate, routes.PostVerifyHandler)
 	m.Get("/logout", routes.LogoutHandler)
 	m.Post("/cancel", csrf.Validate, routes.CancelHandler)
+	m.Get("/request", routes.RequestHandler)
+	m.Post("/request", csrf.Validate, routes.PostRequestHandler)
 
 	// Admin
 	m.Get("/config", routes.RequireAdmin, routes.ConfigHandler)

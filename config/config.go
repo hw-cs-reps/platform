@@ -41,15 +41,16 @@ type Configuration struct {
 }
 
 type InstanceSettings struct {
-	ShowNotice   bool
-	NoticeText   string
-	NoticeLink   string
-	NoticeTitle  string
-	NoticeColour string
-	Links        []ExternalResource
-	ClassReps    []ClassRepresentative
-	Courses      []Course
-	Lecturers    []Lecturer
+	ShowNotice       bool
+	NoticeText       string
+	NoticeLink       string
+	NoticeTitle      string
+	NoticeColour     string
+	RequestChatEmail string
+	Links            []ExternalResource
+	ClassReps        []ClassRepresentative
+	Courses          []Course
+	Lecturers        []Lecturer
 }
 
 // ExternalResource holds the information to a hyperlink
@@ -117,6 +118,18 @@ func newConfig() Configuration {
 			NoticeText:   "The privacy policy has been updated. Please consider re-reading it for your peace of mind.",
 			NoticeLink:   "/privacy",
 			NoticeColour: "alert-green", // alert-green, alert-yellow, alert-red, alert-grey
+			RequestChatEmail: `Hello!
+
+You have requested access to the Edinburgh MACS Year 4 group chat. You may join
+the group using the following links:
+
+* Main Example Chat
+This is the main example chat.
+
+Please ignore the email if you have not requested this.
+
+- Platform
+This email is sent from an unmonitored inbox`,
 			Links: []ExternalResource{
 				{Name: "Example", Link: "https://example.com"},
 				{Name: "Courses", Link: "/courses"},
