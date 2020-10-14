@@ -78,7 +78,7 @@ Message:
 	ctx.Data["Category"] = ctx.QueryTrim("category")
 	ctx.Data["Subject"] = ctx.QueryTrim("subject")
 	ctx.Data["Message"] = ctx.QueryTrim("message")
-	ctx.Data["Email"] = ctx.QueryTrim("Email")
+	ctx.Data["Email"] = ctx.QueryTrim("email")
 	ctx.Data["csrf_token"] = x.GetToken()
 
 	var recipients []string
