@@ -67,6 +67,7 @@ func PostComplaintsHandler(ctx *emmanuel.Context, sess session.Store, f *session
 From: `+sender+`
 Category: `+ctx.QueryTrim("category")+`
 Subject: `+ctx.QueryTrim("subject")+`
+Instance: `+config.Config.SiteScope+`
 Message:
 `+ctx.QueryTrim("message"))
 
