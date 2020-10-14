@@ -1,6 +1,8 @@
 package routes
 
 import (
+	"log"
+
 	"github.com/go-emmanuel/csrf"
 	"github.com/go-emmanuel/emmanuel"
 	"github.com/go-emmanuel/session"
@@ -63,7 +65,7 @@ func PostComplaintsHandler(ctx *emmanuel.Context, sess session.Store, f *session
 			}
 		}
 
-		mailer.Email(recipients, "Complaint submission", `A complaint submission
+		err := mailer.Email(recipients, "Complaint submission", `A complaint submission
 From: `+sender+`
 Category: `+ctx.QueryTrim("category")+`
 Subject: `+ctx.QueryTrim("subject")+`
@@ -71,7 +73,14 @@ Instance: `+config.Config.SiteScope+`
 Message:
 `+ctx.QueryTrim("message"))
 
-		f.Success("Your complaint was sent!")
+		if err != nil {
+			f.Error("There was an error sending the complaint!")
+			log.Println("Failed to send email")
+			log.Println(err)
+		} else {
+			f.Success("Your complaint was sent!")
+		}
+
 		ctx.Redirect("/complaints")
 		return
 	}
