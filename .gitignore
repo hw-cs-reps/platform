@@ -1,3 +1,5 @@
 config.toml
 .vscode
 data.db
+main
+platform
