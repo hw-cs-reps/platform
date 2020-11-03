@@ -441,7 +441,7 @@ func PostTicketDeleteHandler(ctx *emmanuel.Context, sess session.Store, f *sessi
 
 // PostCommentDeleteHandler response for deleting a ticket's comment.
 func PostCommentDeleteHandler(ctx *emmanuel.Context, sess session.Store, f *session.Flash) {
-	c, err := models.GetComment(ctx.ParamsInt64("id"))
+	c, err := models.GetComment(ctx.ParamsInt64("cid"))
 	if err != nil {
 		f.Error("Comment not found!")
 		ctx.Redirect("/tickets")
