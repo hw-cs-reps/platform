@@ -143,10 +143,6 @@ func PostTicketPageHandler(ctx *emmanuel.Context, sess session.Store, f *session
 		ctx.Redirect("/tickets")
 		return
 	}
-	if ticket.IsResolved {
-		ctx.Redirect("/tickets/" + ctx.Params("id"))
-		return
-	}
 
 	text := strings.TrimFunc(ctx.QueryTrim("text"), IsImproperChar)
 	if len(text) == 0 {
@@ -273,7 +269,8 @@ func PostNewTicketHandler(ctx *emmanuel.Context, sess session.Store, f *session.
 
 func userHash(ip string, useragent string) string {
 	h := sha256.New()
-	h.Write([]byte(ip + useragent + config.Config.VoterPepper))
+	//h.Write([]byte(ip + useragent + config.Config.VoterPepper))
+	h.Write([]byte(ip + config.Config.VoterPepper))
 	return fmt.Sprintf("%x", h.Sum(nil))
 }
 
